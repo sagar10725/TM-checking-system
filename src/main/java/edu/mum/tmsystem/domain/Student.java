@@ -2,7 +2,7 @@ package edu.mum.tmsystem.domain;
 
 public class Student {
 	private Long id;
-	private Long studentId;
+	private String studentId;
 	private Integer entryYear;
 	private String entryMonth;
 	private User user;
@@ -15,11 +15,11 @@ public class Student {
 		this.id = id;
 	}
 
-	public Long getStudentId() {
+	public String getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(Long studentId) {
+	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 
@@ -47,4 +47,12 @@ public class Student {
 		this.user = user;
 	}
 
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", studentId=" + studentId + ", entryYear=" + entryYear + ", entryMonth="
+				+ entryMonth + ", user=" + user + "]";
+	}
+
+	
+	
 }
