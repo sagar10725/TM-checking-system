@@ -2,9 +2,20 @@ package edu.mum.tmsystem.domain;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import edu.mum.tmsystem.enums.StatusType;
 
+@Entity
+@Table(name="user")
 public class User {
+	@Id
+	@GeneratedValue(strategy =GenerationType.AUTO)
 	private Long id;
 	private String username;
 	private String password;
@@ -13,6 +24,8 @@ public class User {
 	private StatusType status;
 	private String verificationCode;
 	private String profileImage;
+	
+	@OneToMany
 	private List<Role> role;
 
 	public Long getId() {
