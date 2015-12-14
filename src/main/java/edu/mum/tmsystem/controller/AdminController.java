@@ -10,11 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,41 +34,53 @@ public class AdminController {
 	public String showBuildingList(Model model) {
 		List<Building> buildings = buildingService.getAllBuildings();
 		model.addAttribute("buildings", buildings);
-		return "building/list";
+		return "building/listBuilding";
 	}
 
 	@RequestMapping(value = { "/building/add" }, method = RequestMethod.GET)
 	public String addNewBuilding(@ModelAttribute("building") Building building) {
-		return "building/add";
+		return "building/addBuilding";
 	}
 
+	@RequestMapping(value = { "/building/delete/{id}" }, method = RequestMethod.GET)
+	public String deleteBuilding(@PathVariable("id") Integer id) {
+		buildingService.deleteBuilding(id);
+		return "redirect:/admin/building/list";
+	}
+	
 	@RequestMapping(value = { "/building/add" }, method = RequestMethod.POST)
 	public String ProcessNewBuilding(
 			@Valid @ModelAttribute("building") Building building,
 			BindingResult bindingResult,
 			RedirectAttributes redirectAtriAttributes, Model model) {
 		if (bindingResult.hasErrors()) {
-			return "building/add";
+			return "building/addBuilding";
 		}
 		buildingService.addNewBuilding(building);
 		redirectAtriAttributes.addFlashAttribute("building", building);
-		return "redirect:/admin/room/add/" + building.getId();
+		return "redirect:/admin/building/list";
 	}
 	
-	@RequestMapping(value = { "/room/add/{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/room/add" }, method = RequestMethod.GET)
 	public String addNewRoom(Model model) {		
-		return "building/add";
+		List<Building> buildings = buildingService.getAllBuildings();
+		model.addAttribute("buildings", buildings);
+		model.addAttribute("room", new Room());
+		return "room/addRoom";
 	}
 
-	@RequestMapping(value = { "/room/add/{id}" }, method = RequestMethod.POST)
-	public @ResponseBody Room ProcessNewRoom(@RequestBody Room room,
-			@PathVariable("id") Integer id, Model model) {
-		Building building = buildingService.getBuildingOne(id);
-		building.getRooms().add(room);
-		buildingService.addNewBuilding(building);
-		room.setBuilding(building);
+	@RequestMapping(value = { "/room/add" }, method = RequestMethod.POST)
+	public String ProcessNewRoom(
+			@Valid @ModelAttribute("room") Room room,
+			BindingResult bindingResult,
+			RedirectAttributes redirectAtriAttributes, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "room/addRoom";
+		}
+//		Building building = buildingService.getBuildingOne(room.getBuilding().getId());
+//		building.getRooms().add(room);
+//		buildingService.addNewBuilding(building);
 		roomService.addNewRoom(room);
-		
-		return room;
+		return "redirect:/admin/building/list";
 	}
 }

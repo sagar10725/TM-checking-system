@@ -9,5 +9,7 @@ public interface IBuildingService {
 
 	public void addNewBuilding(Building building);
 
-	public Building getBuildingOne(Integer id);  
+	public Building getBuildingOne(Integer id);
+
+	public void deleteBuilding(Integer id);  
 }

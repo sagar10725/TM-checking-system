@@ -22,7 +22,7 @@ public class Building {
 	@Column(name="building_name")
 	private String buildingName;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="building", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Room> rooms;
 
 	public Integer getId() {
