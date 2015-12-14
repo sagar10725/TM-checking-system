@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Room {
@@ -17,7 +16,7 @@ public class Room {
 	private String roomNumber;
 
 	@ManyToOne
-	@JoinColumn(name="building_id")
+	@JoinColumn(name = "building_id")
 	private Building building;
 
 	public Integer getId() {

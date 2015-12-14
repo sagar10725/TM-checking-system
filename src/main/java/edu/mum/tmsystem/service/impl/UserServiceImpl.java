@@ -21,6 +21,12 @@ public class UserServiceImpl implements IUserService {
 		userRepository.save(user);
 	}
 
+	@Override
+	public User getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

@@ -22,6 +22,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/config/applicationContext.xml
+			/WEB-INF/config/spring-security.xml
 		</param-value>
 	</context-param>
 	
@@ -30,7 +31,20 @@
 			org.springframework.web.context.ContextLoaderListener 
 		</listener-class>
 	</listener>
+	
+	
+	  <!-- Spring Security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+  <!-- Encoding Filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

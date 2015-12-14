@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class CheckingHours {
@@ -14,7 +16,14 @@ public class CheckingHours {
 	private Integer id;
 
 	private Date checkingDate;
-	private Integer availableSeats;
+
+	@ManyToOne
+	@JoinColumn(name = "available_entry_id")
+	private AvailableEntry availableEntry;
+	
+	@ManyToOne
+	@JoinColumn(name = "student_id")
+	private Student signUpBy;
 
 	public Integer getId() {
 		return id;
@@ -32,12 +41,12 @@ public class CheckingHours {
 		this.checkingDate = checkingDate;
 	}
 
-	public Integer getAvailableSeats() {
-		return availableSeats;
+	public AvailableEntry getAvailableEntry() {
+		return availableEntry;
 	}
 
-	public void setAvailableSeats(Integer availableSeats) {
-		this.availableSeats = availableSeats;
+	public void setAvailableEntry(AvailableEntry availableEntry) {
+		this.availableEntry = availableEntry;
 	}
 
 }
