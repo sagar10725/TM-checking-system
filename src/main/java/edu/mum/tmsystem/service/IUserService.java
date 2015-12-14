@@ -5,5 +5,7 @@ import edu.mum.tmsystem.domain.User;
 public interface IUserService {
 	
 	public void saveStudent(User user);
+	
+	public User getUserByUsername(String username);
 
 }
