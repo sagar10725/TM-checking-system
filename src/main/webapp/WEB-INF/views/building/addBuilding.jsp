@@ -9,10 +9,8 @@
 <title>Building</title>
 </head>
 <body>
-	<h2>building</h2>
 	<form:form commandName="building" method="POST">
-		<fieldset>
-			<legend>New Building Entry</legend>
+		
 			<p>
 				<form:errors path="*" cssStyle="color : red;" />
 			</p>
@@ -28,7 +26,6 @@
 			</p>
 
 
-		</fieldset>
 	</form:form>
 
 	<%-- 	<form:form id="roomForm" method="POST">

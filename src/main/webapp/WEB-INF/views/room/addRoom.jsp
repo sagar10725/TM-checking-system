@@ -9,10 +9,8 @@
 <title>Room</title>
 </head>
 <body>
-	<h2>Registration</h2>
+	<h2>Add Room</h2><hr>
 	<form:form commandName="room" method="POST">
-		<fieldset>
-			<legend>New Room Entry</legend>
 			<p>
 				<form:errors path="*" cssStyle="color : red;" />
 			</p>
@@ -38,7 +36,6 @@
 			</p>
 
 
-		</fieldset>
 	</form:form>
 
 </body>

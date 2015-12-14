@@ -14,7 +14,7 @@
 	<context:component-scan base-package="edu.mum.tmsystem" />
 	<mvc:annotation-driven validator="validator" />
 
-	<mvc:resources location="/resources/" mapping="/resource/**" />
+	<mvc:resources location="/resources/" mapping="/resources/**" />
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -35,11 +35,9 @@
 		<property name="order" value="2" />
 	</bean>
 
-	<!-- <bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="10240000" />
-		property name="restrictFileTypes" value="pdf"/
-	</bean> -->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<property name="maxUploadSize" value="10240000" /> property name="restrictFileTypes" 
+		value="pdf"/ </bean> -->
 
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
@@ -52,4 +50,21 @@
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
 		<property name="defaultLocale" value="en_US" />
 	</bean>
+
+	<!-- tiles start -->
+	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<property name="order" value="-2" />
+	</bean>
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/definitions/tile-definition.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- tiles ends -->
 </beans>
