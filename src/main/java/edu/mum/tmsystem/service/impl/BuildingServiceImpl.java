@@ -34,4 +34,10 @@ public class BuildingServiceImpl implements IBuildingService {
 		return buildingRepository.findOne(id);
 	}
 
+	@Override
+	public void deleteBuilding(Integer id) {
+		buildingRepository.delete(id);
+		
+	}
+
 }
