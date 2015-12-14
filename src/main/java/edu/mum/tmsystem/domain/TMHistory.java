@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import edu.mum.tmsystem.enums.CheckingType;
@@ -35,6 +36,18 @@ public class TMHistory {
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "checkedBy")
 	private TMChecker checkedBy;
+
+	@OneToOne
+	@JoinColumn(name = "checking_hour_id")
+	private CheckingHours checkingHours;
+
+	@ManyToOne
+	@JoinColumn(name = "student_id")
+	private Student student;
+
+	@ManyToOne
+	@JoinColumn(name = "room_id")
+	private Room room;
 
 	public Integer getId() {
 		return id;
@@ -82,6 +95,30 @@ public class TMHistory {
 
 	public void setCheckedBy(TMChecker checkedBy) {
 		this.checkedBy = checkedBy;
+	}
+
+	public CheckingHours getCheckingHours() {
+		return checkingHours;
+	}
+
+	public void setCheckingHours(CheckingHours checkingHours) {
+		this.checkingHours = checkingHours;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
 }
