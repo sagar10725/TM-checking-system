@@ -4,10 +4,11 @@
  
 function saveRoom(){
 	var dataToSend = JSON.stringify(serializeObject($('#roomForm')));
+	var buldingId = $('#buldingId');
 	
 	$.ajax({
 		type: 'POST',
-		url: '/tmsystem/admin/room/add',
+		url: '/tmsystem/admin/room/add/' + buildingId,
 		dataType: 'json',
 		data: dataToSend,
 		contentType: 'application/json',

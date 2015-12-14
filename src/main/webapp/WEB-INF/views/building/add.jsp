@@ -33,6 +33,7 @@
 			</p>
 			<form:form id="roomForm" method="POST">
 				<p>
+				<form:hidden path="id" id="buildingId"/>
 						<spring:message code="room.roomNumber" />
 						<input type="text" id="roomNumber" /> <input type="button"
 							value="Add Room" onclick="saveRoom();">

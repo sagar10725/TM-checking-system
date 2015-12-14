@@ -54,7 +54,7 @@ public class AdminController {
 		}
 		buildingService.addNewBuilding(building);
 		redirectAtriAttributes.addFlashAttribute("building", building);
-		return "redirect://room/add/" + building.getId();
+		return "redirect:/admin/room/add/" + building.getId();
 	}
 	
 	@RequestMapping(value = { "/room/add/{id}" }, method = RequestMethod.GET)
