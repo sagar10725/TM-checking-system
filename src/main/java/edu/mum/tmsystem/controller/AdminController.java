@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.mum.tmsystem.domain.Building;
+import edu.mum.tmsystem.domain.DefaultCheckingSeats;
 import edu.mum.tmsystem.domain.Room;
+import edu.mum.tmsystem.enums.CheckingType;
 import edu.mum.tmsystem.service.IBuildingService;
+import edu.mum.tmsystem.service.IDefaultCheckingSeatsService;
 import edu.mum.tmsystem.service.IRoomService;
 
 @Controller
@@ -29,6 +32,9 @@ public class AdminController {
 	IBuildingService buildingService;
 	@Autowired
 	IRoomService roomService;
+	
+	@Autowired
+	IDefaultCheckingSeatsService defaultCheckingSeatsService;
 
 	@RequestMapping(value = { "/building", "/building/list" }, method = RequestMethod.GET)
 	public String showBuildingList(Model model) {
@@ -82,5 +88,23 @@ public class AdminController {
 //		buildingService.addNewBuilding(building);
 		roomService.addNewRoom(room);
 		return "redirect:/admin/building/list";
+	}
+	
+	@ModelAttribute("checking")
+	public CheckingType[] checkingType(){
+		return CheckingType.values();
+	}
+	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.GET)
+	public String getDefaultChekingSeats(@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats) {
+		return "student/defaultCheckingSeats";
+
+	}
+
+	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.POST)
+	public String saveDefaultChekingSeats(@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats) {
+		
+		defaultCheckingSeatsService.saveCheckingSeats(defaultCheckingSeats);
+		return "student/defaultCheckingSeats";
+
 	}
 }
