@@ -31,22 +31,23 @@
 			<p id="buttons">
 				<input id="submit" type="submit" value="Save Building">
 			</p>
-			<form:form id="roomForm" method="POST">
-				<p>
-				<form:hidden path="id" id="buildingId"/>
-						<spring:message code="room.roomNumber" />
-						<input type="text" id="roomNumber" /> <input type="button"
-							value="Add Room" onclick="saveRoom();">
-					</p>
-					<!-- Success and Validation errors -->
-					<div id="errors" style="display: none"></div>
-					<div id="formInput" style="display: none"></div>
 
-				
-			</form:form>
-			
 
 		</fieldset>
 	</form:form>
+
+	<form:form id="roomForm" method="POST">
+		<p>
+			<spring:message code="room.roomNumber" />
+			<input type="text" name="roomNumber" /> <input type="button"
+				value="Add Room" onclick="saveRoom();">
+		</p>
+		<!-- Success and Validation errors -->
+		<div id="errors" style="display: none"></div>
+		<div id="formInput" style="display: none"></div>
+
+
+	</form:form>
+
 </body>
 </html>

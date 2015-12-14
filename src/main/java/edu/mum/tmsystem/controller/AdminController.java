@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -63,8 +64,8 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = { "/room/add/{id}" }, method = RequestMethod.POST)
-	public @ResponseBody Room ProcessNewRoom(@Valid @RequestBody Room room,
-			@RequestParam("id") Integer id, Model model) {
+	public @ResponseBody Room ProcessNewRoom(@RequestBody Room room,
+			@PathVariable("id") Integer id, Model model) {
 		Building building = buildingService.getBuildingOne(id);
 		building.getRooms().add(room);
 		buildingService.addNewBuilding(building);
