@@ -23,8 +23,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User getUserByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.getUserFromUsername(username);
 	}
 
 	
