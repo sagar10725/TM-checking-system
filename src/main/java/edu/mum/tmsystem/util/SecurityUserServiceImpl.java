@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import edu.mum.tmsystem.domain.Role;
 import edu.mum.tmsystem.domain.User;
+import edu.mum.tmsystem.domain.UserRole;
 import edu.mum.tmsystem.enums.StatusType;
 import edu.mum.tmsystem.service.IUserService;
 
@@ -39,7 +40,7 @@ public class SecurityUserServiceImpl implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("Username doesn't exists");
 		}
-		List<GrantedAuthority> authorities = buildUserAuthority(user.getRole());
+		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRoles());
 		return buildUserForAuthentication(user, authorities);
 
 	}
@@ -59,12 +60,12 @@ public class SecurityUserServiceImpl implements UserDetailsService {
 
 	}
 
-	private List<GrantedAuthority> buildUserAuthority(List<Role> roles) {
+	private List<GrantedAuthority> buildUserAuthority(List<UserRole> userRoles) {
 		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 		// Build user's authorities
 		try {
-			for(Role role: roles){
-				setAuths.add(new SimpleGrantedAuthority(role.getRoleType().toString()));
+			for(UserRole userRole: userRoles){
+				setAuths.add(new SimpleGrantedAuthority(userRole.getRole().getRoleType().toString()));
 			}
 			return new ArrayList<GrantedAuthority>(setAuths);
 		} catch (Exception e) {
