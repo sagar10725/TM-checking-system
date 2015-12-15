@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,12 +23,14 @@ import edu.mum.tmsystem.domain.Building;
 import edu.mum.tmsystem.domain.DefaultCheckingSeats;
 import edu.mum.tmsystem.domain.Room;
 import edu.mum.tmsystem.domain.Student;
+import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.enums.CheckingType;
 import edu.mum.tmsystem.enums.StatusType;
 import edu.mum.tmsystem.service.IBuildingService;
 import edu.mum.tmsystem.service.IDefaultCheckingSeatsService;
 import edu.mum.tmsystem.service.IRoomService;
 import edu.mum.tmsystem.service.IStudentService;
+import edu.mum.tmsystem.service.IUserService;
 
 @Controller
 @RequestMapping("/admin")
@@ -40,6 +43,8 @@ public class AdminController {
 	IRoomService roomService;
 	@Autowired
 	IStudentService studentService;
+	@Autowired
+	IUserService userService;
 	
 	@Autowired
 	IDefaultCheckingSeatsService defaultCheckingSeatsService;
@@ -129,12 +134,15 @@ public class AdminController {
 		return "admin/verifyStudents";
 	}
 	
-	@RequestMapping(value="/verifyStudents/{id}", method=RequestMethod.GET)
-	public String verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
+	@RequestMapping(value="/verifyStudents/{id}", method=RequestMethod.POST)
+//	public String verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
+	public @ResponseBody void verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
 		Student studentToVerify = studentService.getStudent(id);
-		studentToVerify.getUser().setStatus(status);
-		studentService.saveStudent(studentToVerify);
-		return "redirect:/admin/verifyStudents";
+		User UserToVerify = userService.getUserById(studentToVerify.getUser().getId());
+		UserToVerify.setStatus(status);
+		System.out.println("Status" + studentToVerify.getUser().getStatus());
+		userService.updateStudent(UserToVerify);
+		return;
 	}
 	
 	@RequestMapping(value = "/student/delete/{id}", method = RequestMethod.GET)

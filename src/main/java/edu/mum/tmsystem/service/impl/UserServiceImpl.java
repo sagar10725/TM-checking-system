@@ -45,6 +45,17 @@ public class UserServiceImpl implements IUserService {
 		return userRepository.getUserFromUsername(username);
 	}
 
+	@Override
+	public User getUserById(Long id) {
+		return (User) userRepository.findOne(id);
+	}
+
+	@Override
+	public void updateStudent(User user) {
+		userRepository.save(user);
+		
+	}
+
 	
 
 }
