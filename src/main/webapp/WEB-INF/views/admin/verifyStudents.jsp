@@ -3,14 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Verify Students</title>
-</head>
-<body>
-	<table border="0" width="100%" cellpadding="0" cellspacing="0"
+
+Verification of New Students
+<form:form commandName="building" method="POST">
+	<table 
 		id="product-table">
 		<tr>
 			<th class="table-header-check"><a id="toggle-all"></a></th>
@@ -50,6 +46,4 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
-</body>
-</html>
+	</form:form>

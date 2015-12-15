@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<th>Password</th>
-			<td><input type="password" name="password" value="************"
+			<td><input type="password" name="password" value=""
 				onfocus="this.value=''" class="login-inp" /></td>
 		</tr>
 		<tr>
