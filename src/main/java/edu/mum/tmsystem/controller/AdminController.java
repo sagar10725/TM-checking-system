@@ -1,5 +1,7 @@
 package edu.mum.tmsystem.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,16 +14,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.mum.tmsystem.domain.Building;
 import edu.mum.tmsystem.domain.DefaultCheckingSeats;
 import edu.mum.tmsystem.domain.Room;
+import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.enums.CheckingType;
+import edu.mum.tmsystem.enums.StatusType;
 import edu.mum.tmsystem.service.IBuildingService;
 import edu.mum.tmsystem.service.IDefaultCheckingSeatsService;
 import edu.mum.tmsystem.service.IRoomService;
+import edu.mum.tmsystem.service.IStudentService;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,6 +38,8 @@ public class AdminController {
 	IBuildingService buildingService;
 	@Autowired
 	IRoomService roomService;
+	@Autowired
+	IStudentService studentService;
 	
 	@Autowired
 	IDefaultCheckingSeatsService defaultCheckingSeatsService;
@@ -106,5 +114,28 @@ public class AdminController {
 		defaultCheckingSeatsService.saveCheckingSeats(defaultCheckingSeats);
 		return "student/defaultCheckingSeats";
 
+	}
+	
+	@RequestMapping(value="/verifyStudents", method=RequestMethod.GET)
+	public String getStudentList(Model model){
+		List<Student> newStudents = studentService.getStudentsByStatus(StatusType.INACTIVE);
+		model.addAttribute("newStudents", newStudents);
+		List<StatusType> statusTypes = Arrays.asList(StatusType.values());
+		model.addAttribute("statusType", statusTypes);
+		return "admin/verfiyStudents";
+	}
+	
+	@RequestMapping(value="/verifyStudents/{id}", method=RequestMethod.POST)
+	public String verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
+		Student studentToVerify = studentService.getStudent(id);
+		studentToVerify.getUser().setStatus(status);
+		studentService.saveStudent(studentToVerify);
+		return "redirect:/admin/verfiyStudents";
+	}
+	
+	@RequestMapping(value = "/student/delete/{id}", method = RequestMethod.POST)
+	public String deleteStudent(@PathVariable("id") Long id) {
+		studentService.deleteStudentById(id);
+		return "redirect:/admin/verfiyStudents";
 	}
 }

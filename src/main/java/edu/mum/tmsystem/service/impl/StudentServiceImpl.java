@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.tmsystem.domain.Student;
+import edu.mum.tmsystem.enums.StatusType;
 import edu.mum.tmsystem.repository.IStudentRepository;
 import edu.mum.tmsystem.service.IStudentService;
 
@@ -25,6 +26,22 @@ public class StudentServiceImpl implements IStudentService {
 	@Override
 	public void deleteStudentById(Long id) {
 		studentRepository.delete(id);
+	}
+
+	@Override
+	public List<Student> getStudentsByStatus(StatusType status) {
+		return (List<Student>) studentRepository.findStudentByStatus(status);
+	}
+
+	@Override
+	public Student getStudent(Long id) {
+		return (Student) studentRepository.findOne(id); 
+	}
+
+	@Override
+	public void saveStudent(Student student) {
+		studentRepository.save(student);
+		
 	}
 
 }
