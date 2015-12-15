@@ -9,7 +9,7 @@ function showRooms(){
     
 	$.ajax({
 		type: 'GET',
-		url: "/tmsystem/tmcheck/get_rooms/"+selectedValue,
+		url: "/tmsystem/tmchecker/get_rooms/"+selectedValue,
 		dataType: 'json',
 		contentType: 'application/json',
 		 
