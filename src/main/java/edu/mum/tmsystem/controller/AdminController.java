@@ -123,10 +123,10 @@ public class AdminController {
 	
 	@RequestMapping(value="/verifyStudents", method=RequestMethod.GET)
 	public String getStudentList(Model model){
-//		List<Student> newStudents = studentService.getStudentsByStatus(StatusType.INACTIVE);
-//		model.addAttribute("newStudents", newStudents);
-//		List<StatusType> statusTypes = Arrays.asList(StatusType.values());
-//		model.addAttribute("statusType", statusTypes);
+		List<Student> newStudents = studentService.getStudentsByStatus(StatusType.INACTIVE);
+		model.addAttribute("newStudents", newStudents);
+		List<StatusType> statusTypes = Arrays.asList(StatusType.values());
+		model.addAttribute("statusType", statusTypes);
 		return "admin/verfiyStudents";
 	}
 	
