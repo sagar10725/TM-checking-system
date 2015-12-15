@@ -1,7 +1,9 @@
 package edu.mum.tmsystem.util;
 
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -16,10 +18,13 @@ public class SessionManager {
         return getPrincipal().getUsername();
     }
 
-    public static RoleType getRole() {
+    public static List<RoleType> getRole() {
         Iterator iterator = getPrincipal().getAuthorities().iterator();
-        String role = String.valueOf(iterator.next());
-        return RoleType.valueOf(role);
+        List<RoleType> roleTypes = new ArrayList<>();
+        while(iterator.hasNext()) {
+        	roleTypes.add(RoleType.valueOf(String.valueOf(iterator.next())));
+		}
+        return roleTypes;
     }
 
     public static String getFullName() {
