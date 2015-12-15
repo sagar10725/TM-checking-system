@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.tmsystem.domain.Building;
+import edu.mum.tmsystem.domain.Room;
 import edu.mum.tmsystem.repository.IBuildingRepository;
 import edu.mum.tmsystem.service.IBuildingService;
 
@@ -38,6 +39,14 @@ public class BuildingServiceImpl implements IBuildingService {
 	public void deleteBuilding(Integer id) {
 		buildingRepository.delete(id);
 		
+	}
+
+
+
+	@Override
+	public List<Room> getAllRoomByBuildingId(Integer Id) {
+		Building building = buildingRepository.findOne(Id);
+		return building.getRooms();
 	}
 
 }

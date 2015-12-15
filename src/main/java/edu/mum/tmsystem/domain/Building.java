@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="building")
 public class Building {
@@ -22,6 +24,7 @@ public class Building {
 	@Column(name="building_name")
 	private String buildingName;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="building", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Room> rooms;
 
