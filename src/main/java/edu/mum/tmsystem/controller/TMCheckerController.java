@@ -1,4 +1,3 @@
-<<<<<<< .mine
 package edu.mum.tmsystem.controller;
 
 import java.util.ArrayList;
@@ -26,66 +25,59 @@ import edu.mum.tmsystem.enums.TMStatusType;
 import edu.mum.tmsystem.service.IBuildingService;
 import edu.mum.tmsystem.service.impl.BuildingServiceImpl;
 
-
 @Controller
 @RequestMapping("/tmcheck")
 public class TMCheckerController {
 
-@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String loadLandingPage(Model model) {
 		return "tmchecker/home";
 	}
-	/*@Autowired
-	//ITMCheckerService tmCheckerService;
-
-	@RequestMapping(method = RequestMethod.GET)
-	public String addNewTmCheckForm(@ModelAttribute("tmchecker") TMHistory tmchecker) {
-
-		// model.addAttribute("checkingtype", CheckingType.values());
-		return "tmchecker/checkstatus";
-	}
-
-
-
-	@ModelAttribute("status")
-	public TMStatusType[] statustype() {
-		return TMStatusType.values();
-	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	public String saveCheckForm(@ModelAttribute("tmchecker") TMHistory tmHistory) {
-		System.out.println(tmHistory.toString());
-		tmCheckerService.save(tmHistory);
-		return "tmchecker/thankyoupage";
-	}
-	
-	@RequestMapping(value="/historydetails", method=RequestMethod.GET)
-	public String showHistoryDetails(@ModelAttribute("historydetails")TMHistory historyDetails, Model model){
-		
-		
-		List<TMHistory> history = tmCheckerService.getDetails();
-			model.addAttribute("history",history);
-		return"tmchecker/checkdetails";
-	}*/
+	/*
+	 * @Autowired //ITMCheckerService tmCheckerService;
+	 * 
+	 * @RequestMapping(method = RequestMethod.GET) public String
+	 * addNewTmCheckForm(@ModelAttribute("tmchecker") TMHistory tmchecker) {
+	 * 
+	 * // model.addAttribute("checkingtype", CheckingType.values()); return
+	 * "tmchecker/checkstatus"; }
+	 * 
+	 * 
+	 * 
+	 * @ModelAttribute("status") public TMStatusType[] statustype() { return
+	 * TMStatusType.values(); }
+	 * 
+	 * @RequestMapping(method = RequestMethod.POST) public String
+	 * saveCheckForm(@ModelAttribute("tmchecker") TMHistory tmHistory) {
+	 * System.out.println(tmHistory.toString());
+	 * tmCheckerService.save(tmHistory); return "tmchecker/thankyoupage"; }
+	 * 
+	 * @RequestMapping(value="/historydetails", method=RequestMethod.GET) public
+	 * String showHistoryDetails(@ModelAttribute("historydetails")TMHistory
+	 * historyDetails, Model model){
+	 * 
+	 * 
+	 * List<TMHistory> history = tmCheckerService.getDetails();
+	 * model.addAttribute("history",history); return"tmchecker/checkdetails"; }
+	 */
 
 	@ModelAttribute("checkingtype")
 	public CheckingType[] checkingtype() {
 		return CheckingType.values();
 	}
-	
+
 	@Autowired
 	IBuildingService buildingService;
-	
-	@RequestMapping(value="/checkingform", method=RequestMethod.GET)
-	public String checkingForm(@ModelAttribute("tmhistory")TMHistory tmhistory ,Model model){
+
+	@RequestMapping(value = "/checkingform", method = RequestMethod.GET)
+	public String checkingForm(@ModelAttribute("tmhistory") TMHistory tmhistory, Model model) {
 		List<Building> buildings = buildingService.getAllBuildings();
 		System.out.println(buildings.size());
-		model.addAttribute("buildings",buildings);
-		//model.addAttribute("checkingtype",CheckingType.values());
+		model.addAttribute("buildings", buildings);
+		// model.addAttribute("checkingtype",CheckingType.values());
 		return "tmchecker/checkdetails";
 	}
-	
-	
+
 	@RequestMapping(value="/get_rooms/{buildingId}", method=RequestMethod.GET)
 	public @ResponseBody List<Room> loadRooms(@PathVariable("buildingId") Integer buildingId){
 		List<Room> rooms =  buildingService.getAllRoomByBuildingId(buildingId);
@@ -93,73 +85,4 @@ public class TMCheckerController {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
+>>>>>>>.theirs
