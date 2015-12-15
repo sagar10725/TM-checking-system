@@ -13,7 +13,7 @@ import edu.mum.tmsystem.enums.StatusType;
 @Repository
 public interface IStudentRepository extends CrudRepository<Student, Long> {
 
-	@Query("select s from student s where s.user.status = :status")
+	@Query("SELECT s FROM Student s WHERE s.user.status = :status")
 	List<Student> findStudentByStatus(@Param("status") StatusType status);
 
 }
