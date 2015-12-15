@@ -42,7 +42,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User getUserByUsername(String username) {
-		return userRepository.getUserFromUsername(username);
+		User user = userRepository.getUserFromUsername(username);
+		System.out.println("User Role:"+user.getStatus().toString());
+		return user;
 	}
 
 	
