@@ -67,4 +67,9 @@
 		</property>
 	</bean> -->
 	<!-- tiles ends -->
+	
+	<bean id="messageAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+    	<constructor-arg  ref="messageSource"/>
+	</bean> 
+	
 </beans>

@@ -1,7 +1,5 @@
 package edu.mum.tmsystem.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -34,7 +32,6 @@ import edu.mum.tmsystem.service.IUserService;
 
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes("rooms")
 public class AdminController {
 
 	@Autowired
@@ -58,12 +55,12 @@ public class AdminController {
 	public String showBuildingList(Model model) {
 		List<Building> buildings = buildingService.getAllBuildings();
 		model.addAttribute("buildings", buildings);
-		return "building/listBuilding";
+		return "admin/listBuilding";
 	}
 
 	@RequestMapping(value = { "/building/add" }, method = RequestMethod.GET)
 	public String addNewBuilding(@ModelAttribute("building") Building building) {
-		return "building/addBuilding";
+		return "admin/addBuilding";
 	}
 
 	@RequestMapping(value = { "/building/delete/{id}" }, method = RequestMethod.GET)
@@ -78,7 +75,7 @@ public class AdminController {
 			BindingResult bindingResult,
 			RedirectAttributes redirectAtriAttributes, Model model) {
 		if (bindingResult.hasErrors()) {
-			return "building/addBuilding";
+			return "admin/addBuilding";
 		}
 		buildingService.addNewBuilding(building);
 		redirectAtriAttributes.addFlashAttribute("building", building);
@@ -90,7 +87,7 @@ public class AdminController {
 		List<Building> buildings = buildingService.getAllBuildings();
 		model.addAttribute("buildings", buildings);
 		model.addAttribute("room", new Room());
-		return "room/addRoom";
+		return "admin/addRoom";
 	}
 
 	@RequestMapping(value = { "/room/add" }, method = RequestMethod.POST)
@@ -99,7 +96,7 @@ public class AdminController {
 			BindingResult bindingResult,
 			RedirectAttributes redirectAtriAttributes, Model model) {
 		if (bindingResult.hasErrors()) {
-			return "room/addRoom";
+			return "admin/addRoom";
 		}
 //		Building building = buildingService.getBuildingOne(room.getBuilding().getId());
 //		building.getRooms().add(room);
@@ -136,13 +133,13 @@ public class AdminController {
 	
 	@RequestMapping(value="/verifyStudents/{id}", method=RequestMethod.POST)
 //	public String verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
-	public @ResponseBody void verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
+	public @ResponseBody Student verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
 		Student studentToVerify = studentService.getStudent(id);
 		User UserToVerify = userService.getUserById(studentToVerify.getUser().getId());
 		UserToVerify.setStatus(status);
 		System.out.println("Status" + studentToVerify.getUser().getStatus());
 		userService.updateStudent(UserToVerify);
-		return;
+		return studentToVerify;
 	}
 	
 	@RequestMapping(value = "/student/delete/{id}", method = RequestMethod.GET)

@@ -1,7 +1,7 @@
 /**
  * 
  */
-function changeStudentStatus(id,studentId){
+function changeStudentStatus(id){
 	var  statusType= $("#statusType").val();
 	alert(statusType);
 	$.ajax({
@@ -10,15 +10,12 @@ function changeStudentStatus(id,studentId){
 		dataType: 'json',
 		contentType: 'application/json',
 		 
-		success: function() {
-			if(statusType!="INACTIVE"){
-				$("td:contains('"+studentId+"')").parent().hide();
-			}
-			//make_hidden(id);
-			//$("td:contains('"+studentId+"')").parent().hide();
+		success: function(student) {
+			console.log('success');
+			 window.location.reload(true);
 		},
 
-		error: function(errorObject){	
+		error: function(errorObject){	console.log('failed');
 			console.log(errorObject);
 			
 		}

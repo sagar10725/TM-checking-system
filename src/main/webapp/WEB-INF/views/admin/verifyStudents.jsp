@@ -7,8 +7,8 @@
 	src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script type="text/javascript"
 	src="<spring:url value="/resources/js/ajax.js"/>"></script>
+<h2>Verification of New Students</h2><hr>
 
-Verification of New Students
 <form:form modelAttribute="newStudents" method="POST">
 	<c:choose>
 		<c:when test="${empty newStudents}">
@@ -49,7 +49,7 @@ Verification of New Students
 								<%-- href="<spring:url value="/admin/student/verifyStudents/${newStudent.id}" />" --%>
 						href="#"
 								title="Change Status"
-								onclick="changeStudentStatus(${newStudent.id}, ${newStudent.studentId})">Change
+								onclick="changeStudentStatus(${newStudent.id})">Change
 									Status</a> <a
 								href="<spring:url value="/admin/student/delete/${newStudent.id}" />"
 								title="Delete"
