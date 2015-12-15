@@ -22,7 +22,6 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String addStudent(@ModelAttribute("student") Student student) {
-		//System.out.println("Details: "+student.toString());
 		student.getUser().setStudent(student);
 		userService.saveStudent(student.getUser());
 		return "redirect:/user";
