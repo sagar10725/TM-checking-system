@@ -84,5 +84,3 @@ public class TMCheckerController {
 		return rooms;
 	}
 }
-
->>>>>>>.theirs
