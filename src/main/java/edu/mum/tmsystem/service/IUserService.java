@@ -8,4 +8,8 @@ public interface IUserService {
 	
 	public User getUserByUsername(String username);
 
+	public User getUserById(Long id);
+
+	public void updateStudent(User user);
+
 }

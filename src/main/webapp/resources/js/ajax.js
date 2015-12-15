@@ -1,7 +1,30 @@
 /**
  * 
  */
+function changeStudentStatus(id,studentId){
+	var  statusType= $("#statusType").val();
+	alert(statusType);
+	$.ajax({
+		type: 'POST',
+		url: '/tmsystem/admin/verifyStudents/'+id+'?status='+statusType,
+		dataType: 'json',
+		contentType: 'application/json',
+		 
+		success: function() {
+			if(statusType!="INACTIVE"){
+				$("td:contains('"+studentId+"')").parent().hide();
+			}
+			//make_hidden(id);
+			//$("td:contains('"+studentId+"')").parent().hide();
+		},
 
+		error: function(errorObject){	
+			console.log(errorObject);
+			
+		}
+	
+	});
+}
 
 function showRooms(){
 	var  selectedValue= $("#building").val();
@@ -32,6 +55,8 @@ function showRooms(){
     
     
 }
+
+
 
 function saveRoom(){
 	var dataToSend = JSON.stringify(serializeObject($('#roomForm')));
