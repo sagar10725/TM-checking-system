@@ -1,3 +1,4 @@
+<<<<<<< .mine
 package edu.mum.tmsystem.controller;
 
 import java.util.ArrayList;
@@ -30,6 +31,10 @@ import edu.mum.tmsystem.service.impl.BuildingServiceImpl;
 @RequestMapping("/tmcheck")
 public class TMCheckerController {
 
+@RequestMapping(value = "", method = RequestMethod.GET)
+	public String loadLandingPage(Model model) {
+		return "tmchecker/home";
+	}
 	/*@Autowired
 	//ITMCheckerService tmCheckerService;
 
@@ -87,3 +92,74 @@ public class TMCheckerController {
 		return rooms;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,8 +28,8 @@ public class User {
 	private String verificationCode;
 	private String profileImage;
 
-	@OneToMany
-	private List<Role> role;
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<UserRole> userRoles;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Student student;
@@ -97,12 +98,12 @@ public class User {
 		this.profileImage = profileImage;
 	}
 
-	public List<Role> getRole() {
-		return role;
+	public List<UserRole> getUserRoles() {
+		return userRoles;
 	}
 
-	public void setRole(List<Role> role) {
-		this.role = role;
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
 	}
 
 	public Student getStudent() {
