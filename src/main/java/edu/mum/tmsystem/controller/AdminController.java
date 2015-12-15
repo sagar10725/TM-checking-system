@@ -36,6 +36,11 @@ public class AdminController {
 	@Autowired
 	IDefaultCheckingSeatsService defaultCheckingSeatsService;
 
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String loadLandingPage(Model model) {
+		return "admin/home";
+	}
+	
 	@RequestMapping(value = { "/building", "/building/list" }, method = RequestMethod.GET)
 	public String showBuildingList(Model model) {
 		List<Building> buildings = buildingService.getAllBuildings();

@@ -3,6 +3,7 @@ package edu.mum.tmsystem.controller;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,6 +34,14 @@ public class ViewController {
 		}
 		logger.info("Retriving login page");
 		return "login";
+	}
+	
+	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
+	public String loginerror(Model model) {
+ 
+		model.addAttribute("error", "true");
+		return "login";
+ 
 	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
