@@ -125,22 +125,21 @@ public class AdminController {
 	public String getStudentList(Model model){
 		List<Student> newStudents = studentService.getStudentsByStatus(StatusType.INACTIVE);
 		model.addAttribute("newStudents", newStudents);
-		List<StatusType> statusTypes = Arrays.asList(StatusType.values());
-		model.addAttribute("statusType", statusTypes);
-		return "admin/verfiyStudents";
+		model.addAttribute("statusType", StatusType.values());
+		return "admin/verifyStudents";
 	}
 	
-	@RequestMapping(value="/verifyStudents/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/verifyStudents/{id}", method=RequestMethod.GET)
 	public String verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
 		Student studentToVerify = studentService.getStudent(id);
 		studentToVerify.getUser().setStatus(status);
 		studentService.saveStudent(studentToVerify);
-		return "redirect:/admin/verfiyStudents";
+		return "redirect:/admin/verifyStudents";
 	}
 	
-	@RequestMapping(value = "/student/delete/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/student/delete/{id}", method = RequestMethod.GET)
 	public String deleteStudent(@PathVariable("id") Long id) {
 		studentService.deleteStudentById(id);
-		return "redirect:/admin/verfiyStudents";
+		return "redirect:/admin/verifyStudents";
 	}
 }

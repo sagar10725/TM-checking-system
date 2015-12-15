@@ -3,9 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="<spring:url value="/resources/js/ajax.js"/>"></script>
 
 Verification of New Students
-<form:form commandName="building" method="POST">
+<form:form modelAttribute="newStudents" method="POST">
 	<table 
 		id="product-table">
 		<tr>
@@ -20,26 +22,26 @@ Verification of New Students
 			<th class="table-header-options line-left"><a href="#">Options</a></th>
 		</tr>
 		<tbody>
-			<c:forEach items="${students}" var="student" varStatus="count">
+			<c:forEach items="${newStudents}" var="newStudent" varStatus="count">
 				<tr id="row-${count.count}">
 					<td><input type="checkbox" /></td>
 					<td>${count.count}</td>
-					<td>${student.user.name}</td>
-					<td>${student.studentId}</td>
-					<td>${student.user.email}</td>
-					<td>${student.entryYear}</td>
-					<td>${student.entryMonth}</td>
+					<td>${newStudent.user.name}</td>
+					<td>${newStudent.studentId}</td>
+					<td>${newStudent.user.email}</td>
+					<td>${newStudent.entryYear}</td>
+					<td>${newStudent.entryMonth}</td>
 					<td>
-					<form:select id="statusType" path="student.user.statusType">
-					<form:option value="0" label="--Select Status--" />
-					<form:options items="${statusTypes}" />
+					<form:select id="statusType" path="">
+					<form:options items="${statusType}"/>
 				</form:select>
 				<a
-						href="<spring:url value="/admin/student/verifyStudents/${student.id}" />"
+						<%-- href="<spring:url value="/admin/student/verifyStudents/${newStudent.id}" />" --%>
+						href="#"
 						title="Change Status"
-						onclick="return confirm('Are you sure to change status of this student?')">Change Status</a>
+						onclick="changeStudentStatus(${newStudent.id})">Change Status</a>
 					<a
-						href="<spring:url value="/admin/student/delete/${student.id}" />"
+						href="<spring:url value="/admin/student/delete/${newStudent.id}" />"
 						title="Delete"
 						onclick="return confirm('Are you sure to delete this student?')">Delete</a></td>
 				</tr>
