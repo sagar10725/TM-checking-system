@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Internet Dreams</title>
+<title><spring:message code="application.name" text="TM Check" /></title>
 <link rel="stylesheet"
 	href='<spring:url value="resources/template/css/screen.css" />'
 	type="text/css" media="screen" title="default" />
@@ -31,7 +31,7 @@
 			<div id="login-inner">
 				<form action="processLogin" method="post">
 					<c:if test="${not empty error}">
-						<div class="alert alert-danger">
+						<div class="alert">
 							<spring:message code="AbstractUserDetailsAuthenticationProvider.badCredentials"/><br />
 						</div>
 					</c:if>

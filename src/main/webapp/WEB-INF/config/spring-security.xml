@@ -14,10 +14,10 @@
 							login-processing-url="/processLogin"
 							password-parameter="password"
 							username-parameter="username"
-					 		authentication-failure-url="/login"
+					 		authentication-failure-url="/loginfailed"
 					 		default-target-url="/home"
 					 		always-use-default-target="false"/>
-		<logout logout-success-url="/login-signup"  logout-url= "/processLogout"/>
+		<logout logout-success-url="/login"  logout-url= "/processLogout"/>
 		<access-denied-handler error-page="/accessdenied" />
 		<!-- enable Cross Site Request Forgery protection -->
 		<!--<csrf /> -->
