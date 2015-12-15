@@ -1,5 +1,8 @@
 package edu.mum.tmsystem.domain;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +18,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import edu.mum.tmsystem.enums.CheckingType;
 
@@ -23,7 +31,7 @@ import edu.mum.tmsystem.enums.CheckingType;
 public class AvailableEntry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 
 	@Column
 	@Enumerated(EnumType.STRING)
@@ -41,12 +49,20 @@ public class AvailableEntry {
 
 	@OneToMany(mappedBy = "availableEntry", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<CheckingHours> checkingHours;
+	
+	@Transient
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private Date checkingDate;
+	
+	@Transient
+	private String[] checkingTimes;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -80,6 +96,51 @@ public class AvailableEntry {
 
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public Set<CheckingHours> getCheckingHours() {
+		return checkingHours;
+	}
+
+	public void setCheckingHours(Set<CheckingHours> checkingHours) {
+		this.checkingHours = checkingHours;
+	}
+
+	@Override
+	public String toString() {
+		final int maxLen = 10;
+		return "AvailableEntry [id=" + id + ", checkingType=" + checkingType + ", availableSeats=" + availableSeats
+				+ ", addedBy=" + addedBy + ", room=" + room + ", checkingHours="
+				+ (checkingHours != null ? toString(checkingHours, maxLen) : null) + "]";
+	}
+
+	private String toString(Collection<?> collection, int maxLen) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		int i = 0;
+		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
+			if (i > 0)
+				builder.append(", ");
+			builder.append(iterator.next());
+		}
+		builder.append("]");
+		return builder.toString();
+	}
+
+	public Date getCheckingDate() {
+		return checkingDate;
+	}
+
+	public void setCheckingDate(Date checkingDate) {
+		this.checkingDate = checkingDate;
+	}
+
+	public String[] getCheckingTimes() {
+		return checkingTimes;
+	}
+
+	public void setCheckingTimes(String[] checkingTimes) {
+		this.checkingTimes = checkingTimes;
 	}
 
 }
