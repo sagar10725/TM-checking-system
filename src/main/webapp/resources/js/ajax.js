@@ -1,7 +1,38 @@
 /**
  * 
  */
- 
+
+
+function showRooms(){
+	var  selectedValue= $("#building").val();
+   /* alert(selectedValue);*/
+    
+	$.ajax({
+		type: 'GET',
+		url: "/tmsystem/tmcheck/get_rooms/"+selectedValue,
+		dataType: 'json',
+		contentType: 'application/json',
+		 
+		success: function(rooms) {
+		
+			$("#room").empty();
+			$.each(rooms, function(i, room) {
+				$("#room").append("<option value="+room.id+">"+room.roomNumber+"</option>")
+			});
+		},
+
+		error: function(errorObject){	
+			console.log(errorObject);
+			
+		}
+	
+	});
+
+    
+    
+    
+}
+
 function saveRoom(){
 	var dataToSend = JSON.stringify(serializeObject($('#roomForm')));
 	var pathname = window.location.pathname;
