@@ -1,5 +1,6 @@
 package edu.mum.tmsystem.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,31 +16,35 @@ import edu.mum.tmsystem.domain.AvailableEntry;
 import edu.mum.tmsystem.domain.Building;
 import edu.mum.tmsystem.domain.Room;
 import edu.mum.tmsystem.enums.CheckingType;
+import edu.mum.tmsystem.service.IAvailableEntryService;
 import edu.mum.tmsystem.service.IBuildingService;
 
 @Controller
 @RequestMapping("/tmchecker")
 public class TMCheckerController {
-	
+
 	@Autowired
 	IBuildingService buildingService;
+
+	@Autowired
+	IAvailableEntryService availableEntryService;
 
 	@ModelAttribute("checkingtype")
 	private CheckingType[] checkingtype() {
 		return CheckingType.values();
 	}
-	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String loadLandingPage(Model model) {
 		return "tmchecker/home";
 	}
-	
-	@RequestMapping(value="/get_rooms/{buildingId}", method=RequestMethod.GET)
-	public @ResponseBody List<Room> loadRooms(@PathVariable("buildingId") Integer buildingId){
-		List<Room> rooms =  buildingService.getAllRoomByBuildingId(buildingId);
+
+	@RequestMapping(value = "/get_rooms/{buildingId}", method = RequestMethod.GET)
+	public @ResponseBody List<Room> loadRooms(@PathVariable("buildingId") Integer buildingId) {
+		List<Room> rooms = buildingService.getAllRoomByBuildingId(buildingId);
 		return rooms;
 	}
-	
+
 	@RequestMapping(value = "/available_dates/add", method = RequestMethod.GET)
 	public String addAvailableDateForm(@ModelAttribute("availableEntry") AvailableEntry availableEntry, Model model) {
 		List<Building> buildings = buildingService.getAllBuildings();
@@ -48,15 +53,16 @@ public class TMCheckerController {
 	}
 
 	@RequestMapping(value = "/available_dates/add", method = RequestMethod.POST)
-	public String addAvailableDates(@ModelAttribute("availableEntry") AvailableEntry availableEntry, Model model) {
+	public String addAvailableDates(@ModelAttribute("availableEntry") AvailableEntry availableEntry, Model model)
+			throws ParseException {
 		List<Building> buildings = buildingService.getAllBuildings();
 		model.addAttribute("buildings", buildings);
-		
-		
+
+		availableEntryService.saveAvailableEntry(availableEntry);
 		System.out.println(availableEntry.toString());
 		return "tmchecker/available_checking";
 	}
-	
+
 	/*
 	 * @Autowired //ITMCheckerService tmCheckerService;
 	 * 
@@ -85,5 +91,4 @@ public class TMCheckerController {
 	 * model.addAttribute("history",history); return"tmchecker/checkdetails"; }
 	 */
 
-	
 }

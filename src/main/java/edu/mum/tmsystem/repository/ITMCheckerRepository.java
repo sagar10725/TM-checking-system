@@ -11,7 +11,7 @@ import edu.mum.tmsystem.domain.TMHistory;
 @Repository
 public interface ITMCheckerRepository extends CrudRepository<TMHistory, Long> {
 	
-	@Query("SELECT t FROM TMChecker WHERE t.user.id= : userId")
-	TMChecker findTMCheckerByUserId(@Param("userID") Long id);
+	@Query("SELECT t FROM TMChecker t WHERE t.user.id= :id")
+	public TMChecker findTMCheckerByUserId(@Param("id") Long id);
 
 }

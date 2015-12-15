@@ -1,5 +1,6 @@
 package edu.mum.tmsystem.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import edu.mum.tmsystem.domain.AvailableEntry;
@@ -15,5 +16,5 @@ public interface IAvailableEntryService {
 
 	public AvailableEntry getAvailableEntry(Long id);
 
-	public void saveAvailableEntry(AvailableEntry availableEntry);
+	public void saveAvailableEntry(AvailableEntry availableEntry) throws ParseException;
 }
