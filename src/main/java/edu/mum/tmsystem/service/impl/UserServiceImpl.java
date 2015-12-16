@@ -43,6 +43,24 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	public boolean changePassword(String oldpassword, String newpassword, String confirmpassword) {
+		if(!newpassword.equals(confirmpassword)){
+			return false;
+		}
+		
+		String username = Utility.getLoggedInUserName();
+		User user = userRepository.getUserFromUsername(username);
+		String password = user.getPassword();
+		if(!Utility.matchPassword(oldpassword, password)){
+			return false;
+		}
+		String changedpassword = newpassword;
+		user.setPassword(Utility.encryptPassword(changedpassword));
+		userRepository.save(user);
+		return true;
+	}
+	
+	@Override
 	public User getUserProfileById(Long id) {
 		return userRepository.findOne(id);
 	}
@@ -91,7 +109,6 @@ public class UserServiceImpl implements IUserService {
 		User user = userRepository.findOne(id);
 		user.setStatus(status);
 		userRepository.save(user);
-		
 	}
 
 	

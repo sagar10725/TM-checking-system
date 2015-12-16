@@ -8,6 +8,7 @@ import edu.mum.tmsystem.domain.CheckingHours;
 import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.TMHistory;
 import edu.mum.tmsystem.enums.TMStatusType;
+import edu.mum.tmsystem.exception.BusinessException;
 import edu.mum.tmsystem.repository.ICheckingHoursRepository;
 import edu.mum.tmsystem.service.IAvailableEntryService;
 import edu.mum.tmsystem.service.ICheckingHoursService;
@@ -33,8 +34,11 @@ public class CheckingHoursServiceImpl implements ICheckingHoursService{
 	IAvailableEntryService availableEntryService;
 
 	@Override
-	public CheckingHours signUpForGivenCheckingHour(Integer checkingHourId) {
+	public CheckingHours signUpForGivenCheckingHour(Integer checkingHourId) throws BusinessException {
 		CheckingHours checkingHours = checkingHoursRepository.findOne(checkingHourId);
+		if(checkingHours.getSignUpBy() != null){
+			throw new BusinessException("Already signup by others");
+		}
 		Student student = studentService.getStudentByUserId(SessionManager.getUserID());
 		checkingHours.setSignUpBy(student);
 		

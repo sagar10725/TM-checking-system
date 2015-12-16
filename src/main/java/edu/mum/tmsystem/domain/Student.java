@@ -11,19 +11,27 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
 	private String studentId;
+/*	@NotEmpty(message="Year should not be an empty field")
+	@Size(min=4,max=4,message="{Size.student.year.validation}")*/
 	private Integer entryYear;
+	@NotEmpty @Size(min=3, max=9, message= "{Size.student.month.validation}")
 	private String entryMonth;
 
 	@OneToOne
 	@JoinColumn(name = "user_id")
+	@Valid
 	private User user;
 
 	@OneToMany(mappedBy = "signUpBy", cascade = CascadeType.ALL)

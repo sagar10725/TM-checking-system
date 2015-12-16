@@ -32,7 +32,7 @@ public class Utility {
 		return null;
 	}
 	
-	public static Boolean matchPassword(String rawPassword, String dbEncryptedPassword) throws Exception {
+	public static Boolean matchPassword(String rawPassword, String dbEncryptedPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.matches(rawPassword, dbEncryptedPassword);
     }

@@ -14,10 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.mum.tmsystem.enums.StatusType;
 
@@ -28,21 +35,30 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@NotEmpty(message = "Username Cannot Be An Empty Field")
+	@Size(min = 4, max = 16, message = "{Size.user.username.validation}")
 	private String username;
+	
+	@NotEmpty(message = "You must enter password")
 	private String password;
+	
+	@NotEmpty(message = "Enter your Name")
+	@Size(min = 4, max = 16, message = "{Size.user.name.validation}")
 	private String name;
+	
+	@Email
 	private String email;
+
 	private StatusType status;
+	
 	private String verificationCode;
-	
-	@Transient
-	@JsonIgnore
-	private MultipartFile profileImage;
-	
-	@Column(name="image_path")
+
+	@Column(name = "image_path")
 	private String imagePath;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -50,6 +66,10 @@ public class User implements Serializable {
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Student student;
+	
+	@Transient
+	@JsonIgnore
+	private MultipartFile profileImage;
 
 	public Long getId() {
 		return id;
@@ -139,6 +159,5 @@ public class User implements Serializable {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-
 
 }

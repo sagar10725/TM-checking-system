@@ -11,6 +11,8 @@ public interface IUserService {
 
 	public User getUserByUsername(String username);
 
+	public boolean changePassword(String oldpassword, String newpassword, String confirmpassword);
+
 	public User getUserProfileById(Long id);
 
 	public void updateUser(User user);
@@ -24,5 +26,4 @@ public interface IUserService {
 	public List<User> getAllUser();
 
 	public void changeStatus(Long id, StatusType status);
-	
 }
