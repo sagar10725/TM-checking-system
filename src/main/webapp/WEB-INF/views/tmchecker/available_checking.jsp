@@ -15,6 +15,9 @@
 </head>
 <body>
 	<h1>Checking Details</h1>
+	<div><c:if test="${message != null }">
+		<c:out value="${message}"></c:out>
+	</c:if> </div>
 	<form:form commandName="availableEntry" action="add" method="POST">
 		<table>
 			<tr>

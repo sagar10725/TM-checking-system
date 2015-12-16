@@ -21,6 +21,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,6 +38,7 @@ public class AvailableEntry {
 
 	@Column
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private CheckingType checkingType;
 	
 	private Integer availableSeats;
@@ -45,6 +49,7 @@ public class AvailableEntry {
 
 	@OneToOne
 	@JoinColumn(name = "room_id")
+	@NotNull
 	private Room room;
 
 	@OneToMany(mappedBy = "availableEntry", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -52,10 +57,13 @@ public class AvailableEntry {
 	
 	@Transient
 	@Temporal(TemporalType.DATE)
+	@Future
+	@NotNull
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date checkingDate;
 	
 	@Transient
+	@Size(min = 1, message = "{Size.checkingTime.validation}")
 	private String[] checkingTimes;
 
 	public Long getId() {
