@@ -11,7 +11,7 @@ import edu.mum.tmsystem.enums.CheckingType;
 @Repository
 public interface IDefaultCheckingSeatsRepository extends CrudRepository<DefaultCheckingSeats, Long> {
 
-	@Query("SELECT d FROM DefaultCheckingSeatsByCheckingType d WHERE d.checkingType = :checkingType")
+	@Query("SELECT d FROM DefaultCheckingSeats d WHERE d.checkingType = :checkingType")
 	DefaultCheckingSeats findDefaultCheckingSeatsByCheckingType(@Param("checkingType") CheckingType checkingType);
 
 }

@@ -9,9 +9,9 @@ import edu.mum.tmsystem.domain.TMChecker;
 import edu.mum.tmsystem.domain.TMHistory;
 
 @Repository
-public interface ITMCheckerRepository extends CrudRepository<TMHistory, Long> {
+public interface ITMCheckerRepository extends CrudRepository<TMChecker, Integer> {
 	
-	@Query("SELECT t FROM TMChecker WHERE t.user.id= : userId")
-	TMChecker findTMCheckerByUserId(@Param("userID") Long id);
+	@Query("SELECT t FROM TMChecker t WHERE t.user.id= : userId")
+	TMChecker findTMCheckerByUserId(@Param("userId") Integer id);
 
 }

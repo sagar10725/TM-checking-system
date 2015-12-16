@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mum.tmsystem.domain.TMHistory;
+import edu.mum.tmsystem.domain.TMChecker;
+import edu.mum.tmsystem.enums.StatusType;
 import edu.mum.tmsystem.repository.ITMCheckerRepository;
 import edu.mum.tmsystem.service.ITMCheckerService;
 
@@ -17,15 +18,24 @@ public class TMCheckerServiceImpl implements ITMCheckerService {
 	@Autowired
 	ITMCheckerRepository tmCheckerRepository;
 	
+
 	@Override
-	public void save(TMHistory studentData) {
-		tmCheckerRepository.save(studentData);
+	public void addNewTmChecker(TMChecker tmchecker) {
+		tmCheckerRepository.save(tmchecker);
 		
 	}
 
 	@Override
-	public List<TMHistory> getDetails() {
-		return (List<TMHistory>) tmCheckerRepository.findAll();
+	public List<TMChecker> getAllTmCheckers() {
+		return (List<TMChecker>) tmCheckerRepository.findAll();
+	}
+
+	@Override
+	public void disableTmCheckerById(Integer id) {
+		TMChecker tmChecker = tmCheckerRepository.findOne(id);
+		tmChecker.getUser().setStatus(StatusType.DISABLED);
+		tmCheckerRepository.save(tmChecker);
+		
 	}
 
 }
