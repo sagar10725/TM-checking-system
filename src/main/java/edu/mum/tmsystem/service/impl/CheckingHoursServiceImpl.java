@@ -1,13 +1,9 @@
 package edu.mum.tmsystem.service.impl;
 
-import java.util.Date;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mum.tmsystem.domain.AvailableEntry;
 import edu.mum.tmsystem.domain.CheckingHours;
 import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.TMHistory;
