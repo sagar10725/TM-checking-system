@@ -37,5 +37,16 @@ public class ExceptionController {
          
          return errors;
     }
+    
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+       public DomainErrors handleBusinessException(BusinessException exception) {
+        DomainErrors errors = new DomainErrors();
+        errors.setErrorType("BusinessError");
+        DomainError error = new DomainError(exception.getMessage());
+                       errors.addError(error);
+        return errors;
+    }
   
 }

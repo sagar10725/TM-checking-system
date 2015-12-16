@@ -12,4 +12,6 @@ public interface ITMHistoryService {
 	
 	public void saveHistory(TMHistory tmHistory);
 	
+	public List<TMHistory> getAllHistoryByStudentID(Long studentId);
+	
 }

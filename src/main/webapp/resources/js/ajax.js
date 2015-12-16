@@ -90,26 +90,20 @@ function serializeObject(form) {
 };
 
 function signupForTM(checkingHourId) {
-	alert(checkingHourId);
-
 	$.ajax({
 		type : 'POST',
 		url : "/tmsystem/student/signupfortm/" + checkingHourId,
 		dataType : 'json',
 		contentType : 'application/json',
 
-		success : function(rooms) {
-
-			$("#room").empty();
-			$.each(rooms, function(i, room) {
-				$("#room").append(
-						"<option value=" + room.id + ">" + room.roomNumber
-								+ "</option>")
-			});
+		success : function(data) {
+			window.location.href = "/tmsystem/student/mysignups";
+			
 		},
 
 		error : function(errorObject) {
 			console.log(errorObject);
+			alert("Something wrong happened. Please try again later");
 
 		}
 

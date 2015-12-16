@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import edu.mum.tmsystem.domain.CheckingHours;
 import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.service.IAvailableEntryService;
 import edu.mum.tmsystem.service.ICheckingHoursService;
 import edu.mum.tmsystem.service.IStudentService;
+import edu.mum.tmsystem.service.ITMHistoryService;
+import edu.mum.tmsystem.util.SessionManager;
 
 @Controller
 @RequestMapping("/student")
@@ -29,6 +30,9 @@ public class StudentController {
 	
 	@Autowired
 	ICheckingHoursService checkingHoursService;
+	
+	@Autowired
+	ITMHistoryService tmHistoryService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getStrudent(Model model) {
@@ -53,6 +57,13 @@ public class StudentController {
 	public @ResponseBody Boolean signUpForTM(@PathVariable("checkingHourId") Integer checkingHourId) {
 		checkingHoursService.signUpForGivenCheckingHour(checkingHourId);
 		return true;
+	}
+	
+	@RequestMapping(value = "/mysignups", method = RequestMethod.GET)
+	public String getMySignUps(Model model) {
+		Student student = studentService.getStudentByUserId(SessionManager.getUserID());
+		model.addAttribute("tmHistories", tmHistoryService.getAllHistoryByStudentID(student.getId()));
+		return "student/mysignups";
 	}
 	
 

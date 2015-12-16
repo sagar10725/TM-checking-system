@@ -49,8 +49,16 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void updateUser(User user) {
-		userRepository.save(user);
+		User dbUser = userRepository.findOne(user.getId());
+		dbUser.setEmail(user.getEmail());
+		dbUser.setName(user.getName());
+		dbUser.setImagePath(user.getImagePath());
+		dbUser.getStudent().setStudentId(user.getStudent().getStudentId());
+		dbUser.getStudent().setEntryYear(user.getStudent().getEntryYear());
+		dbUser.getStudent().setEntryMonth(user.getStudent().getEntryMonth());
+		userRepository.save(dbUser);
 	}
+	
 	public User getUserById(Long id) {
 		return (User) userRepository.findOne(id);
 	}

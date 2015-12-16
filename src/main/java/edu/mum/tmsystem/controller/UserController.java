@@ -63,18 +63,20 @@ public class UserController {
 			System.out.println("error in file update");
 			return "student/userEdit";
 		}
+		updateUser.setId(SessionManager.getUserID());
+		
 		MultipartFile profileImage = updateUser.getProfileImage();
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 		System.out.println(profileImage.getOriginalFilename());
-
-		System.out.println("User ID:" + SessionManager.getUserID());
-		User oldUser = userService.getUserProfileById(SessionManager.getUserID());
+		String fullPath = rootDirectory + File.separator+"resources"+ File.separator +"image" + updateUser.getId() + ".png";
 		try {
 			profileImage
-					.transferTo(new File(rootDirectory + "\\resources\\images\\" + updateUser.getId() + ".png"));
+					.transferTo(new File(fullPath));
 		} catch (Exception e) {
 			throw new RuntimeException("Product Image saving failed", e);
 		}
+		
+		updateUser.setImagePath(fullPath);
 		userService.updateUser(updateUser);
 		return "redirect:userProfile";
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,6 +41,9 @@ public class User implements Serializable {
 	@Transient
 	@JsonIgnore
 	private MultipartFile profileImage;
+	
+	@Column(name="image_path")
+	private String imagePath;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<UserRole> userRoles;
@@ -128,12 +132,13 @@ public class User implements Serializable {
 		this.student = student;
 	}
 
-	/*
-	 * @Override public String toString() { return "User [id=" + id +
-	 * ", username=" + username + ", password=" + password + ", name=" + name +
-	 * ", email=" + email + ", status=" + status + ", verificationCode=" +
-	 * verificationCode + ", profileImage=" + profileImage + ", role=" + role +
-	 * "]"; }
-	 */
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
 
 }

@@ -29,7 +29,7 @@ public class Student {
 	@OneToMany(mappedBy = "signUpBy", cascade = CascadeType.ALL)
 	private Set<CheckingHours> checkingHours;
 
-	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "student", cascade = CascadeType.ALL)
 	private Set<TMHistory> tmHistories;
 
 	public Long getId() {
