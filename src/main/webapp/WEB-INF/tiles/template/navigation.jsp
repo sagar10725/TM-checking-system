@@ -10,30 +10,34 @@
 
 		<div class="nav-divider">&nbsp;</div>
 		<div class="showhide-account">
-			<img src="<spring:url value="/resources/template/images/shared/nav/nav_myaccount.gif" />" width="93" height="14"
-				alt="" />
+			<img
+				src="<spring:url value="/resources/template/images/shared/nav/nav_myaccount.gif" />"
+				width="93" height="14" alt="" />
 		</div>
-		<div class="nav-divider">&nbsp;</div>
-		<a href="" id="logout"><img src="<spring:url value="/resources/template/images/shared/nav/nav_logout.gif" />"
-			width="64" height="14" alt="" /></a>
-		<div class="clear">&nbsp;</div>
+
+		<security:authorize access="isAuthenticated()">
+			<div class="nav-divider">&nbsp;</div>
+			<a href="<spring:url value="/processLogout" />" id="logout"><img
+				src="<spring:url value="/resources/template/images/shared/nav/nav_logout.gif" />"
+				width="64" height="14" alt="" /></a>
+			<div class="clear">&nbsp;</div>
+		</security:authorize>
+
 
 		<!--  start account-content -->
 		<div class="account-content">
 			<div class="account-drop-inner">
-				<a href="" id="acc-settings">Settings</a>
+				<a href="<spring:url value="/user/changepassword" />"
+					id="acc-settings">Change Password</a>
 				<div class="clear">&nbsp;</div>
 				<div class="acc-line">&nbsp;</div>
-				<a href="" id="acc-details">Personal details </a>
+				<a href="<spring:url value="/user/viewprofile" />" id="acc-details">View
+					Profile </a>
 				<div class="clear">&nbsp;</div>
 				<div class="acc-line">&nbsp;</div>
-				<a href="" id="acc-project">Project details</a>
+				<a href="<spring:url value="/user/editProfile" />" id="acc-project">Edit
+					Profile</a>
 				<div class="clear">&nbsp;</div>
-				<div class="acc-line">&nbsp;</div>
-				<a href="" id="acc-inbox">Inbox</a>
-				<div class="clear">&nbsp;</div>
-				<div class="acc-line">&nbsp;</div>
-				<a href="" id="acc-stats">Statistics</a>
 			</div>
 		</div>
 		<!--  end account-content -->
@@ -45,44 +49,54 @@
 	<!--  start nav -->
 	<div class="nav">
 		<div class="table">
-
+			<security:authorize access="!isAuthenticated()">
+				<ul class="select">
+					<li><a href="<spring:url value="/login" />"><b>Login</b> <!--[if IE 7]><!--></a></li>
+					<!--<![endif]-->
+				</ul>
+			</security:authorize>
+			<div class="nav-divider">&nbsp;</div>
 			<ul class="select">
-				<li><a href="#nogo"><b>Dashboard</b>
-					<!--[if IE 7]><!--></a>
-				<!--<![endif]-->
+				<li><a href="/home"><b>Home</b> <!--[if IE 7]><!--></a> <!--<![endif]--></li>
 			</ul>
 
 			<div class="nav-divider">&nbsp;</div>
 
-			<ul class="select">
-				<li><a href="#nogo"><b>TM Checking</b>
-					<!--[if IE 7]><!--></a>
-				<!--<![endif]-->
-			</ul>
+			<security:authorize access="hasAnyRole('ROLE_ADMIN')">
+				<ul class="select">
+					<li><a href="<spring:url value="/admin/home" />"><b>Admin</b>
+							<!--[if IE 7]><!--></a> <!--<![endif]--> <!--[if lte IE 6]><table><tr><td><![endif]-->
+						<div class="select_sub">
+							<ul class="sub">
+								<li><a href="<spring:url value="/admin/building" />">Building</a></li>
+								<li><a href="<spring:url value="/admin/user" />">User</a></li>
+								<li><a href="<spring:url value="/admin/student" />">Student</a></li>
+								<li><a href="<spring:url value="/admin/tmchecker" />">TM
+										Checker</a></li>
+								<li><a
+									href="<spring:url value="/admin/defaultCheckingSeats" />">Settings</a></li>
+
+							</ul>
+						</div> <!--[if lte IE 6]></td></tr></table></a><![endif]--></li>
+				</ul>
+			</security:authorize>
+			<div class="nav-divider">&nbsp;</div>
+			<security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_TMCHECKER')">
+				<ul class="select">
+					<li><a href="<spring:url value="/tmchecker/home" />"><b>TM
+								Checker</b> <!--[if IE 7]><!--></a> <!--<![endif]--></li>
+				</ul>
+			</security:authorize>
 
 			<div class="nav-divider">&nbsp;</div>
-
-			<ul class="select">
-				<li><a href="#nogo"><b>Manage</b>
-					<!--[if IE 7]><!--></a>
-				<!--<![endif]-->
-			</ul>
-
+			<security:authorize
+				access="hasAnyRole('ROLE_TMCHECKER','ROLE_STUDENT')">
+				<ul class="select">
+					<li><a href="<spring:url value="/student/home" />"><b>Students</b>
+							<!--[if IE 7]><!--></a> <!--<![endif]--></li>
+				</ul>
+			</security:authorize>
 			<div class="nav-divider">&nbsp;</div>
-
-			<ul class="select">
-				<li><a href="#nogo"><b>Students</b>
-					<!--[if IE 7]><!--></a>
-				<!--<![endif]-->
-			</ul>
-
-			<div class="nav-divider">&nbsp;</div>
-
-			<ul class="select">
-				<li><a href="#nogo"><b>News</b>
-					<!--[if IE 7]><!--></a>
-				<!--<![endif]-->
-			</ul>
 
 			<div class="clear"></div>
 		</div>

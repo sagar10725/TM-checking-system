@@ -1,8 +1,10 @@
 package edu.mum.tmsystem.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,38 +20,56 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.mum.tmsystem.enums.StatusType;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@NotEmpty(message="Username Cannot Be An Empty Field")
-	@Size(min=4,max=16, message="{Size.user.username.validation}")
+	
+	@NotEmpty(message = "Username Cannot Be An Empty Field")
+	@Size(min = 4, max = 16, message = "{Size.user.username.validation}")
 	private String username;
-	@NotEmpty(message="You must enter password")
+	
+	@NotEmpty(message = "You must enter password")
 	private String password;
-	@NotEmpty(message="Enter your Name")
-	@Size(min=4,max=16, message="{Size.user.name.validation}")
+	
+	@NotEmpty(message = "Enter your Name")
+	@Size(min = 4, max = 16, message = "{Size.user.name.validation}")
 	private String name;
+	
 	@Email
 	private String email;
-	@Transient
-	private String newpassword;
-	@Transient
-	private String confirmpassword;
+
 	private StatusType status;
+	
 	private String verificationCode;
-	private String profileImage;
+
+	@Column(name = "image_path")
+	private String imagePath;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<UserRole> userRoles;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Student student;
+	
+	@Transient
+	@JsonIgnore
+	private MultipartFile profileImage;
 
 	public Long getId() {
 		return id;
@@ -107,11 +127,12 @@ public class User {
 		this.verificationCode = verificationCode;
 	}
 
-	public String getProfileImage() {
+	@XmlTransient
+	public MultipartFile getProfileImage() {
 		return profileImage;
 	}
 
-	public void setProfileImage(String profileImage) {
+	public void setProfileImage(MultipartFile profileImage) {
 		this.profileImage = profileImage;
 	}
 
@@ -130,13 +151,13 @@ public class User {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
 
-	/*@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", email="
-				+ email + ", status=" + status + ", verificationCode=" + verificationCode + ", profileImage="
-				+ profileImage + ", role=" + role + "]";
-	}*/
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 }

@@ -1,15 +1,12 @@
 package edu.mum.tmsystem.service.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.ValidationUtils;
 
-import edu.mum.tmsystem.domain.Role;
 import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.domain.UserRole;
 import edu.mum.tmsystem.enums.RoleType;
@@ -22,13 +19,12 @@ import edu.mum.tmsystem.util.Utility;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
-	
+
 	@Autowired
 	IUserRepository userRepository;
 
 	@Autowired
 	IRoleRepository roleRepository;
-
 
 	@Override
 	public void saveStudent(User user) {
@@ -48,33 +44,71 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public boolean changePassword(String oldpassword, String newpassword, String confirmpassword) {
-		// TODO Auto-generated method stub
-		
-		System.out.println("Oldpassword Password*********** :-"+ oldpassword );
 		if(!newpassword.equals(confirmpassword)){
-			//System.out.println("NewPassword Password*********** :-"+ newpassword  + "  " + confirmpassword );
 			return false;
 		}
 		
 		String username = Utility.getLoggedInUserName();
 		User user = userRepository.getUserFromUsername(username);
 		String password = user.getPassword();
-		try {
-			if(!Utility.matchPassword(oldpassword, password)){
-				
-				System.out.println("Inside Password*********** :-"+ newpassword  + "  " + confirmpassword );
-				return false;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!Utility.matchPassword(oldpassword, password)){
+			return false;
 		}
 		String changedpassword = newpassword;
-		System.out.println("changed Password*********** :-"+ changedpassword);
 		user.setPassword(Utility.encryptPassword(changedpassword));
 		userRepository.save(user);
-		
 		return true;
+	}
+	
+	@Override
+	public User getUserProfileById(Long id) {
+		return userRepository.findOne(id);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		User dbUser = userRepository.findOne(user.getId());
+		dbUser.setEmail(user.getEmail());
+		dbUser.setName(user.getName());
+		dbUser.setImagePath(user.getImagePath());
+		dbUser.getStudent().setStudentId(user.getStudent().getStudentId());
+		dbUser.getStudent().setEntryYear(user.getStudent().getEntryYear());
+		dbUser.getStudent().setEntryMonth(user.getStudent().getEntryMonth());
+		userRepository.save(dbUser);
+	}
+	
+	public User getUserById(Long id) {
+		return (User) userRepository.findOne(id);
+	}
+
+	@Override
+	public void updateStudent(User user) {
+		userRepository.save(user);
+		
+	}
+
+	@Override
+	public void addNewTmChecker(User user) {
+		user.setPassword(Utility.encryptPassword(user.getPassword()));
+		user.setStatus(StatusType.ACTIVE);
+		UserRole userRole = new UserRole();
+		userRole.setRole(roleRepository.getRoleFromRoleName(RoleType.ROLE_TMCHECKER));
+		userRole.setUser(user);
+		user.setUserRoles(Arrays.asList(userRole));
+		userRepository.save(user);
+		
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		return (List<User>) userRepository.findAll();
+	}
+
+	@Override
+	public void changeStatus(Long id, StatusType status) {
+		User user = userRepository.findOne(id);
+		user.setStatus(status);
+		userRepository.save(user);
 	}
 
 	

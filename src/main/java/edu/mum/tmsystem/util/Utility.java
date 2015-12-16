@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import edu.mum.tmsystem.exception.BusinessException;
 
 public class Utility {
+	public static final String ROOT_FOLDER = System.getProperty("catalina.home");
+	public static final String TM_DOCS_FOLDER = "/tm_docs";
 	private static Logger logger = Logger.getLogger(Utility.class);
 
 	public static void logError(Logger log, String message, Exception e) {
@@ -29,6 +31,11 @@ public class Utility {
 		}
 		return null;
 	}
+	
+	public static Boolean matchPassword(String rawPassword, String dbEncryptedPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.matches(rawPassword, dbEncryptedPassword);
+    }
 
 	public static String getRandomString(){
 		return UUID.randomUUID().toString();

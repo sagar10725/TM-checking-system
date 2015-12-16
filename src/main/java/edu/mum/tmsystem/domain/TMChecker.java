@@ -1,5 +1,6 @@
 package edu.mum.tmsystem.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,7 @@ public class TMChecker {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private User user;
 
 	public Integer getId() {
