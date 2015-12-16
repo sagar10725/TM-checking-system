@@ -108,10 +108,10 @@ public class AdminController {
 		return "redirect:/admin/building/list";
 	}
 
-//	@ModelAttribute("checking")
-//	public CheckingType[] checkingType() {
-//		return CheckingType.values();
-//	}
+	//	@ModelAttribute("checking")
+	//	public CheckingType[] checkingType() {
+	//		return CheckingType.values();
+	//	}
 
 	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.GET)
 	public String getDefaultChekingSeats(
@@ -130,24 +130,16 @@ public class AdminController {
 
 	}
 
-	@RequestMapping(value = "/student/verifyStudents", method = RequestMethod.GET)
+	@RequestMapping(value = "/student/verify", method = RequestMethod.GET)
 	public String getNewStudentList(Model model) {
 		List<Student> newStudents = studentService
 				.getStudentsByStatus(StatusType.INACTIVE);
 		model.addAttribute("newStudents", newStudents);
 		model.addAttribute("statusType", StatusType.values());
 		return "admin/verifyStudents";
-	}
-	
-	@RequestMapping(value = "student/list", method = RequestMethod.GET)
-	public String getStudentList(Model model) {
-		List<Student> students = studentService
-				.getAllStudent();
-		model.addAttribute("students", students);
-		return "admin/listStudent";
-	}
+	}	
 
-	@RequestMapping(value = "/student/verifyStudents/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/student/verify/{id}", method = RequestMethod.POST)
 	// public String verifyStudentList(@PathVariable("id") Long id,
 	// @RequestParam("status") StatusType status, Model model){
 	public @ResponseBody Student verifyStudentList(@PathVariable("id") Long id,
@@ -159,6 +151,14 @@ public class AdminController {
 		System.out.println("Status" + studentToVerify.getUser().getStatus());
 		userService.updateStudent(UserToVerify);
 		return studentToVerify;
+	}
+	
+	@RequestMapping(value = "student/list", method = RequestMethod.GET)
+	public String getStudentList(Model model) {
+		List<Student> students = studentService
+				.getAllStudent();
+		model.addAttribute("students", students);
+		return "admin/listStudent";
 	}
 
 	@RequestMapping(value = "/student/delete/{id}", method = RequestMethod.GET)
@@ -204,7 +204,7 @@ public class AdminController {
 		tmCheckerService.enableTmCheckerById(id);
 		return "redirect:/admin/tmchecker/list";
 	}
-	
+
 
 	@RequestMapping(value = "user/list", method = RequestMethod.GET)
 	public String getUserList(Model model) {
@@ -213,7 +213,7 @@ public class AdminController {
 		model.addAttribute("statusType", StatusType.values());
 		return "admin/listUser";
 	}
-	
+
 	@RequestMapping(value = "/user/changestatus/{id}", method = RequestMethod.GET)
 	public String changeUserStatus(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model) {
 		userService.changeStatus(id,status);		
