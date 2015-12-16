@@ -6,4 +6,6 @@ public interface IRoomService {
 
 	void addNewRoom(Room room);
 
+	Room getRoomById(Integer id);
+
 }
