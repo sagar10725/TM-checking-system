@@ -2,6 +2,7 @@ package edu.mum.tmsystem.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,5 +55,15 @@ public class CheckingHours {
 	public void setAvailableEntry(AvailableEntry availableEntry) {
 		this.availableEntry = availableEntry;
 	}
+
+	public Student getSignUpBy() {
+		return signUpBy;
+	}
+
+	public void setSignUpBy(Student signUpBy) {
+		this.signUpBy = signUpBy;
+	}
+	
+	
 
 }

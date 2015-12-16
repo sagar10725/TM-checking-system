@@ -13,5 +13,9 @@ public class DateUtil {
 		dateValue = dateValue + " " + time;
 		return sdf1.parse(dateValue);
 	}
+	
+	public static Date getCurrentDate(){
+		return new Date();
+	}
 
 }

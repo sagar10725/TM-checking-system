@@ -13,4 +13,5 @@ public interface IAvailableEntryRepository extends CrudRepository<AvailableEntry
 
 	@Query("SELECT ae FROM AvailableEntry ae WHERE ae.availableSeats > 0")
 	public List<AvailableEntry> getAllAvailableEntriesWithAvailableSeats();
+	
 }

@@ -19,4 +19,8 @@ public interface IAvailableEntryService {
 	public void saveAvailableEntry(AvailableEntry availableEntry) throws ParseException;
 	
 	public List<AvailableEntry> getAllAvailableEntriesWithAvailableSeats();
+	
+	public AvailableEntry update(AvailableEntry availableEntry);
+	
+	public void updateNumberOfSeats(Long availableEntryId);
 }

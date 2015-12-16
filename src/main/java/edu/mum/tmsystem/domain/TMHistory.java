@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import edu.mum.tmsystem.enums.CheckingType;
 import edu.mum.tmsystem.enums.TMStatusType;
@@ -23,8 +25,10 @@ public class TMHistory {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date signUpDate;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date checkedDate;
 
 	@Enumerated(EnumType.STRING)

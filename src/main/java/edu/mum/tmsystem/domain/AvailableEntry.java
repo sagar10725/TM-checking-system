@@ -58,7 +58,6 @@ public class AvailableEntry {
 	@Transient
 	@Temporal(TemporalType.DATE)
 	@Future
-	@NotNull
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date checkingDate;
 	

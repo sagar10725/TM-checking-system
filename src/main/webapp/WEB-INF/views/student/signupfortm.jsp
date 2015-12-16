@@ -49,7 +49,7 @@
 								<tr>
 									<td><fmt:formatDate type="both"
 											value="${checkingHour.checkingDate}" /></td>
-									<td><c:if test="${availableEntry.availableSeats > 0}">
+									<td><c:if test="${checkingHour.signUpBy == null}">
 											<button
 												onclick="signupForTM(${checkingHour.id})">Sign
 												Up</button>

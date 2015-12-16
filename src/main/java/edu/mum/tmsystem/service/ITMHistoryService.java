@@ -10,6 +10,6 @@ public interface ITMHistoryService {
 	
 	public void deleteHistoryById(Long id);
 	
-	public void saveHistory(TMHistory StudentData);
+	public void saveHistory(TMHistory tmHistory);
 	
 }
