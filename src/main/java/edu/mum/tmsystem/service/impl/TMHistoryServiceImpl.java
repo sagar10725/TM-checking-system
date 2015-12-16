@@ -30,10 +30,8 @@ public class TMHistoryServiceImpl implements ITMHistoryService{
 	}
 
 	@Override
-	public void saveHistory(TMHistory StudentData) {
-		// TODO Auto-generated method stub
-		
-		tmHistoryRepository.save(StudentData);
+	public void saveHistory(TMHistory tmHistory) {
+		tmHistoryRepository.save(tmHistory);
 	}
 
 }

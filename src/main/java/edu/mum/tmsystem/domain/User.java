@@ -1,5 +1,6 @@
 package edu.mum.tmsystem.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,12 +12,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.mum.tmsystem.enums.StatusType;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -26,7 +36,10 @@ public class User {
 	private String email;
 	private StatusType status;
 	private String verificationCode;
-	private String profileImage;
+	
+	@Transient
+	@JsonIgnore
+	private MultipartFile profileImage;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<UserRole> userRoles;
@@ -90,11 +103,12 @@ public class User {
 		this.verificationCode = verificationCode;
 	}
 
-	public String getProfileImage() {
+	@XmlTransient
+	public MultipartFile getProfileImage() {
 		return profileImage;
 	}
 
-	public void setProfileImage(String profileImage) {
+	public void setProfileImage(MultipartFile profileImage) {
 		this.profileImage = profileImage;
 	}
 
@@ -114,11 +128,12 @@ public class User {
 		this.student = student;
 	}
 
-	/*@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", email="
-				+ email + ", status=" + status + ", verificationCode=" + verificationCode + ", profileImage="
-				+ profileImage + ", role=" + role + "]";
-	}*/
+	/*
+	 * @Override public String toString() { return "User [id=" + id +
+	 * ", username=" + username + ", password=" + password + ", name=" + name +
+	 * ", email=" + email + ", status=" + status + ", verificationCode=" +
+	 * verificationCode + ", profileImage=" + profileImage + ", role=" + role +
+	 * "]"; }
+	 */
 
 }

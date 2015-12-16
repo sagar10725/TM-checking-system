@@ -6,10 +6,14 @@ import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.enums.StatusType;
 
 public interface IUserService {
-	
+
 	public void saveStudent(User user);
-	
+
 	public User getUserByUsername(String username);
+
+	public User getUserProfileById(Long id);
+
+	public void updateUser(User user);
 
 	public User getUserById(Long id);
 
@@ -20,5 +24,5 @@ public interface IUserService {
 	public List<User> getAllUser();
 
 	public void changeStatus(Long id, StatusType status);
-
+	
 }

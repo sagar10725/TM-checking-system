@@ -19,13 +19,12 @@ import edu.mum.tmsystem.util.Utility;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
-	
+
 	@Autowired
 	IUserRepository userRepository;
 
 	@Autowired
 	IRoleRepository roleRepository;
-
 
 	@Override
 	public void saveStudent(User user) {
@@ -44,6 +43,14 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	public User getUserProfileById(Long id) {
+		return userRepository.findOne(id);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userRepository.save(user);
+	}
 	public User getUserById(Long id) {
 		return (User) userRepository.findOne(id);
 	}

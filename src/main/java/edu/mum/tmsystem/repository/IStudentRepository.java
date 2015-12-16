@@ -15,5 +15,8 @@ public interface IStudentRepository extends CrudRepository<Student, Long> {
 
 	@Query("SELECT s FROM Student s WHERE s.user.status = :status")
 	List<Student> findStudentByStatus(@Param("status") StatusType status);
-
+	
+	@Query("SELECT s FROM Student s WHERE s.user.id = :id")
+	public Student getStudentByUserId(@Param("id") Long id);
+	
 }

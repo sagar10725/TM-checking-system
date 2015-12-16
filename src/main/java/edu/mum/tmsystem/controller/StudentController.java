@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.mum.tmsystem.domain.CheckingHours;
 import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.service.IAvailableEntryService;
+import edu.mum.tmsystem.service.ICheckingHoursService;
 import edu.mum.tmsystem.service.IStudentService;
 
 @Controller
@@ -23,6 +26,9 @@ public class StudentController {
 	
 	@Autowired
 	IAvailableEntryService availableEntryService;
+	
+	@Autowired
+	ICheckingHoursService checkingHoursService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getStrudent(Model model) {
@@ -44,8 +50,9 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value = "/signupfortm/{checkingHourId}", method = RequestMethod.POST)
-	public String signUpForTM(@PathVariable("checkingHourId") Integer checkingHourId) {
-		return "student/signupfortm";
+	public @ResponseBody Boolean signUpForTM(@PathVariable("checkingHourId") Integer checkingHourId) {
+		checkingHoursService.signUpForGivenCheckingHour(checkingHourId);
+		return true;
 	}
 	
 

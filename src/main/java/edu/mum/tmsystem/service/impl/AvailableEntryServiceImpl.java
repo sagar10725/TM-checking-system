@@ -69,10 +69,19 @@ public class AvailableEntryServiceImpl implements IAvailableEntryService{
 		availableEntry.setAvailableSeats(defaultCheckingSeats.getNumberOfSeats() * availableEntry.getCheckingTimes().length);
 		Set<CheckingHours> checkingHoursSets = new HashSet<CheckingHours>();
 		for(String checkingTime : availableEntry.getCheckingTimes()){
-			CheckingHours checkingHours = new CheckingHours();
-			checkingHours.setAvailableEntry(availableEntry);
-			checkingHours.setCheckingDate(DateUtil.getCombinedDateTime(availableEntry.getCheckingDate(), checkingTime));
-			checkingHoursSets.add(checkingHours);
+			if(availableEntry.getCheckingType().equals(CheckingType.GROUP)){
+				for(int i=0; i<defaultCheckingSeats.getNumberOfSeats(); i++){
+					CheckingHours checkingHours = new CheckingHours();
+					checkingHours.setAvailableEntry(availableEntry);
+					checkingHours.setCheckingDate(DateUtil.getCombinedDateTime(availableEntry.getCheckingDate(), checkingTime));
+					checkingHoursSets.add(checkingHours);
+				}
+			}else{
+				CheckingHours checkingHours = new CheckingHours();
+				checkingHours.setAvailableEntry(availableEntry);
+				checkingHours.setCheckingDate(DateUtil.getCombinedDateTime(availableEntry.getCheckingDate(), checkingTime));
+				checkingHoursSets.add(checkingHours);
+			}
 		}
 		availableEntry.setCheckingHours(checkingHoursSets);
 		availableEntryRepository.save(availableEntry);
@@ -83,5 +92,18 @@ public class AvailableEntryServiceImpl implements IAvailableEntryService{
 	public List<AvailableEntry> getAllAvailableEntriesWithAvailableSeats(){
 		return availableEntryRepository.getAllAvailableEntriesWithAvailableSeats();
 	}
+
+	@Override
+	public AvailableEntry update(AvailableEntry availableEntry) {
+		return availableEntryRepository.save(availableEntry);
+	}
+
+	@Override
+	public void updateNumberOfSeats(Long availableEntryId) {
+		AvailableEntry availableEntry = availableEntryRepository.findOne(availableEntryId);
+		availableEntry.setAvailableSeats(availableEntry.getAvailableSeats() -1);
+		availableEntryRepository.save(availableEntry);
+	}
+	
 
 }

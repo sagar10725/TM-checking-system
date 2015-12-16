@@ -24,7 +24,7 @@
 				<a href="" id="acc-settings">Settings</a>
 				<div class="clear">&nbsp;</div>
 				<div class="acc-line">&nbsp;</div>
-				<a href="" id="acc-details">Personal details </a>
+				<a href="/userProfile" id="acc-details">Personal details </a>
 				<div class="clear">&nbsp;</div>
 				<div class="acc-line">&nbsp;</div>
 				<a href="" id="acc-project">Project details</a>

@@ -1,5 +1,7 @@
 package edu.mum.tmsystem.service;
 
+import edu.mum.tmsystem.domain.CheckingHours;
+
 public interface ICheckingHoursService {
-	public void signUpForGivenCheckingHour(Integer checkingHourId);
+	public CheckingHours signUpForGivenCheckingHour(Integer checkingHourId);
 }
