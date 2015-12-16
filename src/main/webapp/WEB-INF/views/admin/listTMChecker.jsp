@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <h2>TM Checker List</h2><hr>
-<a href="<spring:url value="/admin/building/add" />"
+<a href="<spring:url value="/admin/tmchecker/add" />"
 	title="Add TM Checker">Add New TM Checker</a>
 	<hr>
 <c:choose>
@@ -33,7 +33,11 @@
 							<td><a
 							href="<spring:url value="/admin/tmchecker/disable/${tmChecker.id}" />"
 							title="Disable"
-							onclick="return confirm('Are you sure to disable this TM Checker?')">Disable</a></td>
+							onclick="return confirm('Are you sure to disable this TM Checker?')">Disable</a>
+							<a
+							href="<spring:url value="/admin/tmchecker/enable/${tmChecker.id}" />"
+							title="Enable"
+							onclick="return confirm('Are you sure to enable this TM Checker?')">Enable</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

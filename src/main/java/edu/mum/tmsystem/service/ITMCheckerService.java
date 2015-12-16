@@ -13,4 +13,6 @@ public interface ITMCheckerService {
 	public void disableTmCheckerById(Integer id);
 	
 	public TMChecker getTMCheckerFromUserID(Long userId);
+
+	public void enableTmCheckerById(Integer id);
 }

@@ -7,7 +7,8 @@
 	src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script type="text/javascript"
 	src="<spring:url value="/resources/js/ajax.js"/>"></script>
-<h2>Verification of New Students</h2><hr>
+<h2>Verification of New Students</h2>
+<hr>
 
 <form:form modelAttribute="newStudents" method="POST">
 	<c:choose>
@@ -45,8 +46,8 @@
 							<td>${newStudent.entryMonth}</td>
 							<td><form:select id="statusType" path="">
 									<form:options items="${statusType}" />
-								</form:select> <a
-								<%-- href="<spring:url value="/admin/student/verifyStudents/${newStudent.id}" />" --%>
+								</form:select></td>
+							<td><a
 						href="#"
 								title="Change Status"
 								onclick="changeStudentStatus(${newStudent.id})">Change

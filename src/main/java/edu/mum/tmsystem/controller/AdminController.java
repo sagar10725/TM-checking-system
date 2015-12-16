@@ -115,30 +115,39 @@ public class AdminController {
 
 	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.GET)
 	public String getDefaultChekingSeats(
-			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats) {
+			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats, Model model) {
+		model.addAttribute("checking", CheckingType.values());
 		return "student/defaultCheckingSeats";
 
 	}
 
 	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.POST)
 	public String saveDefaultChekingSeats(
-			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats) {
-
+			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats, Model model) {
+		model.addAttribute("checking", CheckingType.values());
 		defaultCheckingSeatsService.saveCheckingSeats(defaultCheckingSeats);
 		return "student/defaultCheckingSeats";
 
 	}
 
-	@RequestMapping(value = "/verifyStudents", method = RequestMethod.GET)
-	public String getStudentList(Model model) {
+	@RequestMapping(value = "/student/verifyStudents", method = RequestMethod.GET)
+	public String getNewStudentList(Model model) {
 		List<Student> newStudents = studentService
 				.getStudentsByStatus(StatusType.INACTIVE);
 		model.addAttribute("newStudents", newStudents);
 		model.addAttribute("statusType", StatusType.values());
 		return "admin/verifyStudents";
 	}
+	
+	@RequestMapping(value = "student/list", method = RequestMethod.GET)
+	public String getStudentList(Model model) {
+		List<Student> students = studentService
+				.getAllStudent();
+		model.addAttribute("students", students);
+		return "admin/listStudent";
+	}
 
-	@RequestMapping(value = "/verifyStudents/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/student/verifyStudents/{id}", method = RequestMethod.POST)
 	// public String verifyStudentList(@PathVariable("id") Long id,
 	// @RequestParam("status") StatusType status, Model model){
 	public @ResponseBody Student verifyStudentList(@PathVariable("id") Long id,
@@ -167,26 +176,48 @@ public class AdminController {
 	@RequestMapping(value = { "/tmchecker/add" }, method = RequestMethod.POST)
 	public String processNewTmChecker(
 			@ModelAttribute("tmchecker") TMChecker tmchecker,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult,
+			RedirectAttributes redirectAtriAttributes, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "admin/addTMChecker";
 		}
 		tmCheckerService.addNewTmChecker(tmchecker);
+		// userService.addNewTmChecker(tmchecker.getUser());
 		return "redirect:/admin/tmchecker/list";
 	}
-	
+
 	@RequestMapping(value = { "/tmchecker", "/tmchecker/list" }, method = RequestMethod.GET)
 	public String showTmCheckerList(Model model) {
 		List<TMChecker> tmCheckers = tmCheckerService.getAllTmCheckers();
 		model.addAttribute("tmCheckers", tmCheckers);
-		return "admin/tmchecker/list";
+		return "admin/listTMChecker";
 	}
-	
+
 	@RequestMapping(value = { "/tmchecker/disable/{id}" }, method = RequestMethod.GET)
-	public String deleteTmChecker(@PathVariable("id") Integer id) {		
+	public String disableTmChecker(@PathVariable("id") Integer id) {
 		tmCheckerService.disableTmCheckerById(id);
 		return "redirect:/admin/tmchecker/list";
 	}
+
+	@RequestMapping(value = { "/tmchecker/enable/{id}" }, method = RequestMethod.GET)
+	public String EnableTmChecker(@PathVariable("id") Integer id) {
+		tmCheckerService.enableTmCheckerById(id);
+		return "redirect:/admin/tmchecker/list";
+	}
 	
+
+	@RequestMapping(value = "user/list", method = RequestMethod.GET)
+	public String getUserList(Model model) {
+		List<User> users = userService.getAllUser();
+		model.addAttribute("users", users);
+		model.addAttribute("statusType", StatusType.values());
+		return "admin/listUser";
+	}
 	
+	@RequestMapping(value = "/user/changestatus/{id}", method = RequestMethod.GET)
+	public String changeUserStatus(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model) {
+		userService.changeStatus(id,status);		
+		return "redirect:/admin/user/list";
+	}
+
 }
