@@ -29,6 +29,11 @@ public class Utility {
 		}
 		return null;
 	}
+	
+	public static Boolean matchPassword(String rawPassword, String dbEncryptedPassword) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.matches(rawPassword, dbEncryptedPassword);
+    }
 
 	public static String getRandomString(){
 		return UUID.randomUUID().toString();

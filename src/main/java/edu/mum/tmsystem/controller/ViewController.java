@@ -48,9 +48,11 @@ public class ViewController {
 	public String welcomePage() {
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null
 				&& !SessionManager.isAnonymousUser()) {
-			if (SessionManager.getRole().equals(RoleType.ROLE_ADMIN)) {
+			if (SessionManager.getRole().contains(RoleType.ROLE_ADMIN)) {
 				return "redirect:/admin";
-			} else if (SessionManager.getRole().equals(RoleType.ROLE_STUDENT)) {
+			} else if (SessionManager.getRole().contains(RoleType.ROLE_TMCHECKER)) {
+				return "redirect:/tmchecker";
+			} else if (SessionManager.getRole().contains(RoleType.ROLE_STUDENT)) {
 				return "home";
 			}
 		}
