@@ -50,8 +50,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
-	public String savenewPassword(@Valid @ModelAttribute("passwordchange") User user,
-			@RequestParam("oldpassword") String oldpassword, @RequestParam("newpassword") String newpassword,
+	public String savenewPassword(@RequestParam("oldpassword") String oldpassword, @RequestParam("newpassword") String newpassword,
 			@RequestParam("confirmpassword") String confirmpassword) {
 		if (!userService.changePassword(oldpassword, newpassword, confirmpassword)) {
 			return "user/changepassword";
