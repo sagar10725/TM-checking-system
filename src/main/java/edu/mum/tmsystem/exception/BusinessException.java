@@ -19,6 +19,10 @@ public class BusinessException extends Exception {
 		this.errorCode = errorCode;
 		this.message = exceptionCause;
 	}
+	
+	public BusinessException( String exceptionCause) {
+		this.message = exceptionCause;
+	}
 
 	public BusinessException(String errorCode, Throwable e) {
 		super(errorCode, e);
