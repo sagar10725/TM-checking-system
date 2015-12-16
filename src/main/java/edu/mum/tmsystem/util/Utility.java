@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import edu.mum.tmsystem.exception.BusinessException;
 
 public class Utility {
+	public static final String ROOT_FOLDER = System.getProperty("catalina.home");
+	public static final String TM_DOCS_FOLDER = "/tm_docs";
 	private static Logger logger = Logger.getLogger(Utility.class);
 
 	public static void logError(Logger log, String message, Exception e) {
