@@ -6,7 +6,7 @@ function changeStudentStatus(id) {
 	alert(statusType);
 	$.ajax({
 		type : 'POST',
-		url : '/tmsystem/admin/verifyStudents/' + id + '?status=' + statusType,
+		url : '/tmsystem/admin/student/verify/' + id + '?status=' + statusType,
 		dataType : 'json',
 		contentType : 'application/json',
 
@@ -51,56 +51,6 @@ function showRooms() {
 
 	});
 
-}
-
-function saveRoom() {
-	var dataToSend = JSON.stringify(serializeObject($('#roomForm')));
-	var pathname = window.location.pathname;
-
-	$
-			.ajax({
-				type : 'POST',
-				url : pathname,
-				dataType : 'json',
-				data : dataToSend,
-				contentType : 'application/json',
-
-				success : function(employee) {
-					$('#formInput').html("");
-					$("#formInput").append('<H3 align="center"> Room <H3>');
-					$('#formInput').append(
-							"<H4 align='center'>Room Number:  "
-									+ room.roomNumber + "</h4>");
-					$("#formInput")
-							.append(
-									'<h4 align="center"> <a href="#" onclick="toggle_visibility(\'formInput\');resetForm(\'employeeForm\');"><b>EXIT</b> </a> </h4>');
-					make_visible('formInput');
-					make_hidden('errors');
-				},
-
-				error : function(errorObject) {
-
-					if (errorObject.responseJSON.errorType == "ValidationError") {
-						$('#success').html("");
-						$("#errors").append(
-								'<H3 align="center"> Error(s)!! <H3>');
-						$("#result").append('<p>');
-
-						var errorList = errorObject.responseJSON.errors;
-						$.each(errorList, function(i, error) {
-							$("#errors").append(error.message + '<br>');
-						});
-						$("#errors").append('</p>');
-						$('#result').show();
-					} else {
-						alert(errorObject.responseJSON.errors(0)); // "non" Validation Error
-					}
-					make_visible('errors');
-					make_hidden('formInput');
-
-				}
-
-			});
 }
 
 toggle_visibility = function(id) {
