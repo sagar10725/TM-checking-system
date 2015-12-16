@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <h2>User List</h2>
@@ -20,6 +20,7 @@
 				<th class="table-header-repeat line-left"><a href="#">User
 						Name</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Email</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Role</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Status</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Options</a></th>
 			</tr>
@@ -30,17 +31,21 @@
 						<td>${count.count}</td>
 						<td>${user.name}</td>
 						<td>${user.email}</td>
-						<td>${user.status}</td>	
+						<td><c:choose>
+								<c:when test="${empty user.student}">
+        TM Checker
+    </c:when>
+								<c:otherwise>
+        Student
+    </c:otherwise>
+							</c:choose></td>
+						<td>${user.status}</td>
 						<td><a
-							href="<spring:url value='/admin/user/changestatus/${user.id}?status=INACTIVE' />"
-							>InActive</a>
+							href="<spring:url value='/admin/user/changestatus/${user.id}?status=INACTIVE' />">InActive</a>
 							<a
-							href="<spring:url value='/admin/user/changestatus/${user.id}?status=ACTIVE' />"
-							>Active</a>
+							href="<spring:url value='/admin/user/changestatus/${user.id}?status=ACTIVE' />">Active</a>
 							<a
-							href="<spring:url value='/admin/user/changestatus/${user.id}?status=DISABLED' />"
-							>Disabled</a>
-												
+							href="<spring:url value='/admin/user/changestatus/${user.id}?status=DISABLED' />">Disabled</a>
 					</tr>
 				</c:forEach>
 			</tbody>
