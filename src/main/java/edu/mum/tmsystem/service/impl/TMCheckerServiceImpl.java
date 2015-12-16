@@ -38,4 +38,11 @@ public class TMCheckerServiceImpl implements ITMCheckerService {
 		
 	}
 
+	@Override
+	public TMChecker getTMCheckerFromUserID(Long userId) {
+		return tmCheckerRepository.findTMCheckerByUserId(userId);
+	}
+	
+	
+
 }
