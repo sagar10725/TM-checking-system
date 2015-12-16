@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.domain.UserRole;
@@ -62,7 +63,10 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public User getUserProfileById(Long id) {
-		return userRepository.findOne(id);
+		User user = userRepository.findOne(id);
+		if(user.getImagePath() != null)
+			user.setImageFile(Base64Utils.encodeToString(Utility.getImageFromPath(user.getImagePath())));
+		return user;
 	}
 
 	@Override

@@ -40,14 +40,14 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@NotEmpty(message = "Username Cannot Be An Empty Field")
+	//@NotEmpty(message = "Username Cannot Be An Empty Field")
 	@Size(min = 4, max = 16, message = "{Size.user.username.validation}")
 	private String username;
 	
-	@NotEmpty(message = "You must enter password")
+	//@NotEmpty(message = "You must enter password")
 	private String password;
 	
-	@NotEmpty(message = "Enter your Name")
+	//@NotEmpty(message = "Enter your Name")
 	@Size(min = 4, max = 16, message = "{Size.user.name.validation}")
 	private String name;
 	
@@ -70,6 +70,9 @@ public class User implements Serializable {
 	@Transient
 	@JsonIgnore
 	private MultipartFile profileImage;
+	
+	@Transient
+	private String imageFile;
 
 	public Long getId() {
 		return id;
@@ -160,4 +163,12 @@ public class User implements Serializable {
 		this.imagePath = imagePath;
 	}
 
+	public String getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
+	}
+	
 }

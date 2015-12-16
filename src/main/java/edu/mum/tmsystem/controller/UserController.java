@@ -20,6 +20,7 @@ import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.service.IUserService;
 import edu.mum.tmsystem.util.SessionManager;
+import edu.mum.tmsystem.util.Utility;
 
 @Controller
 @RequestMapping("/user")
@@ -92,7 +93,8 @@ public class UserController {
 		 * fullPath = "resources"+ File.separator +"images" + File.separator +
 		 * updateUser.getId() + ".png";
 		 */
-		String fullPath = "\\resources\\images\\" + updateUser.getId() + ".png";
+		//String fullPath = Utility.ROOT_FOLDER + File.separator+ Utility.TM_DOCS_FOLDER+ "\\resources\\images\\" + updateUser.getId() + ".png";
+		String fullPath = rootDirectory + "\\resources\\images\\" + updateUser.getId() + ".png";
 
 		try {
 			profileImage.transferTo(new File(fullPath));

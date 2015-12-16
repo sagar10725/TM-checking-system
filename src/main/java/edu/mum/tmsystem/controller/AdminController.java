@@ -142,7 +142,7 @@ public class AdminController {
 	@RequestMapping(value = "/student/verify/{id}", method = RequestMethod.POST)
 	// public String verifyStudentList(@PathVariable("id") Long id,
 	// @RequestParam("status") StatusType status, Model model){
-	public @ResponseBody Student verifyStudentList(@PathVariable("id") Long id,
+	public @ResponseBody Boolean verifyStudentList(@PathVariable("id") Long id,
 			@RequestParam("status") StatusType status, Model model) {
 		Student studentToVerify = studentService.getStudent(id);
 		User UserToVerify = userService.getUserById(studentToVerify.getUser()
@@ -150,7 +150,7 @@ public class AdminController {
 		UserToVerify.setStatus(status);
 		System.out.println("Status" + studentToVerify.getUser().getStatus());
 		userService.updateStudent(UserToVerify);
-		return studentToVerify;
+		return true;
 	}
 	
 	@RequestMapping(value = "student/list", method = RequestMethod.GET)

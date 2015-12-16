@@ -1,5 +1,7 @@
 package edu.mum.tmsystem.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Date;
 import java.util.UUID;
 
@@ -52,6 +54,22 @@ public class Utility {
 	
 	public static Date getCurrentDateTime(){
 		return new Date();
+	}
+	
+	public static byte[] getImageFromPath(String path) {
+		// save image into database
+		File file = new File(path);
+		byte[] bFile = new byte[(int) file.length()];
+
+		try {
+			FileInputStream fileInputStream = new FileInputStream(file);
+			// convert file into array of bytes
+			fileInputStream.read(bFile);
+			fileInputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bFile;
 	}
 
 }

@@ -20,7 +20,7 @@
 				<th>Details Info:</th>
 			</tr>
 			<tr>
-				<td rowspan="5"><img src="<c:url value="${user.imagePath}"></c:url>" /></td>
+				<td rowspan="5"><img src='data:image/jpg;base64,${user.imageFile}' width="200px" height = "100"/></td>
 				<td><b>Student Id : :</b> ${user.student.studentId}</td>
 
 			</tr>
