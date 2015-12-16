@@ -48,7 +48,7 @@ public class TMHistoryServiceImpl implements ITMHistoryService{
 	}
 
 	@Override
-	public void deleteHistoryById(Long id) {
+	public void deleteHistoryById(Integer id) {
 		// TODO Auto-generated method stub
 		tmHistoryRepository.delete(id);
 	}
@@ -75,6 +75,14 @@ public class TMHistoryServiceImpl implements ITMHistoryService{
 		User loggedUser = userService.getUserByUsername(Utility.getLoggedInUserName());
 		TMChecker tmchecker = tmCheckerService.getTMCheckerFromUserID(loggedUser.getId());
 		tmHistory.setCheckedBy(tmchecker);
+		tmHistoryRepository.save(tmHistory);
+		
+	}
+
+	@Override
+	public void changeStatus(Integer id, TMStatusType status) {
+		TMHistory tmHistory = tmHistoryRepository.findOne(id);
+		tmHistory.setStatus(status);
 		tmHistoryRepository.save(tmHistory);
 		
 	}

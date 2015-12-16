@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +24,8 @@ import edu.mum.tmsystem.domain.Room;
 import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.TMHistory;
 import edu.mum.tmsystem.enums.CheckingType;
+import edu.mum.tmsystem.enums.StatusType;
+import edu.mum.tmsystem.enums.TMStatusType;
 import edu.mum.tmsystem.exception.BusinessException;
 import edu.mum.tmsystem.service.IAvailableEntryService;
 import edu.mum.tmsystem.service.IBuildingService;
@@ -130,6 +133,19 @@ public class TMCheckerController {
 		}
 		tmHistoryService.addNewChecking(tmHistory);
 		return "redirect:/tmchecker/viewsignups";
+	}
+	
+	@RequestMapping(value = "/changetmstatus", method = RequestMethod.GET)
+	public String getSignUpsStatus(Model model) {
+		model.addAttribute("tmHistories", tmHistoryService.getAllHistory());
+		return "tmchecker/changeTmStatus";
+	}
+	
+
+	@RequestMapping(value = "/changetmstatus/{id}", method = RequestMethod.GET)
+	public String processSignUpsStatus(@PathVariable("id") Integer id, @RequestParam("status") TMStatusType status, Model model) {
+		tmHistoryService.changeStatus(id, status);
+		return "redirect:/tmchecker/changetmstatus";
 	}
 
 	/*
