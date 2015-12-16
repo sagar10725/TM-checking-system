@@ -66,7 +66,7 @@ public class AvailableEntryServiceImpl implements IAvailableEntryService{
 		TMChecker tmChecker = tmCheckerService.getTMCheckerFromUserID(SessionManager.getUserID());
 		availableEntry.setAddedBy(tmChecker);
 		DefaultCheckingSeats defaultCheckingSeats = defaultCheckingSeatsService.getDefaultCheckingSeatsByCheckingType(availableEntry.getCheckingType());
-		availableEntry.setAvailableSeats(defaultCheckingSeats.getNumberOfSeats());
+		availableEntry.setAvailableSeats(defaultCheckingSeats.getNumberOfSeats() * availableEntry.getCheckingTimes().length);
 		Set<CheckingHours> checkingHoursSets = new HashSet<CheckingHours>();
 		for(String checkingTime : availableEntry.getCheckingTimes()){
 			CheckingHours checkingHours = new CheckingHours();
@@ -77,6 +77,11 @@ public class AvailableEntryServiceImpl implements IAvailableEntryService{
 		availableEntry.setCheckingHours(checkingHoursSets);
 		availableEntryRepository.save(availableEntry);
 		
+	}
+	
+	@Override
+	public List<AvailableEntry> getAllAvailableEntriesWithAvailableSeats(){
+		return availableEntryRepository.getAllAvailableEntriesWithAvailableSeats();
 	}
 
 }

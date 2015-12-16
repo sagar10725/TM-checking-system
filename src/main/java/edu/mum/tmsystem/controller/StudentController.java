@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.mum.tmsystem.domain.Student;
+import edu.mum.tmsystem.service.IAvailableEntryService;
 import edu.mum.tmsystem.service.IStudentService;
 
 @Controller
@@ -19,6 +20,9 @@ public class StudentController {
 
 	@Autowired
 	IStudentService studentService;
+	
+	@Autowired
+	IAvailableEntryService availableEntryService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getStrudent(Model model) {
@@ -32,5 +36,17 @@ public class StudentController {
 		studentService.deleteStudentById(id);
 		return "student/studentDetails";
 	}
+	
+	@RequestMapping(value = "/available_dates", method = RequestMethod.GET)
+	public String getListOfAvailableDates(Model model) {
+		model.addAttribute("availableEntries", availableEntryService.getAllAvailableEntriesWithAvailableSeats());
+		return "student/signupfortm";
+	}
+	
+	@RequestMapping(value = "/signupfortm/{checkingHourId}", method = RequestMethod.POST)
+	public String signUpForTM(@PathVariable("checkingHourId") Integer checkingHourId) {
+		return "student/signupfortm";
+	}
+	
 
 }
