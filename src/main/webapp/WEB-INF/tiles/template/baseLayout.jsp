@@ -45,7 +45,9 @@
 <![if !IE 7]>
 
 <!--  styled select box script version 1 -->
-<script src="js/jquery/jquery.selectbox-0.5.js" type="text/javascript"></script>
+<script
+	src="<spring:url value="/resources/template/js/jquery/jquery.selectbox-0.5.js" />"
+	type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.styledselect').selectbox({
