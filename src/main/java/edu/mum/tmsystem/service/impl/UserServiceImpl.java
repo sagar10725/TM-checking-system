@@ -1,6 +1,7 @@
 package edu.mum.tmsystem.service.impl;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,19 @@ public class UserServiceImpl implements IUserService {
 		userRole.setRole(roleRepository.getRoleFromRoleName(RoleType.ROLE_TMCHECKER));
 		userRole.setUser(user);
 		user.setUserRoles(Arrays.asList(userRole));
+		userRepository.save(user);
+		
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		return (List<User>) userRepository.findAll();
+	}
+
+	@Override
+	public void changeStatus(Long id, StatusType status) {
+		User user = userRepository.findOne(id);
+		user.setStatus(status);
 		userRepository.save(user);
 		
 	}
