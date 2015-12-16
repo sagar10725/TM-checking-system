@@ -48,4 +48,9 @@ public class StudentServiceImpl implements IStudentService {
 		return studentRepository.getStudentByUserId(id);
 	}
 
+	@Override
+	public Student getStudentById(Long id) {
+		return (Student) studentRepository.findOne(id);
+	}
+
 }

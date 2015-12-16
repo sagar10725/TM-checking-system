@@ -45,7 +45,7 @@
 							<a
 							href="<spring:url value='/admin/user/changestatus/${user.id}?status=ACTIVE' />">Active</a>
 							<a
-							href="<spring:url value='/admin/user/changestatus/${user.id}?status=DISABLED' />">Disabled</a>
+							href="<spring:url value='/admin/user/changestatus/${user.id}?status=DISABLED' />">Disabled</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
