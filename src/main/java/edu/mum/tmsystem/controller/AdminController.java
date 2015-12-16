@@ -108,10 +108,10 @@ public class AdminController {
 		return "redirect:/admin/building/list";
 	}
 
-	@ModelAttribute("checking")
-	public CheckingType[] checkingType() {
-		return CheckingType.values();
-	}
+//	@ModelAttribute("checking")
+//	public CheckingType[] checkingType() {
+//		return CheckingType.values();
+//	}
 
 	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.GET)
 	public String getDefaultChekingSeats(
