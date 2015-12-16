@@ -1,14 +1,11 @@
 package edu.mum.tmsystem.service.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mum.tmsystem.domain.Role;
 import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.domain.UserRole;
 import edu.mum.tmsystem.enums.RoleType;
@@ -52,6 +49,18 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void updateStudent(User user) {
+		userRepository.save(user);
+		
+	}
+
+	@Override
+	public void addNewTmChecker(User user) {
+		user.setPassword(Utility.encryptPassword(user.getPassword()));
+		user.setStatus(StatusType.ACTIVE);
+		UserRole userRole = new UserRole();
+		userRole.setRole(roleRepository.getRoleFromRoleName(RoleType.ROLE_TMCHECKER));
+		userRole.setUser(user);
+		user.setUserRoles(Arrays.asList(userRole));
 		userRepository.save(user);
 		
 	}

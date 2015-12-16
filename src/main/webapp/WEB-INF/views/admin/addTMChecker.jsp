@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <h2>Add TM Checker</h2><hr>
-<form:form method="post" modelAttribute="tmchecker" action="/admin/tmchecker/add">
+<form:form method="post" modelAttribute="tmchecker" >
 		<table>
 			<tr>
 				<td colspan="2"><form:errors path="*" class="error" /></td>

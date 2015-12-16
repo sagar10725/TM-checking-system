@@ -12,4 +12,6 @@ public interface IUserService {
 
 	public void updateStudent(User user);
 
+	public void addNewTmChecker(User user);
+
 }

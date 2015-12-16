@@ -167,26 +167,33 @@ public class AdminController {
 	@RequestMapping(value = { "/tmchecker/add" }, method = RequestMethod.POST)
 	public String processNewTmChecker(
 			@ModelAttribute("tmchecker") TMChecker tmchecker,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult,
+			RedirectAttributes redirectAtriAttributes, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "admin/addTMChecker";
 		}
 		tmCheckerService.addNewTmChecker(tmchecker);
+		// userService.addNewTmChecker(tmchecker.getUser());
 		return "redirect:/admin/tmchecker/list";
 	}
-	
+
 	@RequestMapping(value = { "/tmchecker", "/tmchecker/list" }, method = RequestMethod.GET)
 	public String showTmCheckerList(Model model) {
 		List<TMChecker> tmCheckers = tmCheckerService.getAllTmCheckers();
 		model.addAttribute("tmCheckers", tmCheckers);
-		return "admin/tmchecker/list";
+		return "admin/listTMChecker";
 	}
-	
+
 	@RequestMapping(value = { "/tmchecker/disable/{id}" }, method = RequestMethod.GET)
-	public String deleteTmChecker(@PathVariable("id") Integer id) {		
+	public String disableTmChecker(@PathVariable("id") Integer id) {
 		tmCheckerService.disableTmCheckerById(id);
 		return "redirect:/admin/tmchecker/list";
 	}
-	
-	
+
+	@RequestMapping(value = { "/tmchecker/enable/{id}" }, method = RequestMethod.GET)
+	public String EnableTmChecker(@PathVariable("id") Integer id) {
+		tmCheckerService.enableTmCheckerById(id);
+		return "redirect:/admin/tmchecker/list";
+	}
+
 }
