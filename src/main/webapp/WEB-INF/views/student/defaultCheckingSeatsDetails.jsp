@@ -3,40 +3,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Student List</title>
+<title>Default Checking Seats Detail</title>
 </head>
 <body>
 	<form>
 		<fieldset>
-			<legend>List of Students :</legend>
+			<legend>list of Default Checking</legend>
 			<table>
 				<tr>
-					<th>Student Id</th>
-					<th>Student Name</th>
-					<th>Email</th>
-					<th>Entry Date</th>
-					<th>User Name</th>
+					<th>Checking Type</th>
+					<th>Number Of Seats</th>
+					
 				</tr>
-				<c:forEach items="${studentList}" var="student">
+				<c:forEach items="${checkingSeats}" var="seats">
 					<tr>
 						<td><c:out value="${student.studentId}"></c:out></td>
 						<td><c:out value="${student.user.name}"></c:out></td>
-						<td><c:out value="${student.user.email}"></c:out></td>
-						<td><c:out value="${student.entryMonth}"></c:out>, <c:out
-								value="${student.entryYear}"></c:out></td>
-						<td><c:out value="${student.user.username }"></c:out></td>						
+						
+						
 					</tr>
 				</c:forEach>
 			</table>
 		</fieldset>
 
 	</form>
-
-
 </body>
 </html>

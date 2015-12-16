@@ -1,14 +1,11 @@
 package edu.mum.tmsystem.service.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mum.tmsystem.domain.Role;
 import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.domain.UserRole;
 import edu.mum.tmsystem.enums.RoleType;
@@ -21,13 +18,12 @@ import edu.mum.tmsystem.util.Utility;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
-	
+
 	@Autowired
 	IUserRepository userRepository;
 
 	@Autowired
 	IRoleRepository roleRepository;
-
 
 	@Override
 	public void saveStudent(User user) {
@@ -45,6 +41,14 @@ public class UserServiceImpl implements IUserService {
 		return userRepository.getUserFromUsername(username);
 	}
 
-	
+	@Override
+	public User getUserProfileById(Long id) {
+		return userRepository.findOne(id);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userRepository.save(user);
+	}
 
 }
