@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,19 +65,18 @@ public class TMCheckerController {
 			return "tmchecker/available_checking";
 		}
 		
-		if(availableEntry.getRoom() == null){
-			throw new BusinessException("Room must be chosen");
+		
+		if(availableEntry.getRoom() == null || availableEntry.getRoom().getId() == null){
+			ObjectError objectError = new ObjectError("room", "Room must be chosen");
+			result.addError(objectError);
+			return "tmchecker/available_checking";
 		}
-		if(availableEntry.getRoom().getId() == null){
-			throw new BusinessException("Room must be chosen");
-		}
-
 		List<Building> buildings = buildingService.getAllBuildings();
 		model.addAttribute("buildings", buildings);
 
 		availableEntryService.saveAvailableEntry(availableEntry);
 		redirectAttributes.addFlashAttribute("saveMessage", "Entry has been saved successfully");
-		return "redirect:/available_dates/add";
+		return "redirect:add";
 	}
 
 	/*
