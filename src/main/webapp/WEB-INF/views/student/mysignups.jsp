@@ -25,6 +25,7 @@
 				<th>Checking Date</th>
 				<th>Building</th>
 				<th>Room</th>
+				<th>Checked By</th>
 				<th>Status</th>
 			</tr>
 		</thead>
@@ -37,6 +38,9 @@
 								value="${tmHistory.checkingHours.checkingDate}" /></td>
 					<td>${tmHistory.room.building.buildingName}</td>
 					<td>${tmHistory.room.roomNumber}</td>
+					<td><c:if test="${tmHistory.checkedBy != null}">
+					${tmHistory.checkedBy.user.name}
+					</c:if></td>
 					<td>${tmHistory.status}</td>
 					<%-- <td>${availableEntry.room.roomNumber}</td>
 					<td>${availableEntry.addedBy.user.name}</td>
