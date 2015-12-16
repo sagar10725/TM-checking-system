@@ -20,10 +20,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.mum.tmsystem.domain.AvailableEntry;
 import edu.mum.tmsystem.domain.Building;
 import edu.mum.tmsystem.domain.Room;
+import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.enums.CheckingType;
 import edu.mum.tmsystem.exception.BusinessException;
 import edu.mum.tmsystem.service.IAvailableEntryService;
 import edu.mum.tmsystem.service.IBuildingService;
+import edu.mum.tmsystem.service.ITMHistoryService;
+import edu.mum.tmsystem.util.SessionManager;
 
 @Controller
 @RequestMapping("/tmchecker")
@@ -34,6 +37,9 @@ public class TMCheckerController {
 
 	@Autowired
 	IAvailableEntryService availableEntryService;
+	
+	@Autowired
+	ITMHistoryService tmHistoryService;
 
 	@ModelAttribute("checkingtype")
 	private CheckingType[] checkingtype() {
@@ -77,6 +83,12 @@ public class TMCheckerController {
 		availableEntryService.saveAvailableEntry(availableEntry);
 		redirectAttributes.addFlashAttribute("saveMessage", "Entry has been saved successfully");
 		return "redirect:add";
+	}
+	
+	@RequestMapping(value = "/viewsignups", method = RequestMethod.GET)
+	public String getAllSignUps(Model model) {
+		model.addAttribute("tmHistories", tmHistoryService.getAllHistory());
+		return "tmchecker/allsignups";
 	}
 
 	/*
