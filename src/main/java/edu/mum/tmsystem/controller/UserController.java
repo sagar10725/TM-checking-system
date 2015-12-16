@@ -67,11 +67,12 @@ public class UserController {
 		
 		MultipartFile profileImage = updateUser.getProfileImage();
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-		System.out.println(profileImage.getOriginalFilename());
-		String fullPath = rootDirectory + File.separator+"resources"+ File.separator +"image" + updateUser.getId() + ".png";
+		/*System.out.println(profileImage.getOriginalFilename());
+		String fullPath = "resources"+ File.separator +"images" + File.separator + updateUser.getId() + ".png";*/
+		String fullPath = "\\resources\\images\\"+ updateUser.getId() + ".png";
 		try {
 			profileImage
-					.transferTo(new File(fullPath));
+					.transferTo(new File(rootDirectory+fullPath));
 		} catch (Exception e) {
 			throw new RuntimeException("Product Image saving failed", e);
 		}

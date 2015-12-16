@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.mum.tmsystem.domain.Student;
+import edu.mum.tmsystem.exception.BusinessException;
 import edu.mum.tmsystem.service.IAvailableEntryService;
 import edu.mum.tmsystem.service.ICheckingHoursService;
 import edu.mum.tmsystem.service.IStudentService;
@@ -54,7 +55,7 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value = "/signupfortm/{checkingHourId}", method = RequestMethod.POST)
-	public @ResponseBody Boolean signUpForTM(@PathVariable("checkingHourId") Integer checkingHourId) {
+	public @ResponseBody Boolean signUpForTM(@PathVariable("checkingHourId") Integer checkingHourId) throws BusinessException {
 		checkingHoursService.signUpForGivenCheckingHour(checkingHourId);
 		return true;
 	}

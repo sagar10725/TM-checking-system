@@ -142,7 +142,7 @@ function serializeObject(form) {
 function signupForTM(checkingHourId) {
 	$.ajax({
 		type : 'POST',
-		url : "/tmsystem/student/signupfortm/" + checkingHourId,
+		url : "/tmsystem/student/signupfortm/" + 1,
 		dataType : 'json',
 		contentType : 'application/json',
 
@@ -153,7 +153,17 @@ function signupForTM(checkingHourId) {
 
 		error : function(errorObject) {
 			console.log(errorObject);
-			alert("Something wrong happened. Please try again later");
+			if (errorObject.responseJSON.errorType == "BusinessError") {
+	  			    var errorList = errorObject.responseJSON.errors;
+	  			    var errorData = "";
+	 	 	        $.each(errorList,  function(i,error) {			   
+	 		    		errorData +=  error.message + "\n";
+			    	});
+	 	 	        alert(errorData);
+			}
+			else {
+				alert(errorObject.responseJSON.errors(0));   // "non" BusinessError Error
+			}
 
 		}
 
