@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.mum.tmsystem.domain.Building;
 import edu.mum.tmsystem.domain.DefaultCheckingSeats;
 import edu.mum.tmsystem.domain.Room;
 import edu.mum.tmsystem.domain.Student;
+import edu.mum.tmsystem.domain.TMChecker;
 import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.enums.CheckingType;
 import edu.mum.tmsystem.enums.StatusType;
@@ -28,6 +28,7 @@ import edu.mum.tmsystem.service.IBuildingService;
 import edu.mum.tmsystem.service.IDefaultCheckingSeatsService;
 import edu.mum.tmsystem.service.IRoomService;
 import edu.mum.tmsystem.service.IStudentService;
+import edu.mum.tmsystem.service.ITMCheckerService;
 import edu.mum.tmsystem.service.IUserService;
 
 @Controller
@@ -42,7 +43,9 @@ public class AdminController {
 	IStudentService studentService;
 	@Autowired
 	IUserService userService;
-	
+	@Autowired
+	ITMCheckerService tmCheckerService;
+
 	@Autowired
 	IDefaultCheckingSeatsService defaultCheckingSeatsService;
 
@@ -50,7 +53,7 @@ public class AdminController {
 	public String loadLandingPage(Model model) {
 		return "admin/home";
 	}
-	
+
 	@RequestMapping(value = { "/building", "/building/list" }, method = RequestMethod.GET)
 	public String showBuildingList(Model model) {
 		List<Building> buildings = buildingService.getAllBuildings();
@@ -68,7 +71,7 @@ public class AdminController {
 		buildingService.deleteBuilding(id);
 		return "redirect:/admin/building/list";
 	}
-	
+
 	@RequestMapping(value = { "/building/add" }, method = RequestMethod.POST)
 	public String ProcessNewBuilding(
 			@Valid @ModelAttribute("building") Building building,
@@ -81,9 +84,9 @@ public class AdminController {
 		redirectAtriAttributes.addFlashAttribute("building", building);
 		return "redirect:/admin/building/list";
 	}
-	
+
 	@RequestMapping(value = { "/room/add" }, method = RequestMethod.GET)
-	public String addNewRoom(Model model) {		
+	public String addNewRoom(Model model) {
 		List<Building> buildings = buildingService.getAllBuildings();
 		model.addAttribute("buildings", buildings);
 		model.addAttribute("room", new Room());
@@ -91,60 +94,99 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = { "/room/add" }, method = RequestMethod.POST)
-	public String ProcessNewRoom(
-			@Valid @ModelAttribute("room") Room room,
+	public String ProcessNewRoom(@Valid @ModelAttribute("room") Room room,
 			BindingResult bindingResult,
 			RedirectAttributes redirectAtriAttributes, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "admin/addRoom";
 		}
-//		Building building = buildingService.getBuildingOne(room.getBuilding().getId());
-//		building.getRooms().add(room);
-//		buildingService.addNewBuilding(building);
+		// Building building =
+		// buildingService.getBuildingOne(room.getBuilding().getId());
+		// building.getRooms().add(room);
+		// buildingService.addNewBuilding(building);
 		roomService.addNewRoom(room);
 		return "redirect:/admin/building/list";
 	}
-	
+
 	@ModelAttribute("checking")
-	public CheckingType[] checkingType(){
+	public CheckingType[] checkingType() {
 		return CheckingType.values();
 	}
+
 	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.GET)
-	public String getDefaultChekingSeats(@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats) {
+	public String getDefaultChekingSeats(
+			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats) {
 		return "student/defaultCheckingSeats";
 
 	}
 
 	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.POST)
-	public String saveDefaultChekingSeats(@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats) {
-		
+	public String saveDefaultChekingSeats(
+			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats) {
+
 		defaultCheckingSeatsService.saveCheckingSeats(defaultCheckingSeats);
 		return "student/defaultCheckingSeats";
 
 	}
-	
-	@RequestMapping(value="/verifyStudents", method=RequestMethod.GET)
-	public String getStudentList(Model model){
-		List<Student> newStudents = studentService.getStudentsByStatus(StatusType.INACTIVE);
+
+	@RequestMapping(value = "/verifyStudents", method = RequestMethod.GET)
+	public String getStudentList(Model model) {
+		List<Student> newStudents = studentService
+				.getStudentsByStatus(StatusType.INACTIVE);
 		model.addAttribute("newStudents", newStudents);
 		model.addAttribute("statusType", StatusType.values());
 		return "admin/verifyStudents";
 	}
-	
-	@RequestMapping(value="/verifyStudents/{id}", method=RequestMethod.POST)
-//	public String verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
-	public @ResponseBody Student verifyStudentList(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model){
+
+	@RequestMapping(value = "/verifyStudents/{id}", method = RequestMethod.POST)
+	// public String verifyStudentList(@PathVariable("id") Long id,
+	// @RequestParam("status") StatusType status, Model model){
+	public @ResponseBody Student verifyStudentList(@PathVariable("id") Long id,
+			@RequestParam("status") StatusType status, Model model) {
 		Student studentToVerify = studentService.getStudent(id);
-		User UserToVerify = userService.getUserById(studentToVerify.getUser().getId());
+		User UserToVerify = userService.getUserById(studentToVerify.getUser()
+				.getId());
 		UserToVerify.setStatus(status);
 		System.out.println("Status" + studentToVerify.getUser().getStatus());
 		userService.updateStudent(UserToVerify);
 		return studentToVerify;
 	}
-	
+
 	@RequestMapping(value = "/student/delete/{id}", method = RequestMethod.GET)
 	public String deleteStudent(@PathVariable("id") Long id) {
 		studentService.deleteStudentById(id);
 		return "redirect:/admin/verifyStudents";
 	}
+
+	@RequestMapping(value = { "/tmchecker/add" }, method = RequestMethod.GET)
+	public String addNewTmChecker(
+			@ModelAttribute("tmchecker") TMChecker tmchecker) {
+		return "admin/addTMChecker";
+	}
+
+	@RequestMapping(value = { "/tmchecker/add" }, method = RequestMethod.POST)
+	public String processNewTmChecker(
+			@ModelAttribute("tmchecker") TMChecker tmchecker,
+			BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "admin/addTMChecker";
+		}
+		tmCheckerService.addNewTmChecker(tmchecker);
+		return "redirect:/admin/tmchecker/list";
+	}
+	
+	@RequestMapping(value = { "/tmchecker", "/tmchecker/list" }, method = RequestMethod.GET)
+	public String showTmCheckerList(Model model) {
+		List<TMChecker> tmCheckers = tmCheckerService.getAllTmCheckers();
+		model.addAttribute("tmCheckers", tmCheckers);
+		return "admin/tmchecker/list";
+	}
+	
+	@RequestMapping(value = { "/tmchecker/disable/{id}" }, method = RequestMethod.GET)
+	public String deleteTmChecker(@PathVariable("id") Integer id) {		
+		tmCheckerService.disableTmCheckerById(id);
+		return "redirect:/admin/tmchecker/list";
+	}
+	
+	
 }
