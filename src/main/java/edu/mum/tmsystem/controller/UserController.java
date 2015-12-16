@@ -68,7 +68,7 @@ public class UserController {
 		MultipartFile profileImage = updateUser.getProfileImage();
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 		System.out.println(profileImage.getOriginalFilename());
-		String fullPath = rootDirectory + "\\resources\\images\\" + updateUser.getId() + ".png";
+		String fullPath = rootDirectory + File.separator+"resources"+ File.separator +"image" + updateUser.getId() + ".png";
 		try {
 			profileImage
 					.transferTo(new File(fullPath));
