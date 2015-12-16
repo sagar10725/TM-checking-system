@@ -18,42 +18,50 @@
 	<form:form method="post" modelAttribute="student" action="user">
 		<table>
 			<tr>
-				<td colspan="2"><form:errors path="*" class="error" /></td>
+				<td colspan="2"><form:errors path="*" class="error" cssStyle="color : red;"/></td>
 			</tr>
 			<tr>
 				<td>Student ID :</td>
 				<td><form:input path="studentId" /> <form:errors
-						path="studentId" class="error" /></td>
+						path="studentId" class="error" cssStyle="color : red;"/></td>
 			</tr>
 			<tr>
 				<td>Entry Year :</td>
 				<td><form:input path="entryYear" /> <form:errors
-						path="entryYear" class="error" /></td>
+						path="entryYear" class="error" cssStyle="color : red;"/></td>
 			</tr>
 			<tr>
 				<td>Entry Month :</td>
-				<td><form:input path="entryMonth" /> <form:errors
-						path="entryMonth" class="error" /></td>
+				<td> 
+				<select name="entryMonth">
+      	 
+       			 <option value="february">february
+      	 		 <option value="may">may
+       			 <option value="june">june
+       	 		 <option value="october">october
+   					 </select>
+				<form:errors
+						path="entryMonth" cssStyle="color : red;" /></td>
 			</tr>
 			<tr>
 				<td>Student Name :</td>
 				<td><form:input path="user.name" /> <form:errors
-						path="user.name" class="error" /></td>
+						path="user.name"  class="error" cssStyle="color : red;"/></td>
 			</tr>
 			<tr>
 				<td>Username :</td>
 				<td><form:input path="user.username" /> <form:errors
-						path="user.username" class="error" /></td>
+						path="user.username" class="error" cssStyle="color : red;"/></td>
 			</tr>
 			<tr>
 				<td>Password :</td>
-				<td><form:input path="user.password" /> <form:errors
-						path="user.password" class="error" /></td>
+				<td><form:password path="user.password" /> <form:errors
+						path="user.password" class="error" cssStyle="color : red;"/></td>
 			</tr>
 			<tr>
 				<td>Email :</td>
 				<td><form:input path="user.email" /> <form:errors
-						path="user.email" class="error" /></td>
+						path="user.email" class="error" cssStyle="color : red;"/></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="Save Changes" /></td>

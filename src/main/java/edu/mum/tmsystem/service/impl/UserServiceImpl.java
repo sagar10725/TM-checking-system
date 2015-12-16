@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.ValidationUtils;
 
 import edu.mum.tmsystem.domain.Role;
 import edu.mum.tmsystem.domain.User;
@@ -43,6 +44,37 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User getUserByUsername(String username) {
 		return userRepository.getUserFromUsername(username);
+	}
+
+	@Override
+	public boolean changePassword(String oldpassword, String newpassword, String confirmpassword) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("Oldpassword Password*********** :-"+ oldpassword );
+		if(!newpassword.equals(confirmpassword)){
+			//System.out.println("NewPassword Password*********** :-"+ newpassword  + "  " + confirmpassword );
+			return false;
+		}
+		
+		String username = Utility.getLoggedInUserName();
+		User user = userRepository.getUserFromUsername(username);
+		String password = user.getPassword();
+		try {
+			if(!Utility.matchPassword(oldpassword, password)){
+				
+				System.out.println("Inside Password*********** :-"+ newpassword  + "  " + confirmpassword );
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String changedpassword = newpassword;
+		System.out.println("changed Password*********** :-"+ changedpassword);
+		user.setPassword(Utility.encryptPassword(changedpassword));
+		userRepository.save(user);
+		
+		return true;
 	}
 
 	

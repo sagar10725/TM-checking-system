@@ -11,6 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import edu.mum.tmsystem.enums.StatusType;
 
@@ -20,10 +27,20 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotEmpty(message="Username Cannot Be An Empty Field")
+	@Size(min=4,max=16, message="{Size.user.username.validation}")
 	private String username;
+	@NotEmpty(message="You must enter password")
 	private String password;
+	@NotEmpty(message="Enter your Name")
+	@Size(min=4,max=16, message="{Size.user.name.validation}")
 	private String name;
+	@Email
 	private String email;
+	@Transient
+	private String newpassword;
+	@Transient
+	private String confirmpassword;
 	private StatusType status;
 	private String verificationCode;
 	private String profileImage;
@@ -31,7 +48,7 @@ public class User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<UserRole> userRoles;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)	
 	private Student student;
 
 	public Long getId() {
@@ -113,6 +130,7 @@ public class User {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+	
 
 	/*@Override
 	public String toString() {

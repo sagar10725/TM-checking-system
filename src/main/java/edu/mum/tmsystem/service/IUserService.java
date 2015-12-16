@@ -8,4 +8,10 @@ public interface IUserService {
 	
 	public User getUserByUsername(String username);
 
+	
+
+	public boolean changePassword(String oldpassword, String newpassword, String confirmpassword);
+	
+	
+
 }
