@@ -34,4 +34,9 @@ public class TMHistoryServiceImpl implements ITMHistoryService{
 		tmHistoryRepository.save(tmHistory);
 	}
 
+	@Override
+	public List<TMHistory> getAllHistoryByStudentID(Long studentId) {
+		return tmHistoryRepository.getTMHistoriesByStudentID(studentId);
+	}
+
 }
