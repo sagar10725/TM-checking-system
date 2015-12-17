@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <h2>Add New Room</h2>
 <hr>
 <h3>
@@ -16,7 +17,6 @@
 		<tr>
 			<td>Building: </td>
 			<td><form:select id="building" path="building.id">
-					<form:option value="0" label="--Select Building--" />
 					<form:options items="${buildings}" itemLabel="buildingName" itemValue="id" />
 				</form:select>
 				<form:errors path="building.id" cssStyle="color : red;"></form:errors></td>

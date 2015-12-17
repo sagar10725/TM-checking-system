@@ -98,6 +98,8 @@ public class AdminController {
 			BindingResult bindingResult,
 			RedirectAttributes redirectAtriAttributes, Model model) {
 		if (bindingResult.hasErrors()) {
+			List<Building> buildings = buildingService.getAllBuildings();
+			model.addAttribute("buildings", buildings);
 			return "admin/addRoom";
 		}
 		// Building building =

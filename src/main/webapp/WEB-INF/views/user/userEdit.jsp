@@ -8,9 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="application.name" text="TM Check" /></title>
-<style type="text/css">
-@import url(resources/css/style.css);
-</style>
 </head>
 <body>
 	<spring:message code="application.name" text="TM Check" />
@@ -18,38 +15,33 @@
 	<form:form modelAttribute="user" method="post" action="edit" enctype="multipart/form-data" >
 		<table>
 			<tr>
-				<td colspan="2"><form:errors path="*" class="error" /></td>
+				<td colspan="2"><form:errors path="*" cssStyle="color : red;" /></td>
 			</tr>
 			<tr>
 				<td>Student Id :</td>
 				<td><form:input path="student.studentId" value="${user.student.studentId}"/> <form:errors
-						path="student.entryYear" class="error" /></td>
+						path="student.entryYear" cssStyle="color : red;" /></td>
 				 
 			</tr>
 			 <tr>
 				<td>Entry Year :</td>
 				<td><form:input path="student.entryYear" value="${user.student.entryYear}" /> <form:errors
-						path="student.entryYear" class="error" /></td>
+						path="student.entryYear" cssStyle="color : red;" /></td>
 			</tr>
 			<tr>
 				<td>Entry Month :</td>
 				<td><form:input path="student.entryMonth" value="${user.student.entryMonth}" /> <form:errors
-						path="student.entryMonth" class="error" /></td>
+						path="student.entryMonth" cssStyle="color : red;" /></td>
 			</tr>
 			<tr>
 				<td>Student Name :</td>
 				<td><form:input path="name" value="${user.name}" /> <form:errors
-						path="name" class="error" /></td>
-			</tr>
-			<tr>
-				<td>Username :</td>
-				<td><form:input path="username" value="${user.username }" disabled="true" /> <form:errors
-						path="username" class="error" /></td>
+						path="name" cssStyle="color : red;"" /></td>
 			</tr>
 			<tr>
 				<td>Email :</td>
 				<td><form:input path="email" /> <form:errors
-						path="email" class="error" /></td>
+						path="email" cssStyle="color : red;" /></td>
 			</tr> 
 			<tr>
 			  <td> Profile Image: </td>

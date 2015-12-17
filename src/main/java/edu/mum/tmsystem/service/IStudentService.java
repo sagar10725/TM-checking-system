@@ -20,4 +20,6 @@ public interface IStudentService {
 	public Student getStudentByUserId(Long id);
 
 	public Student getStudentById(Long id);
+	
+	public Student getStudentByStudentID(String studentId);
 }
