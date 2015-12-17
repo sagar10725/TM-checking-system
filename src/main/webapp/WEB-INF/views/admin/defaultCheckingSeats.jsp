@@ -23,18 +23,18 @@
 
 			<tr>
 				<td>Checking Type:</td>
-				<td><form:select path="checkingType">
+				<td><form:select path="checkingType" name="checkingType" onchange="showCheckingSeats()">
 						<form:option value="0" label="Checking Type" />
 						<form:options items="${checking}" />
 					</form:select> <form:errors path="checkingType" class="error" /></td>
 			</tr>
 			<tr>
 				<td>Number of Seats :</td>
-				<td><form:input path="numberOfSeats" /> <form:errors
+				<td><form:input path="numberOfSeats" name="numberOfSeats"/> <form:errors
 						path="numberOfSeats" class="error" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Add" /></td>
+				<td colspan="2"><input type="submit" value="Change" /></td>
 			</tr>
 		</table>
 
