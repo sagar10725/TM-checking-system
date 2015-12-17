@@ -11,6 +11,7 @@ INSERT INTO `tmsystem`.`user` (`email`, `name`, `password`, `status`, `username`
 
 INSERT INTO `tmsystem`.`user_role` (`user_id`, `role_id`) VALUES ('2', '2');
 
+INSERT INTO `tmsystem`.`tmchecker` (`user_id`) VALUES ('1');
 INSERT INTO `tmsystem`.`tmchecker` (`user_id`) VALUES ('2');
 
 INSERT INTO `tmsystem`.`defaultchecking_seats` (`checkingType`, `number_of_seats`) VALUES ('INDIVIDUAL', '1');
