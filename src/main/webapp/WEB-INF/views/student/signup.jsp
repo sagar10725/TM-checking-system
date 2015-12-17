@@ -15,7 +15,7 @@
 <body>
 	<spring:message code="application.name" text="TM Check" />
 	<h1>Student Sign Up Form</h1>
-	<form:form method="post" modelAttribute="student" action="user">
+	<form:form method="post" modelAttribute="student" action="signup">
 		<table>
 			<tr>
 				<td colspan="2"><form:errors path="*" class="error" cssStyle="color : red;"/></td>

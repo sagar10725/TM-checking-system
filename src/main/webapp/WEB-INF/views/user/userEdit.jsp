@@ -36,7 +36,7 @@
 			<tr>
 				<td>Student Name :</td>
 				<td><form:input path="name" value="${user.name}" /> <form:errors
-						path="name" cssStyle="color : red;"" /></td>
+						path="name" cssStyle="color : red;" /></td>
 			</tr>
 			<tr>
 				<td>Email :</td>
