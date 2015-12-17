@@ -7,7 +7,7 @@
 
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/tmcheck/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_TMCHECKER')" />
+		<intercept-url pattern="/tmchecker/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_TMCHECKER')" />
 		<intercept-url pattern="/user/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_TMCHECKER', 'ROLE_STUDENT')" />
 		<access-denied-handler error-page="/access_denied" />
 		<form-login login-page="/login"
