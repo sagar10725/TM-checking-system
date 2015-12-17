@@ -20,8 +20,9 @@
 						Type</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Checking
 						Date</a></th>
-				<th class="table-header-repeat line-left"><a href="#">Building</a></th>
-				<th class="table-header-repeat line-left"><a href="#">Room</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Room & Building</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Student Name</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Student ID</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Status</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Option</a></th>
 			</tr>
@@ -33,8 +34,9 @@
 						<td>${tmHistory.checkingType}</td>
 						<td><fmt:formatDate type="both"
 								value="${tmHistory.checkingHours.checkingDate}" /></td>
-						<td>${tmHistory.room.building.buildingName}</td>
-						<td>${tmHistory.room.roomNumber}</td>
+						<td>${tmHistory.room.building.buildingName}, ${tmHistory.room.roomNumber}</td>
+						<td>${tmHistory.student.user.name}</td>
+						<td>${tmHistory.student.studentId}</td>
 						<td>${tmHistory.status}</td>
 						<td><a
 							href="<spring:url value='/tmchecker/changetmstatus/${tmHistory.id}?status=PENDING' />">PENDING</a> -
