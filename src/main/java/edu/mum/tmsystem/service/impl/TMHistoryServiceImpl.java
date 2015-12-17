@@ -3,6 +3,7 @@ package edu.mum.tmsystem.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,6 +65,7 @@ public class TMHistoryServiceImpl implements ITMHistoryService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_TMCHECKER')")
 	public void addNewChecking(TMHistory tmHistory) {
 
 		Student student = studentService.getStudentById(tmHistory.getStudent()
@@ -83,6 +85,7 @@ public class TMHistoryServiceImpl implements ITMHistoryService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_TMCHECKER')")
 	public void changeStatus(Integer id, TMStatusType status) {
 		TMHistory tmHistory = tmHistoryRepository.findOne(id);
 		tmHistory.setStatus(status);

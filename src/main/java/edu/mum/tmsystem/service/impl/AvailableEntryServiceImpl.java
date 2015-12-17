@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +60,7 @@ public class AvailableEntryServiceImpl implements IAvailableEntryService{
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN','ROLE_TMCHECKER')")
 	public void saveAvailableEntry(AvailableEntry availableEntry) throws ParseException {
 		TMChecker tmChecker = tmCheckerService.getTMCheckerFromUserID(SessionManager.getUserID());
 		availableEntry.setAddedBy(tmChecker);
@@ -91,11 +93,13 @@ public class AvailableEntryServiceImpl implements IAvailableEntryService{
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN','ROLE_TMCHECKER')")
 	public AvailableEntry update(AvailableEntry availableEntry) {
 		return availableEntryRepository.save(availableEntry);
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN','ROLE_TMCHECKER')")
 	public void updateNumberOfSeats(Long availableEntryId) {
 		AvailableEntry availableEntry = availableEntryRepository.findOne(availableEntryId);
 		availableEntry.setAvailableSeats(availableEntry.getAvailableSeats() -1);

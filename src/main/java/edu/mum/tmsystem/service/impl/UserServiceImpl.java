@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
@@ -44,6 +45,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN','ROLE_TMCHECKER','ROLE_STUDENT')")
 	public boolean changePassword(String oldpassword, String newpassword, String confirmpassword) {
 		if(!newpassword.equals(confirmpassword)){
 			return false;
@@ -70,6 +72,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN','ROLE_TMCHECKER','ROLE_STUDENT')")
 	public void updateUser(User user) {
 		User dbUser = userRepository.findOne(user.getId());
 		dbUser.setEmail(user.getEmail());
@@ -92,6 +95,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void addNewTmChecker(User user) {
 		user.setPassword(Utility.encryptPassword(user.getPassword()));
 		user.setStatus(StatusType.ACTIVE);
@@ -109,6 +113,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void changeStatus(Long id, StatusType status) {
 		User user = userRepository.findOne(id);
 		user.setStatus(status);

@@ -3,6 +3,7 @@ package edu.mum.tmsystem.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class BuildingServiceImpl implements IBuildingService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void addNewBuilding(Building building) {
 		buildingRepository.save(building);	
 		
@@ -36,6 +38,7 @@ public class BuildingServiceImpl implements IBuildingService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void deleteBuilding(Integer id) {
 		buildingRepository.delete(id);
 		

@@ -1,6 +1,7 @@
 package edu.mum.tmsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,7 @@ public class CheckingHoursServiceImpl implements ICheckingHoursService{
 	IAvailableEntryService availableEntryService;
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_STUDENT')")
 	public CheckingHours signUpForGivenCheckingHour(Integer checkingHourId) throws BusinessException {
 		CheckingHours checkingHours = checkingHoursRepository.findOne(checkingHourId);
 		if(checkingHours.getSignUpBy() != null){

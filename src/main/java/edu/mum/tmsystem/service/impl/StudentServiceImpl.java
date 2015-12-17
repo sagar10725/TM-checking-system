@@ -3,6 +3,7 @@ package edu.mum.tmsystem.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void deleteStudentById(Long id) {
 		studentRepository.delete(id);
 	}
@@ -39,6 +41,7 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN','ROLE_STUDENT')")
 	public void saveStudent(Student student) {
 		studentRepository.save(student);
 	}
