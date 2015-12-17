@@ -6,10 +6,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <h2>Student TM Sign Up Details</h2>
 <hr>
-<h3>
-	<a href="<spring:url value="/admin/student/verify" />"
-		title="Verify Student">Verify Student</a>
-</h3>
 <hr>
 <c:choose>
 	<c:when test="${empty tmHistories}">

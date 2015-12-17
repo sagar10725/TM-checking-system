@@ -14,6 +14,9 @@
 <link rel="stylesheet"
 	href="<spring:url value="/resources/template/css/screen.css" />"
 	type="text/css" media="screen" title="default" />
+</style>
+<script type="text/javascript"
+	src='<spring:url value="/resources/js/jquery-1.10.1.min.js" />'></script>
 
 <!--  jquery core -->
 <script
@@ -185,6 +188,9 @@
 		$('#d').trigger('change');
 	});
 </script>
+
+<script type="text/javascript"
+	src='<spring:url value="/resources/js/ajax.js"/>'></script>
 
 <!-- MUST BE THE LAST SCRIPT IN <HEAD></HEAD></HEAD> png fix -->
 <script
