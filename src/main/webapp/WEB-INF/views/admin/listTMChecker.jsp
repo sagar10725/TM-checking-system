@@ -2,10 +2,13 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h2>TM Checker List</h2><hr>
-<a href="<spring:url value="/admin/tmchecker/add" />"
+<h2>TM Checker List</h2>
+<hr>
+<h3>
+	<a href="<spring:url value="/admin/tmchecker/add" />"
 	title="Add TM Checker">Add New TM Checker</a>
-	<hr>
+</h3>
+<hr>
 <c:choose>
 	<c:when test="${empty tmCheckers}">
 	No recored of TM Checkers found.
@@ -32,12 +35,12 @@
 							<td>${tmChecker.user.status}</td>
 							<td><a
 							href="<spring:url value="/admin/tmchecker/disable/${tmChecker.id}" />"
-							title="Disable"
-							onclick="return confirm('Are you sure to disable this TM Checker?')">Disable</a>
+							title="DISABLED" class="icon-2 info-tooltip"
+							onclick="return confirm('Are you sure to disable this TM Checker?')"></a>
 							<a
 							href="<spring:url value="/admin/tmchecker/enable/${tmChecker.id}" />"
-							title="Enable"
-							onclick="return confirm('Are you sure to enable this TM Checker?')">Enable</a></td>
+							title="ENABLED" class="icon-5 info-tooltip"
+							onclick="return confirm('Are you sure to enable this TM Checker?')"></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -48,13 +48,12 @@
 									<form:options items="${statusType}" />
 								</form:select></td>
 							<td><a
-						href="#"
-								title="Change Status"
-								onclick="changeStudentStatus(${newStudent.id})">Change
-									Status</a> <a
 								href="<spring:url value="/admin/student/delete/${newStudent.id}" />"
-								title="Delete"
-								onclick="return confirm('Are you sure to delete this student?')">Delete</a></td>
+								title="Delete" class="icon-2 info-tooltip"
+								onclick="return confirm('Are you sure to delete this student?')"></a><a
+								href="#" title="Change Status"
+								onclick="changeStudentStatus(${newStudent.id})"
+								class="icon-5 info-tooltip"></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

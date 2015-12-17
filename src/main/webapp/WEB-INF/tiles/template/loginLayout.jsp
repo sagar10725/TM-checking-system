@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Internet Dreams</title>
+<title>TM System</title>
 <link rel="stylesheet"
 	href="<spring:url value="/resources/template/css/screen.css" />" type="text/css"
 	media="screen" title="default" />
@@ -22,7 +22,7 @@
 
 		<!-- start logo -->
 		<div id="logo-login">
-			<a href="index.html"><img src="<spring:url value="/resources/images/sias-logo.jpg"/>"
+			<a href="<spring:url value="/"/>"> <img src="<spring:url value="/resources/images/sias-logo.jpg"/>"
 				width="156" height="40" alt="" /></a>
 		</div>
 		<!-- end logo -->

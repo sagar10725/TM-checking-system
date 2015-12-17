@@ -8,14 +8,14 @@
 	<!-- start nav-right -->
 	<div id="nav-right">
 
-		<div class="nav-divider">&nbsp;</div>
-		<div class="showhide-account">
-			<img
-				src="<spring:url value="/resources/template/images/shared/nav/nav_myaccount.gif" />"
-				width="93" height="14" alt="" />
-		</div>
-
 		<security:authorize access="isAuthenticated()">
+			<div class="nav-divider">&nbsp;</div>
+			<div class="showhide-account">
+				<img
+					src="<spring:url value="/resources/template/images/shared/nav/nav_myaccount.gif" />"
+					width="93" height="14" alt="" />
+			</div>
+
 			<div class="nav-divider">&nbsp;</div>
 			<a href="<spring:url value="/processLogout" />" id="logout"><img
 				src="<spring:url value="/resources/template/images/shared/nav/nav_logout.gif" />"
@@ -49,25 +49,29 @@
 	<!--  start nav -->
 	<div class="nav">
 		<div class="table">
+			<ul class="select">
+				<li><a href="<spring:url value="/" />"><b>Home</b></a></li>
+			</ul>
+			<div class="nav-divider">&nbsp;</div>
 			<security:authorize access="!isAuthenticated()">
 				<ul class="select">
-					<li><a href="<spring:url value="/login" />"><b>Login</b> <!--[if IE 7]><!--></a></li>
-					<!--<![endif]-->
+					<li><a href="<spring:url value="/login" />"><b>Login</b></a></li>
 				</ul>
+				<div class="nav-divider">&nbsp;</div>
+				<ul class="select">
+					<li><a href="<spring:url value="/user/signup" />"><b>Register
+								as Student</b></a></li>
+				</ul>
+				<div class="nav-divider">&nbsp;</div>
 			</security:authorize>
-			<div class="nav-divider">&nbsp;</div>
-			<ul class="select">
-				<li><a href="/home"><b>Home</b> <!--[if IE 7]><!--></a> <!--<![endif]--></li>
-			</ul>
-
-			<div class="nav-divider">&nbsp;</div>
 
 			<security:authorize access="hasAnyRole('ROLE_ADMIN')">
 				<ul class="select">
 					<li><a href="<spring:url value="/admin/home" />"><b>Admin</b>
-							<!--[if IE 7]><!--></a> <!--<![endif]--> <!--[if lte IE 6]><table><tr><td><![endif]-->
+							<!--[if IE 7]><!--></a>
 						<div class="select_sub">
 							<ul class="sub">
+								<li><a href="<spring:url value="/admin/" />">Home</a></li>
 								<li><a href="<spring:url value="/admin/building" />">Building</a></li>
 								<li><a href="<spring:url value="/admin/user" />">User</a></li>
 								<li><a href="<spring:url value="/admin/student" />">Student</a></li>
@@ -77,26 +81,27 @@
 									href="<spring:url value="/admin/defaultCheckingSeats" />">Settings</a></li>
 
 							</ul>
-						</div> <!--[if lte IE 6]></td></tr></table></a><![endif]--></li>
+						</div></li>
 				</ul>
-			</security:authorize>
-			<div class="nav-divider">&nbsp;</div>
-			<security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_TMCHECKER')">
-				<ul class="select">
-					<li><a href="<spring:url value="/tmchecker/home" />"><b>TM
-								Checker</b> <!--[if IE 7]><!--></a> <!--<![endif]--></li>
-				</ul>
+				<div class="nav-divider">&nbsp;</div>
 			</security:authorize>
 
-			<div class="nav-divider">&nbsp;</div>
 			<security:authorize
-				access="hasAnyRole('ROLE_TMCHECKER','ROLE_STUDENT')">
+				access="hasAnyRole('ROLE_ADMIN','ROLE_TMCHECKER')">
+				<ul class="select">
+					<li><a href="<spring:url value="/tmchecker/home" />"><b>TM
+								Checker</b></a></li>
+				</ul>
+				<div class="nav-divider">&nbsp;</div>
+			</security:authorize>
+
+			<security:authorize access="hasAnyRole('ROLE_STUDENT')">
 				<ul class="select">
 					<li><a href="<spring:url value="/student/home" />"><b>Students</b>
 							<!--[if IE 7]><!--></a> <!--<![endif]--></li>
 				</ul>
+				<div class="nav-divider">&nbsp;</div>
 			</security:authorize>
-			<div class="nav-divider">&nbsp;</div>
 
 			<div class="clear"></div>
 		</div>

@@ -119,7 +119,7 @@ public class AdminController {
 	public String getDefaultChekingSeats(
 			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats, Model model) {
 		model.addAttribute("checking", CheckingType.values());
-		return "student/defaultCheckingSeats";
+		return "admin/defaultCheckingSeats";
 
 	}
 
@@ -128,7 +128,7 @@ public class AdminController {
 			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats, Model model) {
 		model.addAttribute("checking", CheckingType.values());
 		defaultCheckingSeatsService.saveCheckingSeats(defaultCheckingSeats);
-		return "student/defaultCheckingSeats";
+		return "redirect:/admin";
 
 	}
 
@@ -155,7 +155,7 @@ public class AdminController {
 		return true;
 	}
 	
-	@RequestMapping(value = "student/list", method = RequestMethod.GET)
+	@RequestMapping(value = {"/student","student/list"}, method = RequestMethod.GET)
 	public String getStudentList(Model model) {
 		List<Student> students = studentService
 				.getAllStudent();
@@ -208,7 +208,7 @@ public class AdminController {
 	}
 
 
-	@RequestMapping(value = "user/list", method = RequestMethod.GET)
+	@RequestMapping(value = {"/user","user/list"}, method = RequestMethod.GET)
 	public String getUserList(Model model) {
 		List<User> users = userService.getAllUser();
 		model.addAttribute("users", users);

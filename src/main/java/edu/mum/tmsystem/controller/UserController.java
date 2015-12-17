@@ -33,12 +33,12 @@ public class UserController {
 	@Autowired
 	IStudentService studentService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/signup", method = RequestMethod.GET)
 	public String signUpStudent(@ModelAttribute("student") Student student) {
 		return "student/signup";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult result, Model model) {
 		User dbuser =userService.getUserByUsername(student.getUser().getUsername());
 		Student dbStudent = studentService.getStudentByStudentID(student.getStudentId());
@@ -60,7 +60,7 @@ public class UserController {
 		
 		student.getUser().setStudent(student);
 		userService.saveStudent(student.getUser());
-		return "redirect:/login";
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/changepassword", method = RequestMethod.GET)
@@ -83,7 +83,7 @@ public class UserController {
 		// System.out.println("User ID:" + SessionManager.getUserID());
 		user = userService.getUserProfileById(SessionManager.getUserID());
 		model.addAttribute("user", user);
-		return "student/userDetails";
+		return "user/userDetails";
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -92,7 +92,7 @@ public class UserController {
 		// System.out.println("User ID:" + SessionManager.getUserID());
 		user = userService.getUserProfileById(SessionManager.getUserID());
 		model.addAttribute("user", user);
-		return "student/userEdit";
+		return "user/userEdit";
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
@@ -107,7 +107,7 @@ public class UserController {
 			}
 		}
 		if (result.hasErrors()) {
-			return "student/userEdit";
+			return "user/userEdit";
 		}
 		updateUser.setId(SessionManager.getUserID());
 
@@ -126,7 +126,7 @@ public class UserController {
 
 		updateUser.setImagePath(fullPath);
 		userService.updateUser(updateUser);
-		return "redirect:userProfile";
+		return "redirect:/user/userProfile";
 	}
 
 }

@@ -2,10 +2,12 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h2>Student List</h2>
+<h2>User List</h2>
 <hr>
-<a href="<spring:url value="/admin/verifyStudents" />"
-	title="Verify Student">Verify Student</a>
+<h3>
+	<a href="<spring:url value="/admin/student/verify" />"
+		title="Verify Student">Verify Student</a>
+</h3>
 <hr>
 <c:choose>
 	<c:when test="${empty students}">

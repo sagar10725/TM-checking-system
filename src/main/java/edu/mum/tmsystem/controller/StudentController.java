@@ -35,6 +35,11 @@ public class StudentController {
 	@Autowired
 	ITMHistoryService tmHistoryService;
 	
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String loadLandingPage(Model model) {
+		return "student/home";
+	}
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getStrudent(Model model) {
 		List<Student> studentList = studentService.getAllStudent();

@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Password Changed Successfully</h1>
+<h1>Successful!!!</h1><hr/>
+<a href="<spring:url value="/home" />"
+	title="Continue">Continue</a>
 </body>
 </html>
