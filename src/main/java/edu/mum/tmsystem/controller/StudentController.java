@@ -37,20 +37,7 @@ public class StudentController {
 	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
 	public String loadLandingPage(Model model) {
 		return "student/home";
-	}
-	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String getStudent(Model model) {
-		List<Student> studentList = studentService.getAllStudent();
-		model.addAttribute("studentList", studentList);
-		return "student/studentDetails";
-	}
-
-//	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-//	public String deleteStudent(@PathVariable("id") Long id, @ModelAttribute("studentList") Student student) {
-//		studentService.deleteStudentById(id);
-//		return "student/studentDetails";
-//	}
+	}	
 	
 	@RequestMapping(value = "/available_dates", method = RequestMethod.GET)
 	public String getListOfAvailableDates(Model model) {
