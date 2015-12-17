@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class TMCheckerServiceImpl implements ITMCheckerService {
 	
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void addNewTmChecker(TMChecker tmchecker) {
 		User user = tmchecker.getUser();
 		user.setPassword(Utility.encryptPassword(user.getPassword()));
@@ -47,6 +49,7 @@ public class TMCheckerServiceImpl implements ITMCheckerService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void disableTmCheckerById(Integer id) {
 		TMChecker tmChecker = tmCheckerRepository.findOne(id);
 		tmChecker.getUser().setStatus(StatusType.DISABLED);
@@ -60,6 +63,7 @@ public class TMCheckerServiceImpl implements ITMCheckerService {
 	}
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void enableTmCheckerById(Integer id) {
 		TMChecker tmChecker = tmCheckerRepository.findOne(id);
 		tmChecker.getUser().setStatus(StatusType.ACTIVE);

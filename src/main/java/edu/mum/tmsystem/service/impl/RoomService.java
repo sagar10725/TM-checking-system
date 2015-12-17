@@ -1,6 +1,7 @@
 package edu.mum.tmsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ public class RoomService implements IRoomService {
 	IRoomRepositiry roomRepository;
 
 	@Override
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
 	public void addNewRoom(Room room) {
 		roomRepository.save(room);
 		
