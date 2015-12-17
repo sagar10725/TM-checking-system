@@ -43,7 +43,7 @@
 								<c:forEach var="checkingHour"
 									items="${availableEntry.checkingHours }">
 									<tr>
-										<td><fmt:formatDate type="both"
+										<td><fmt:formatDate pattern="MMM dd, yyyy hh:mm a"
 												value="${checkingHour.checkingDate}" /></td>
 										<td><c:if test="${checkingHour.signUpBy == null}">
 												<button onclick="signupForTM(${checkingHour.id})">Sign

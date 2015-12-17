@@ -69,4 +69,8 @@
 		<error-code>404</error-code>
 		<location>/WEB-INF/views/page-not-found.jsp</location>
 	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/views/accessdenied.jsp</location>
+	</error-page>
 </web-app>
