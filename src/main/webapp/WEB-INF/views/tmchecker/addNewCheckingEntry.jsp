@@ -21,8 +21,7 @@
 						<c:forEach var="student" items="${students}">
 							<form:option value="${student.id }">${student.studentId }</form:option>
 						</c:forEach>
-					</form:select><form:errors
-						path="student.studentId" class="error" /></td>
+					</form:select></td>
 			</tr>
 			<tr>
 				<td>Buildings:</td>
@@ -39,11 +38,10 @@
 						<form:option value="" label="Select Room" />
 					</form:select></td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<td>Checking Date :</td>
-				<td><form:input path="checkedDate" /> <form:errors
-						path="checkedDate" class="error" /></td>
-			</tr>
+				<td><form:input path="checkedDate" placeholder="MM/DD/YYYY"/></td>
+			</tr> --%>
 			<tr>
 				<td>Checking Type :</td>
 				<td><form:select path="checkingType">

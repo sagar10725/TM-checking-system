@@ -18,6 +18,8 @@ import edu.mum.tmsystem.service.IStudentService;
 import edu.mum.tmsystem.service.ITMCheckerService;
 import edu.mum.tmsystem.service.ITMHistoryService;
 import edu.mum.tmsystem.service.IUserService;
+import edu.mum.tmsystem.util.DateUtil;
+import edu.mum.tmsystem.util.SessionManager;
 import edu.mum.tmsystem.util.Utility;
 
 @Service
@@ -70,11 +72,11 @@ public class TMHistoryServiceImpl implements ITMHistoryService {
 		Room room = roomService.getRoomById(tmHistory.getRoom().getId());
 		tmHistory.setRoom(room);
 		tmHistory.setStatus(TMStatusType.CHECKED);
+		tmHistory.setCheckedDate(DateUtil.getCurrentDate());
 		tmHistoryRepository.save(tmHistory);
-		User loggedUser = userService.getUserByUsername(Utility
-				.getLoggedInUserName());
+		
 		TMChecker tmchecker = tmCheckerService
-				.getTMCheckerFromUserID(loggedUser.getId());
+				.getTMCheckerFromUserID(SessionManager.getUserID());
 		tmHistory.setCheckedBy(tmchecker);
 		tmHistoryRepository.save(tmHistory);
 
@@ -84,10 +86,9 @@ public class TMHistoryServiceImpl implements ITMHistoryService {
 	public void changeStatus(Integer id, TMStatusType status) {
 		TMHistory tmHistory = tmHistoryRepository.findOne(id);
 		tmHistory.setStatus(status);
-		User loggedUser = userService.getUserByUsername(Utility
-				.getLoggedInUserName());
+		tmHistory.setCheckedDate(DateUtil.getCurrentDate());
 		TMChecker tmchecker = tmCheckerService
-				.getTMCheckerFromUserID(loggedUser.getId());
+				.getTMCheckerFromUserID(SessionManager.getUserID());
 		tmHistory.setCheckedBy(tmchecker);
 		tmHistoryRepository.save(tmHistory);
 
