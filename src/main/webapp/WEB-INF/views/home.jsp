@@ -2,6 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<h2>INITIAL HOME PAGE</h2>
+<h2><spring:message code='Home.title'></spring:message></h2>
 <hr/><br>
-<b>Note:</b> Student can only sign up after thier registration is verified.
+<b><spring:message code='Home.Welcometitle'></spring:message></b> <spring:message code='Home.WelcomeMessage'></spring:message>

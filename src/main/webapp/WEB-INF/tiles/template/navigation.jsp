@@ -50,12 +50,12 @@
 	<div class="nav">
 		<div class="table">
 			<ul class="select">
-				<li><a href="<spring:url value="/" />"><b>Home</b></a></li>
+				<li><a href="<spring:url value="/" />"><b> <spring:message code="Navigation.home" text="Home" /></b></a></li>
 			</ul>
 			<div class="nav-divider">&nbsp;</div>
 			<security:authorize access="!isAuthenticated()">
 				<ul class="select">
-					<li><a href="<spring:url value="/login" />"><b>Login</b></a></li>
+					<li><a href="<spring:url value="/login" />"><b><spring:message code="Navigation.login" text="Login" /></b></a></li>
 				</ul>
 				<div class="nav-divider">&nbsp;</div>
 				<ul class="select">
@@ -67,7 +67,7 @@
 
 			<security:authorize access="hasAnyRole('ROLE_ADMIN')">
 				<ul class="select">
-					<li><a href="<spring:url value="/admin/home" />"><b>Admin</b>
+					<li><a href="<spring:url value="/admin/home" />"><b><spring:message code="Navigation.admin" text="admin" /></b>
 					</a>
 						<div class="select_sub">
 							<ul class="sub">
@@ -88,8 +88,7 @@
 
 			<security:authorize access="hasAnyRole('ROLE_TMCHECKER')">
 				<ul class="select">
-					<li><a href="<spring:url value="/tmchecker/home" />"><b>TM
-								Checker</b></a>
+					<li><a href="<spring:url value="/tmchecker/home" />"><b><spring:message code="Navigation.tmchecker" text="TM Checker" /></b></a>
 					<div class="select_sub">
 							<ul class="sub">
 								<li><a href="<spring:url value="/tmchecker/" />">TMChecker Home</a></li>
@@ -106,12 +105,12 @@
 
 			<security:authorize access="hasAnyRole('ROLE_STUDENT')">
 				<ul class="select">
-					<li><a href="<spring:url value="/student/home" />"><b>Students</b>
+					<li><a href="<spring:url value="/student/home" />"><b><spring:message code="Navigation.student" text="Student" /></b>
 							</a><div class="select_sub">
 							<ul class="sub">
-								<li><a href="<spring:url value="/student/" />">TMChecker Home</a></li>
+								<li><a href="<spring:url value="/student/" />">Home</a></li>
 								<li><a href="<spring:url value="/student/available_dates" />">Add Checking</a></li>
-								<li><a href="<spring:url value="/mysignups/" />">View Signups</a></li>								
+								<li><a href="<spring:url value="/student/mysignups" />">View Signups</a></li>								
 							</ul>
 						</div></li>
 				</ul>

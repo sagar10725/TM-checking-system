@@ -34,7 +34,7 @@ public class StudentController {
 	@Autowired
 	ITMHistoryService tmHistoryService;
 	
-	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"","/","/home"}, method = RequestMethod.GET)
 	public String loadLandingPage(Model model) {
 		return "student/home";
 	}	
