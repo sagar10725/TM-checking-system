@@ -35,10 +35,10 @@
 				<td> 
 				<select name="entryMonth">
       	 
-       			 <option value="february">february
-      	 		 <option value="may">may
-       			 <option value="june">june
-       	 		 <option value="october">october
+       			 <option value="february">February
+      	 		 <option value="may">May
+       			 <option value="june">June
+       	 		 <option value="october">October
    					 </select>
 				<form:errors
 						path="entryMonth" cssStyle="color : red;" /></td>
