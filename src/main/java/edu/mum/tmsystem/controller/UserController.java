@@ -20,6 +20,7 @@ import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.service.IUserService;
 import edu.mum.tmsystem.util.SessionManager;
+import edu.mum.tmsystem.util.Utility;
 
 @Controller
 @RequestMapping("/user")
@@ -76,7 +77,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String updateUser(@Valid User updateUser, BindingResult result, Model model, HttpServletRequest request,
+	public String updateUser(User updateUser, BindingResult result, Model model, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		if (result.hasErrors()) {
@@ -86,18 +87,16 @@ public class UserController {
 		updateUser.setId(SessionManager.getUserID());
 
 		MultipartFile profileImage = updateUser.getProfileImage();
-		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-		/*
-		 * System.out.println(profileImage.getOriginalFilename()); String
-		 * fullPath = "resources"+ File.separator +"images" + File.separator +
-		 * updateUser.getId() + ".png";
-		 */
-		String fullPath = "\\resources\\images\\" + updateUser.getId() + ".png";
+		File uploadDir = new File(Utility.IMAGE_UPLOAD_PATH);
+		if (!uploadDir.exists()) {
+			uploadDir.mkdirs();
+		}
+		String fullPath = updateUser.getId() + ".png";
 
 		try {
-			profileImage.transferTo(new File(fullPath));
+			profileImage.transferTo(new File(Utility.IMAGE_UPLOAD_PATH + fullPath));
 		} catch (Exception e) {
-			throw new RuntimeException("Product Image saving failed", e);
+			throw new RuntimeException("Profile Image saving failed", e);
 		}
 
 		updateUser.setImagePath(fullPath);
