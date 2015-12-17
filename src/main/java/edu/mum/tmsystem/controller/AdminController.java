@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -180,6 +181,34 @@ public class AdminController {
 			@ModelAttribute("tmchecker") TMChecker tmchecker,
 			BindingResult bindingResult,
 			RedirectAttributes redirectAtriAttributes, Model model) {
+		if(!tmchecker.getUser().getUsername().isEmpty()){
+			User dbuser =userService.getUserByUsername(tmchecker.getUser().getUsername());
+			if(dbuser != null){
+				ObjectError objectError = new ObjectError("user.username",
+						"Username already exits");
+				bindingResult.addError(objectError);
+			}
+		}else{
+			ObjectError objectError = new ObjectError("user.username",
+					"Username is required field");
+			bindingResult.addError(objectError);
+		}
+		if(tmchecker.getUser().getPassword().isEmpty()){
+			ObjectError objectError = new ObjectError("user.password",
+					"Password is required field");
+			bindingResult.addError(objectError);
+		}
+		if(tmchecker.getUser().getEmail().isEmpty()){
+			ObjectError objectError = new ObjectError("user.email",
+					"Email address is required field");
+			bindingResult.addError(objectError);
+		}
+		if(tmchecker.getUser().getName().isEmpty()){
+			ObjectError objectError = new ObjectError("user.name",
+					"Name is required field");
+			bindingResult.addError(objectError);
+		}
+		
 		if (bindingResult.hasErrors()) {
 			return "admin/addTMChecker";
 		}

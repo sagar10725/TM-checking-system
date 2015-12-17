@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.User;
+import edu.mum.tmsystem.exception.dto.ChangePasswordDTO;
 import edu.mum.tmsystem.service.IStudentService;
 import edu.mum.tmsystem.service.IUserService;
 import edu.mum.tmsystem.util.SessionManager;
@@ -65,14 +66,19 @@ public class UserController {
 
 	@RequestMapping(value = "/changepassword", method = RequestMethod.GET)
 	public String changePassword(Model model) {
-
+		model.addAttribute("passwordchange", new ChangePasswordDTO());
 		return "user/changepassword";
 	}
 
 	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
-	public String savenewPassword(@RequestParam("oldpassword") String oldpassword,
-			@RequestParam("newpassword") String newpassword, @RequestParam("confirmpassword") String confirmpassword) {
-		if (!userService.changePassword(oldpassword, newpassword, confirmpassword)) {
+	public String savenewPassword(@Valid @ModelAttribute("passwordchange") ChangePasswordDTO changePasswordDTO, BindingResult result) {
+		if(result.hasErrors()){
+			return "user/changepassword";
+		}
+		if (!userService.changePassword(changePasswordDTO.getOldpassword(), changePasswordDTO.getNewpassword(), changePasswordDTO.getConfirmpassword())) {
+			ObjectError objectError = new ObjectError("error",
+					"Invalid Password");
+			result.addError(objectError);
 			return "user/changepassword";
 		}
 		return "user/successfulpage";
