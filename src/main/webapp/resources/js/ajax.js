@@ -3,7 +3,7 @@
  */
 function changeStudentStatus(id) {
 	var statusType = $("#statusType").val();
-	alert(statusType);
+	
 	$.ajax({
 		type : 'POST',
 		url : '/tmsystem/admin/student/verify/' + id + '?status=' + statusType,
@@ -12,7 +12,8 @@ function changeStudentStatus(id) {
 
 		success : function(student) {
 			console.log('success');
-			window.location.reload(true);
+			alert('Changed to' + statusType);
+			//window.location.reload(true);
 		},
 
 		error : function(errorObject) {
@@ -42,6 +43,29 @@ function showRooms() {
 						"<option value=" + room.id + ">" + room.roomNumber
 								+ "</option>")
 			});
+		},
+
+		error : function(errorObject) {
+			console.log(errorObject);
+
+		}
+
+	});
+
+}
+
+function showCheckingSeats() {
+	var selectedValue = $("#checkingType").val();
+	/* alert(selectedValue);*/
+
+	$.ajax({
+		type : 'GET',
+		url : "/tmsystem/admin/checkingseats/get_seats/" + selectedValue,
+		dataType : 'json',
+		contentType : 'application/json',
+
+		success : function(defaultCheckingSeats) {
+			$('#numberOfSeats').val(defaultCheckingSeats.numberOfSeats);
 		},
 
 		error : function(errorObject) {

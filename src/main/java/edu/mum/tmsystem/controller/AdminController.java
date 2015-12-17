@@ -50,7 +50,8 @@ public class AdminController {
 	@Autowired
 	IDefaultCheckingSeatsService defaultCheckingSeatsService;
 
-	@RequestMapping(value = {"","/","/home"}, method = RequestMethod.GET)
+	/* Home page */
+	@RequestMapping(value = { "", "/", "/home" }, method = RequestMethod.GET)
 	public String loadLandingPage(Model model) {
 		return "admin/home";
 	}
@@ -67,12 +68,6 @@ public class AdminController {
 		return "admin/addBuilding";
 	}
 
-	@RequestMapping(value = { "/building/delete/{id}" }, method = RequestMethod.GET)
-	public String deleteBuilding(@PathVariable("id") Integer id) {
-		buildingService.deleteBuilding(id);
-		return "redirect:/admin/building/list";
-	}
-
 	@RequestMapping(value = { "/building/add" }, method = RequestMethod.POST)
 	public String ProcessNewBuilding(
 			@Valid @ModelAttribute("building") Building building,
@@ -83,6 +78,12 @@ public class AdminController {
 		}
 		buildingService.addNewBuilding(building);
 		redirectAtriAttributes.addFlashAttribute("building", building);
+		return "redirect:/admin/building/list";
+	}
+
+	@RequestMapping(value = { "/building/delete/{id}" }, method = RequestMethod.GET)
+	public String deleteBuilding(@PathVariable("id") Integer id) {
+		buildingService.deleteBuilding(id);
 		return "redirect:/admin/building/list";
 	}
 
@@ -103,32 +104,36 @@ public class AdminController {
 			model.addAttribute("buildings", buildings);
 			return "admin/addRoom";
 		}
-		// Building building =
-		// buildingService.getBuildingOne(room.getBuilding().getId());
-		// building.getRooms().add(room);
-		// buildingService.addNewBuilding(building);
 		roomService.addNewRoom(room);
 		return "redirect:/admin/building/list";
 	}
 
-	//	@ModelAttribute("checking")
-	//	public CheckingType[] checkingType() {
-	//		return CheckingType.values();
-	//	}
-
 	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.GET)
 	public String getDefaultChekingSeats(
-			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats, Model model) {
+			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats,
+			Model model) {
 		model.addAttribute("checking", CheckingType.values());
 		return "admin/defaultCheckingSeats";
 
 	}
 
+	@RequestMapping(value = "/checkingseats/get_seats/{checkingType}", method = RequestMethod.GET)
+	public @ResponseBody DefaultCheckingSeats getDefaultChekingSeatsByCheckingType(
+			@PathVariable("checkingType") CheckingType checkingType) {
+		DefaultCheckingSeats defaultCheckingSeats = defaultCheckingSeatsService
+				.getDefaultCheckingSeatsByCheckingType(checkingType);
+		return defaultCheckingSeats;
+
+	}
+
 	@RequestMapping(value = "/defaultCheckingSeats", method = RequestMethod.POST)
 	public String saveDefaultChekingSeats(
-			@ModelAttribute("checkingSeats") DefaultCheckingSeats defaultCheckingSeats, Model model) {
-		model.addAttribute("checking", CheckingType.values());
-		defaultCheckingSeatsService.saveCheckingSeats(defaultCheckingSeats);
+			@RequestParam("checkingType") CheckingType checkingType,
+			@RequestParam("numberOfSeats") Integer numberOfSeats, Model model) {
+		DefaultCheckingSeats oldDefaultCheckingSeats = defaultCheckingSeatsService
+				.getDefaultCheckingSeatsByCheckingType(checkingType);
+		oldDefaultCheckingSeats.setNumberOfSeats(numberOfSeats);
+		defaultCheckingSeatsService.saveCheckingSeats(oldDefaultCheckingSeats);
 		return "redirect:/admin";
 
 	}
@@ -140,11 +145,9 @@ public class AdminController {
 		model.addAttribute("newStudents", newStudents);
 		model.addAttribute("statusType", StatusType.values());
 		return "admin/verifyStudents";
-	}	
+	}
 
 	@RequestMapping(value = "/student/verify/{id}", method = RequestMethod.POST)
-	// public String verifyStudentList(@PathVariable("id") Long id,
-	// @RequestParam("status") StatusType status, Model model){
 	public @ResponseBody Boolean verifyStudentList(@PathVariable("id") Long id,
 			@RequestParam("status") StatusType status, Model model) {
 		Student studentToVerify = studentService.getStudent(id);
@@ -155,11 +158,10 @@ public class AdminController {
 		userService.updateStudent(UserToVerify);
 		return true;
 	}
-	
-	@RequestMapping(value = {"/student","student/list"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/student", "student/list" }, method = RequestMethod.GET)
 	public String getStudentList(Model model) {
-		List<Student> students = studentService
-				.getAllStudent();
+		List<Student> students = studentService.getAllStudent();
 		model.addAttribute("students", students);
 		return "admin/listStudent";
 	}
@@ -169,7 +171,7 @@ public class AdminController {
 		studentService.deleteStudentById(id);
 		return "redirect:/admin/verifyStudents";
 	}
-	
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getStudent(Model model) {
 		List<Student> studentList = studentService.getAllStudent();
@@ -178,7 +180,8 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public String deleteStudent(@PathVariable("id") Long id, @ModelAttribute("studentList") Student student) {
+	public String deleteStudent(@PathVariable("id") Long id,
+			@ModelAttribute("studentList") Student student) {
 		studentService.deleteStudentById(id);
 		return "student/studentDetails";
 	}
@@ -194,34 +197,35 @@ public class AdminController {
 			@ModelAttribute("tmchecker") TMChecker tmchecker,
 			BindingResult bindingResult,
 			RedirectAttributes redirectAtriAttributes, Model model) {
-		if(!tmchecker.getUser().getUsername().isEmpty()){
-			User dbuser =userService.getUserByUsername(tmchecker.getUser().getUsername());
-			if(dbuser != null){
+		if (!tmchecker.getUser().getUsername().isEmpty()) {
+			User dbuser = userService.getUserByUsername(tmchecker.getUser()
+					.getUsername());
+			if (dbuser != null) {
 				ObjectError objectError = new ObjectError("user.username",
 						"Username already exits");
 				bindingResult.addError(objectError);
 			}
-		}else{
+		} else {
 			ObjectError objectError = new ObjectError("user.username",
 					"Username is required field");
 			bindingResult.addError(objectError);
 		}
-		if(tmchecker.getUser().getPassword().isEmpty()){
+		if (tmchecker.getUser().getPassword().isEmpty()) {
 			ObjectError objectError = new ObjectError("user.password",
 					"Password is required field");
 			bindingResult.addError(objectError);
 		}
-		if(tmchecker.getUser().getEmail().isEmpty()){
+		if (tmchecker.getUser().getEmail().isEmpty()) {
 			ObjectError objectError = new ObjectError("user.email",
 					"Email address is required field");
 			bindingResult.addError(objectError);
 		}
-		if(tmchecker.getUser().getName().isEmpty()){
+		if (tmchecker.getUser().getName().isEmpty()) {
 			ObjectError objectError = new ObjectError("user.name",
 					"Name is required field");
 			bindingResult.addError(objectError);
 		}
-		
+
 		if (bindingResult.hasErrors()) {
 			return "admin/addTMChecker";
 		}
@@ -249,8 +253,7 @@ public class AdminController {
 		return "redirect:/admin/tmchecker/list";
 	}
 
-
-	@RequestMapping(value = {"/user","user/list"}, method = RequestMethod.GET)
+	@RequestMapping(value = { "/user", "user/list" }, method = RequestMethod.GET)
 	public String getUserList(Model model) {
 		List<User> users = userService.getAllUser();
 		model.addAttribute("users", users);
@@ -259,8 +262,9 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/user/changestatus/{id}", method = RequestMethod.GET)
-	public String changeUserStatus(@PathVariable("id") Long id, @RequestParam("status") StatusType status, Model model) {
-		userService.changeStatus(id,status);		
+	public String changeUserStatus(@PathVariable("id") Long id,
+			@RequestParam("status") StatusType status, Model model) {
+		userService.changeStatus(id, status);
 		return "redirect:/admin/user/list";
 	}
 
