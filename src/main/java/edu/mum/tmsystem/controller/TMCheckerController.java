@@ -122,14 +122,23 @@ public class TMCheckerController {
 	public String processNewCheckingEntryForm(
 			@Valid @ModelAttribute("tmhistory") TMHistory tmHistory,
 			BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			return "tmchecker/addNewCheckingEntry";
-		}
 		if (tmHistory.getRoom().getId() == null) {
 			ObjectError objectError = new ObjectError("room",
 					"Room must be chosen");
 			bindingResult.addError(objectError);
-			return "tmchecker/available_checking";
+		}
+		if (tmHistory.getStudent().getId() == null) {
+			ObjectError objectError = new ObjectError("studentID",
+					"Student ID must be chosen");
+			bindingResult.addError(objectError);
+		}
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("checkingType", CheckingType.values());
+			List<Student> students = studentService.getAllStudent();
+			model.addAttribute("students", students);
+			List<Building> buildings = buildingService.getAllBuildings();
+			model.addAttribute("buildings", buildings);
+			return "tmchecker/addNewCheckingEntry";
 		}
 		tmHistoryService.addNewChecking(tmHistory);
 		return "redirect:/tmchecker/viewsignups";
@@ -147,33 +156,5 @@ public class TMCheckerController {
 		tmHistoryService.changeStatus(id, status);
 		return "redirect:/tmchecker/changetmstatus";
 	}
-
-	/*
-	 * @Autowired //ITMCheckerService tmCheckerService;
-	 * 
-	 * @RequestMapping(method = RequestMethod.GET) public String
-	 * addNewTmCheckForm(@ModelAttribute("tmchecker") TMHistory tmchecker) {
-	 * 
-	 * // model.addAttribute("checkingtype", CheckingType.values()); return
-	 * "tmchecker/checkstatus"; }
-	 * 
-	 * 
-	 * 
-	 * @ModelAttribute("status") public TMStatusType[] statustype() { return
-	 * TMStatusType.values(); }
-	 * 
-	 * @RequestMapping(method = RequestMethod.POST) public String
-	 * saveCheckForm(@ModelAttribute("tmchecker") TMHistory tmHistory) {
-	 * System.out.println(tmHistory.toString());
-	 * tmCheckerService.save(tmHistory); return "tmchecker/thankyoupage"; }
-	 * 
-	 * @RequestMapping(value="/historydetails", method=RequestMethod.GET) public
-	 * String showHistoryDetails(@ModelAttribute("historydetails")TMHistory
-	 * historyDetails, Model model){
-	 * 
-	 * 
-	 * List<TMHistory> history = tmCheckerService.getDetails();
-	 * model.addAttribute("history",history); return"tmchecker/checkdetails"; }
-	 */
 
 }

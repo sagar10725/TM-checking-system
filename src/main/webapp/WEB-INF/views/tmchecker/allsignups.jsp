@@ -17,6 +17,7 @@
 				<th class="table-header-check"><a id="toggle-all"></a></th>
 				<th class="table-header-repeat line-left"><a href="#">#</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Checking Type</a></th>
+				<th class="table-header-repeat line-left"><a href="#">SignUp Date</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Checking Date</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Building</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Room</a></th>
@@ -31,7 +32,9 @@
 						<td>${count.count}</td>
 						<td>${tmHistory.checkingType}</td>
 					<td><fmt:formatDate type="both"
-								value="${tmHistory.checkingHours.checkingDate}" /></td>
+							value="${tmHistory.signUpDate}" /></td>
+					<td><fmt:formatDate type="both"
+								value="${tmHistory.checkedDate}" /></td>
 					<td>${tmHistory.room.building.buildingName}</td>
 					<td>${tmHistory.room.roomNumber}</td>
 					<td>${tmHistory.student.user.name}</td>

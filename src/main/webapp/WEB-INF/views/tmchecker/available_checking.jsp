@@ -40,7 +40,7 @@
 			</tr>
 			<tr>
 				<td>Available Date:</td>
-				<td><form:input path="checkingDate" />
+				<td><form:input path="checkingDate" placeholder="MM/DD/YYYY"/>
 			</tr>
 			<tr>
 				<td>Time:</td>
