@@ -10,7 +10,7 @@
 		<intercept-url pattern="/tmchecker/**" access="hasRole('ROLE_TMCHECKER')" />
 		<intercept-url pattern="/student/**" access="hasRole('ROLE_STUDENT')" />
 		<intercept-url pattern="/user/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_TMCHECKER', 'ROLE_STUDENT')" />
-		<access-denied-handler error-page="/access_denied" />
+		<access-denied-handler error-page="/accessdenied" />
 		<form-login login-page="/login"
 							login-processing-url="/processLogin"
 							password-parameter="password"
@@ -19,7 +19,6 @@
 					 		default-target-url="/home"
 					 		always-use-default-target="false"/>
 		<logout logout-success-url="/logout"  logout-url= "/processLogout"/>
-		<access-denied-handler error-page="/accessdenied" />
 		<!-- enable Cross Site Request Forgery protection -->
 		<!--<csrf /> -->
 
