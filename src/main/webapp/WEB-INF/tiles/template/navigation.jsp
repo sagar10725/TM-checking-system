@@ -107,7 +107,13 @@
 			<security:authorize access="hasAnyRole('ROLE_STUDENT')">
 				<ul class="select">
 					<li><a href="<spring:url value="/student/home" />"><b>Students</b>
-							<!--[if IE 7]><!--></a> <!--<![endif]--></li>
+							</a><div class="select_sub">
+							<ul class="sub">
+								<li><a href="<spring:url value="/student/" />">TMChecker Home</a></li>
+								<li><a href="<spring:url value="/student/available_dates" />">Add Checking</a></li>
+								<li><a href="<spring:url value="/mysignups/" />">View Signups</a></li>								
+							</ul>
+						</div></li>
 				</ul>
 				<div class="nav-divider">&nbsp;</div>
 			</security:authorize>

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,23 +34,10 @@ public class StudentController {
 	@Autowired
 	ITMHistoryService tmHistoryService;
 	
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
 	public String loadLandingPage(Model model) {
 		return "student/home";
-	}
-	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String getStrudent(Model model) {
-		List<Student> studentList = studentService.getAllStudent();
-		model.addAttribute("studentList", studentList);
-		return "student/studentDetails";
-	}
-
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public String deleteStudent(@PathVariable("id") Long id, @ModelAttribute("studentList") Student student) {
-		studentService.deleteStudentById(id);
-		return "student/studentDetails";
-	}
+	}	
 	
 	@RequestMapping(value = "/available_dates", method = RequestMethod.GET)
 	public String getListOfAvailableDates(Model model) {

@@ -11,8 +11,6 @@ import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.TMChecker;
 import edu.mum.tmsystem.domain.TMHistory;
 import edu.mum.tmsystem.domain.User;
-import edu.mum.tmsystem.enums.CheckingType;
-import edu.mum.tmsystem.enums.StatusType;
 import edu.mum.tmsystem.enums.TMStatusType;
 import edu.mum.tmsystem.repository.ITMHistoryRepository;
 import edu.mum.tmsystem.service.IRoomService;
