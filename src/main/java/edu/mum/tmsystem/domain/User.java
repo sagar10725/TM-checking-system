@@ -39,14 +39,14 @@ public class User implements Serializable {
 	private Long id;
 	
 	@NotEmpty
-	@Size(min = 4, max = 16)
+	@Size(min = 4, max = 25)
 	private String username;
 	
 	@NotEmpty
 	private String password;
 	
 	@NotEmpty
-	@Size(min = 4, max = 16)
+	@Size(min = 4, max = 25)
 	private String name;
 	
 	@Email

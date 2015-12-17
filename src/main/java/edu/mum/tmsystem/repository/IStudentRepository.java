@@ -19,4 +19,7 @@ public interface IStudentRepository extends CrudRepository<Student, Long> {
 	@Query("SELECT s FROM Student s WHERE s.user.id = :id")
 	public Student getStudentByUserId(@Param("id") Long id);
 	
+	@Query("SELECT s FROM Student s WHERE s.studentId = :studentId")
+	public Student getStudentByStudentId(@Param("studentId") String studentId);
+	
 }

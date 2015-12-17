@@ -53,4 +53,9 @@ public class StudentServiceImpl implements IStudentService {
 		return (Student) studentRepository.findOne(id);
 	}
 
+	@Override
+	public Student getStudentByStudentID(String studentId) {
+		return (Student) studentRepository.getStudentByStudentId(studentId);
+	}
+
 }

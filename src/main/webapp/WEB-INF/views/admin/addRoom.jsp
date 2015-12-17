@@ -13,7 +13,6 @@
 					<spring:message code="building.buildingName" />
 				</form:label>
 				<form:select id="building" path="building.id">
-					<form:option value="0" label="--Select Building--" />
 					<form:options items="${buildings}" itemLabel="buildingName" itemValue="id" />
 				</form:select>
 				<form:errors path="building.id" cssStyle="color : red;"></form:errors>

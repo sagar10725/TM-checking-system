@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.User;
+import edu.mum.tmsystem.service.IStudentService;
 import edu.mum.tmsystem.service.IUserService;
 import edu.mum.tmsystem.util.SessionManager;
 import edu.mum.tmsystem.util.Utility;
@@ -28,6 +30,9 @@ public class UserController {
 	@Autowired
 	IUserService userService;
 
+	@Autowired
+	IStudentService studentService;
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String signUpStudent(@ModelAttribute("student") Student student) {
 		return "student/signup";
@@ -35,13 +40,27 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult result, Model model) {
-
+		User dbuser =userService.getUserByUsername(student.getUser().getUsername());
+		Student dbStudent = studentService.getStudentByStudentID(student.getStudentId());
+		if(dbuser != null || dbStudent != null){
+			if(dbuser != null){
+				ObjectError objectError = new ObjectError("student",
+						"Username already exits");
+				result.addError(objectError);
+			}
+			if(dbStudent != null){
+				ObjectError objectError = new ObjectError("student",
+						"Student ID already exits");
+				result.addError(objectError);
+			}
+		}
 		if (result.hasErrors()) {
 			return "student/signup";
 		}
+		
 		student.getUser().setStudent(student);
 		userService.saveStudent(student.getUser());
-		return "redirect:/user";
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = "/changepassword", method = RequestMethod.GET)
@@ -79,9 +98,15 @@ public class UserController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String updateUser(User updateUser, BindingResult result, Model model, HttpServletRequest request,
 			HttpServletResponse response) {
-
+		Student dbStudent = studentService.getStudentByStudentID(updateUser.getStudent().getStudentId());
+		if(dbStudent != null){
+			if(!dbStudent.getUser().getId().equals(SessionManager.getUserID())){
+				ObjectError objectError = new ObjectError("student",
+						"Student ID already exits");
+				result.addError(objectError);
+			}
+		}
 		if (result.hasErrors()) {
-			System.out.println("error in file update");
 			return "student/userEdit";
 		}
 		updateUser.setId(SessionManager.getUserID());
