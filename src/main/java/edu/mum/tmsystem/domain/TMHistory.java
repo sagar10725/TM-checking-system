@@ -37,7 +37,7 @@ public class TMHistory {
 	@Enumerated(EnumType.STRING)
 	private CheckingType checkingType;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "checkedBy")
 	private TMChecker checkedBy;
 

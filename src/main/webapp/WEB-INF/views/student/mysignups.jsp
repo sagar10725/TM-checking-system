@@ -33,8 +33,8 @@
 						<td><input type="checkbox" /></td>
 						<td>${count.count}</td>
 						<td>${tmHistory.checkingType}</td>
-						<td><fmt:formatDate pattern="MMM dd, yyyy hh:mm a"
-								value="${tmHistory.checkingHours.checkingDate}" /></td>
+						<td><c:if test="${tmHistory.checkingHours != null}"><fmt:formatDate pattern="MMM dd, yyyy hh:mm a"
+								value="${tmHistory.checkingHours.checkingDate}" /></c:if> </td>
 						<td>${tmHistory.room.building.buildingName}</td>
 						<td>${tmHistory.room.roomNumber}</td>
 						<td><c:if test="${tmHistory.checkedBy != null}">

@@ -1,4 +1,4 @@
-INSERT INTO `tmsystem`.`user` (`email`, `name`, `password`, `status`, `username`, `verificationCode`) VALUES ('chandra.panday.5@gmail.com', 'Chandra Prakash Panday', '$2a$10$s4MhriPMX/gUa/TXOoZmC.b9CYca2oPDTarrDOX6B8Nsdb9FzbMiy', '1', 'admin', NULL);
+INSERT INTO `tmsystem`.`user` (`email`, `name`, `password`, `status`, `username`, `verificationCode`) VALUES ('admin@gmail.com', 'Administrator', '$2a$10$s4MhriPMX/gUa/TXOoZmC.b9CYca2oPDTarrDOX6B8Nsdb9FzbMiy', '1', 'admin', NULL);
 
 INSERT INTO `tmsystem`.`role` (`id`, `roleType`) VALUES ('1', 'ROLE_ADMIN');
 INSERT INTO `tmsystem`.`role` (`id`, `roleType`) VALUES ('2', 'ROLE_TMCHECKER');
