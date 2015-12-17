@@ -87,17 +87,14 @@ public class UserController {
 		updateUser.setId(SessionManager.getUserID());
 
 		MultipartFile profileImage = updateUser.getProfileImage();
-		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-		/*
-		 * System.out.println(profileImage.getOriginalFilename()); String
-		 * fullPath = "resources"+ File.separator +"images" + File.separator +
-		 * updateUser.getId() + ".png";
-		 */
-		//String fullPath = Utility.ROOT_FOLDER + File.separator+ Utility.TM_DOCS_FOLDER+ "\\resources\\images\\" + updateUser.getId() + ".png";
-		String fullPath = rootDirectory + "\\resources\\images\\" + updateUser.getId() + ".png";
+		File uploadDir = new File(Utility.IMAGE_UPLOAD_PATH);
+		if (!uploadDir.exists()) {
+			uploadDir.mkdirs();
+		}
+		String fullPath = updateUser.getId() + ".png";
 
 		try {
-			profileImage.transferTo(new File(fullPath));
+			profileImage.transferTo(new File(Utility.IMAGE_UPLOAD_PATH + fullPath));
 		} catch (Exception e) {
 			throw new RuntimeException("Product Image saving failed", e);
 		}

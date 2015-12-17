@@ -1,5 +1,6 @@
 package edu.mum.tmsystem.service.impl;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class UserServiceImpl implements IUserService {
 	public User getUserProfileById(Long id) {
 		User user = userRepository.findOne(id);
 		if(user.getImagePath() != null)
-			user.setImageFile(Base64Utils.encodeToString(Utility.getImageFromPath(user.getImagePath())));
+			user.setImageFile(Base64Utils.encodeToString(Utility.getImageFromPath(Utility.IMAGE_UPLOAD_PATH + user.getImagePath())));
 		return user;
 	}
 

@@ -17,6 +17,11 @@ import edu.mum.tmsystem.exception.BusinessException;
 public class Utility {
 	public static final String ROOT_FOLDER = System.getProperty("catalina.home");
 	public static final String TM_DOCS_FOLDER = "/tm_docs";
+	public static final String RESOURCES = "/resources";
+	public static final String IMAGES = "/images/";
+	
+	public static final String IMAGE_UPLOAD_PATH = Utility.ROOT_FOLDER + Utility.TM_DOCS_FOLDER + Utility.RESOURCES + Utility.IMAGES;
+	
 	private static Logger logger = Logger.getLogger(Utility.class);
 
 	public static void logError(Logger log, String message, Exception e) {
