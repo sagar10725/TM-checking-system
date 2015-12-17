@@ -15,24 +15,21 @@
 	<form:form method="post" action="changepassword" commandName="passwordchange">
 	<table>
 	
-	<tr>
+	<tr><td colspan="2"><form:errors path="*" cssStyle="color: red;" /></td> </tr>
 				
 			<tr>
 				<td>Current Password: </td>
-				<td><input type="password"  name="oldpassword"/> <form:errors
-						path="password" class="error" /></td>
+				<td><form:password  path="oldpassword"/></td>
 			</tr>
 			
 			<tr>
 				<td>New-Password</td>
-				<td><input type="password" name="newpassword" /> <form:errors
-						path="confirmpassword" class="error" /></td>
+				<td><form:password path="newpassword" /></td>
 			</tr>
 			
 			<tr>
 				<td>Confirm-Password</td>
-				<td><input type="password" name="confirmpassword" /> <form:errors
-						path="confirmpassword" class="error" /></td>
+				<td><form:password path="confirmpassword" /></td>
 			</tr>
 			
 			<tr>
