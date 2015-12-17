@@ -34,10 +34,12 @@
 				<a href="<spring:url value="/user/profile" />" id="acc-details">View
 					Profile </a>
 				<div class="clear">&nbsp;</div>
-				<div class="acc-line">&nbsp;</div>
-				<a href="<spring:url value="/user/edit" />" id="acc-project">Edit
-					Profile</a>
-				<div class="clear">&nbsp;</div>
+				<security:authorize access="hasAnyRole('ROLE_STUDENT')">
+					<div class="acc-line">&nbsp;</div>
+					<a href="<spring:url value="/user/edit" />" id="acc-project">Edit
+						Profile</a>
+					<div class="clear">&nbsp;</div>
+				</security:authorize>
 			</div>
 		</div>
 		<!--  end account-content -->
@@ -50,12 +52,14 @@
 	<div class="nav">
 		<div class="table">
 			<ul class="select">
-				<li><a href="<spring:url value="/" />"><b> <spring:message code="Navigation.home" text="Home" /></b></a></li>
+				<li><a href="<spring:url value="/" />"><b> <spring:message
+								code="Navigation.home" text="Home" /></b></a></li>
 			</ul>
 			<div class="nav-divider">&nbsp;</div>
 			<security:authorize access="!isAuthenticated()">
 				<ul class="select">
-					<li><a href="<spring:url value="/login" />"><b><spring:message code="Navigation.login" text="Login" /></b></a></li>
+					<li><a href="<spring:url value="/login" />"><b><spring:message
+									code="Navigation.login" text="Login" /></b></a></li>
 				</ul>
 				<div class="nav-divider">&nbsp;</div>
 				<ul class="select">
@@ -67,8 +71,8 @@
 
 			<security:authorize access="hasAnyRole('ROLE_ADMIN')">
 				<ul class="select">
-					<li><a href="<spring:url value="/admin/home" />"><b><spring:message code="Navigation.admin" text="admin" /></b>
-					</a>
+					<li><a href="<spring:url value="/admin/home" />"><b><spring:message
+									code="Navigation.admin" text="admin" /></b> </a>
 						<div class="select_sub">
 							<ul class="sub">
 								<li><a href="<spring:url value="/admin/" />">Admin Home</a></li>
@@ -88,15 +92,24 @@
 
 			<security:authorize access="hasAnyRole('ROLE_TMCHECKER')">
 				<ul class="select">
-					<li><a href="<spring:url value="/tmchecker/home" />"><b><spring:message code="Navigation.tmchecker" text="TM Checker" /></b></a>
-					<div class="select_sub">
+					<li><a href="<spring:url value="/tmchecker/home" />"><b><spring:message
+									code="Navigation.tmchecker" text="TM Checker" /></b></a>
+						<div class="select_sub">
 							<ul class="sub">
-								<li><a href="<spring:url value="/tmchecker/" />">TMChecker Home</a></li>
-								<li><a href="<spring:url value="/tmchecker/available_dates/add" />">Add Checking</a></li>
-								<li><a href="<spring:url value="/tmchecker/viewsignups" />">View Signups</a></li>
-								<li><a href="<spring:url value="/tmchecker/changetmstatus" />">Change TM Status</a></li>
-								<li><a href="<spring:url value="/tmchecker/addnewcheckingentry" />">Add Checking Entry</a></li>
-								
+								<li><a href="<spring:url value="/tmchecker/" />">TMChecker
+										Home</a></li>
+								<li><a
+									href="<spring:url value="/tmchecker/available_dates/add" />">Add
+										Checking</a></li>
+								<li><a href="<spring:url value="/tmchecker/viewsignups" />">View
+										Signups</a></li>
+								<li><a
+									href="<spring:url value="/tmchecker/changetmstatus" />">Change
+										TM Status</a></li>
+								<li><a
+									href="<spring:url value="/tmchecker/addnewcheckingentry" />">Add
+										Checking Entry</a></li>
+
 							</ul>
 						</div></li>
 				</ul>
@@ -105,12 +118,16 @@
 
 			<security:authorize access="hasAnyRole('ROLE_STUDENT')">
 				<ul class="select">
-					<li><a href="<spring:url value="/student/home" />"><b><spring:message code="Navigation.student" text="Student" /></b>
-							</a><div class="select_sub">
+					<li><a href="<spring:url value="/student/home" />"><b><spring:message
+									code="Navigation.student" text="Student" /></b> </a>
+					<div class="select_sub">
 							<ul class="sub">
 								<li><a href="<spring:url value="/student/" />">Home</a></li>
-								<li><a href="<spring:url value="/student/available_dates" />">Sign Up for TM Checking</a></li>
-								<li><a href="<spring:url value="/student/mysignups" />">View Signups</a></li>								
+								<li><a
+									href="<spring:url value="/student/available_dates" />">Sign
+										Up for TM Checking</a></li>
+								<li><a href="<spring:url value="/student/mysignups" />">View
+										Signups</a></li>
 							</ul>
 						</div></li>
 				</ul>
