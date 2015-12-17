@@ -15,17 +15,21 @@
 
 
 		<table border="2">
-			<tr>
-				<th>Profile Picture :</th>
-				<th>Details Info:</th>
-			</tr>
-			<tr>
-				<td rowspan="5"><img src='data:image/jpg;base64,${user.imageFile}' width="200px" height = "100"/></td>
-				<td><b>Student ID :</b> ${user.student.studentId}</td>
+			<c:if test="${not empty user.student.studentId}">
+				<tr>
+					<th>Profile Picture :</th>
+					<th>Details Info:</th>
+				</tr>
+				<tr>
+					<td rowspan="5"><img
+						src='data:image/jpg;base64,${user.imageFile}' width="200px"
+						height="100" /></td>
+					<td><b>Student ID :</b> ${user.student.studentId}</td>
 
-			</tr>
+				</tr>
+			</c:if>
 			<tr>
-				<td><b>Student Name :</b> ${user.name}</td>
+				<td><b>Name :</b> ${user.name}</td>
 			</tr>
 			<tr>
 				<td><b>Email :</b> ${user.email}</td>
@@ -33,10 +37,12 @@
 			<tr>
 				<td><b>User Name :</b> ${user.username}</td>
 			</tr>
-			<tr>
-				<td><b>Entry Date :</b>
-					${user.student.entryMonth}, ${user.student.entryYear}</td>
-			</tr>
+			<c:if test="${not empty user.student}">
+				<tr>
+					<td><b>Entry Date :</b> ${user.student.entryMonth},
+						${user.student.entryYear}</td>
+				</tr>
+			</c:if>
 
 
 		</table>
