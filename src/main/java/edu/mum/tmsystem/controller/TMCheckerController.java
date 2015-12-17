@@ -80,15 +80,16 @@ public class TMCheckerController {
 			BindingResult result, Model model,
 			RedirectAttributes redirectAttributes) throws ParseException,
 			BusinessException {
-		if (result.hasErrors()) {
-			return "tmchecker/available_checking";
-		}
-
 		if (availableEntry.getRoom() == null
 				|| availableEntry.getRoom().getId() == null) {
 			ObjectError objectError = new ObjectError("room",
 					"Room must be chosen");
 			result.addError(objectError);
+		}
+		if (result.hasErrors()) {
+			List<Building> buildings = buildingService.getAllBuildings();
+			model.addAttribute("buildings", buildings);
+			model.addAttribute("checkingtype", CheckingType.values());
 			return "tmchecker/available_checking";
 		}
 		List<Building> buildings = buildingService.getAllBuildings();

@@ -21,7 +21,7 @@
 	<form:form commandName="availableEntry" action="add" method="POST">
 		<table>
 			<tr>
-				<td colspan="2"><form:errors path="*" class="error" /></td>
+				<td colspan="2"><form:errors path="*" cssStyle="color:red;" /></td>
 			</tr>
 			<tr>
 				<td>Buildings:</td>
@@ -61,9 +61,7 @@
 					</form:select></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Save Changes" /></td>
-				<td colspan="2"><input type="reset" value="Cancel"
-					name="cancel" /></td>
+				<td colspan="2"><input type="submit" value="Add Checking Dates" /></td>
 			</tr>
 		</table>
 
