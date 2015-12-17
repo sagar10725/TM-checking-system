@@ -92,7 +92,7 @@ function serializeObject(form) {
 function signupForTM(checkingHourId) {
 	$.ajax({
 		type : 'POST',
-		url : "/tmsystem/student/signupfortm/" + 1,
+		url : "/tmsystem/student/signupfortm/" + checkingHourId,
 		dataType : 'json',
 		contentType : 'application/json',
 

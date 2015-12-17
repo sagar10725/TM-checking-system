@@ -15,12 +15,12 @@
 		<tr>
 			<th>Username</th>
 			<td><input type="text" name="username" class="login-inp"
-				placeholder="Enter Username" /></td>
+				 /></td>
 		</tr>
 		<tr>
 			<th>Password</th>
-			<td><input type="password" name="password" value=""
-				onfocus="this.value=''" class="login-inp" /></td>
+			<td><input type="password" name="password"
+				 class="login-inp" /></td>
 		</tr>
 		<tr>
 			<th></th>

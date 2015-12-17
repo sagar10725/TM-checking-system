@@ -42,26 +42,6 @@
 					${tmHistory.checkedBy.user.name}
 					</c:if></td>
 					<td>${tmHistory.status}</td>
-					<%-- <td>${availableEntry.room.roomNumber}</td>
-					<td>${availableEntry.addedBy.user.name}</td>
-					<td>
-						<table>
-							<c:forEach var="checkingHour"
-								items="${availableEntry.checkingHours }">
-								<tr>
-									<td><fmt:formatDate type="both"
-											value="${checkingHour.checkingDate}" /></td>
-									<td><c:if test="${checkingHour.signUpBy == null}">
-											<button
-												onclick="signupForTM(${checkingHour.id})">Sign
-												Up</button>
-										</c:if></td>
-								</tr>
-
-							</c:forEach>
-						</table>
-					</td> --%>
-
 				</tr>
 			</c:forEach>
 

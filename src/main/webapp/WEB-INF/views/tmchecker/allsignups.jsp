@@ -20,7 +20,9 @@
 				<th class="table-header-repeat line-left"><a href="#">Checking Date</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Building</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Room</a></th>
+				<th class="table-header-repeat line-left"><a href="#">SignUp By</a></th>
 				<th class="table-header-repeat line-left"><a href="#">Status</a></th>
+				
 			</tr>
 			<tbody>
 				<c:forEach items="${tmHistories}" var="tmHistory" varStatus="count">
@@ -32,6 +34,7 @@
 								value="${tmHistory.checkingHours.checkingDate}" /></td>
 					<td>${tmHistory.room.building.buildingName}</td>
 					<td>${tmHistory.room.roomNumber}</td>
+					<td>${tmHistory.student.user.name}</td>
 					<td>${tmHistory.status}</td>					
 					</tr>
 				</c:forEach>

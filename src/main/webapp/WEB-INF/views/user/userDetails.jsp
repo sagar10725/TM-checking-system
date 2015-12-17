@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<td rowspan="5"><img src='data:image/jpg;base64,${user.imageFile}' width="200px" height = "100"/></td>
-				<td><b>Student Id : :</b> ${user.student.studentId}</td>
+				<td><b>Student ID :</b> ${user.student.studentId}</td>
 
 			</tr>
 			<tr>
@@ -35,7 +35,7 @@
 			</tr>
 			<tr>
 				<td><b>Entry Date :</b>
-					${user.student.entryYear},${user.student.entryMonth}</td>
+					${user.student.entryMonth}, ${user.student.entryYear}</td>
 			</tr>
 
 

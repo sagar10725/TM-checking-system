@@ -14,7 +14,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.mum.tmsystem.domain.Student;
@@ -34,36 +33,6 @@ public class UserController {
 	@Autowired
 	IStudentService studentService;
 
-	@RequestMapping(value="/signup", method = RequestMethod.GET)
-	public String signUpStudent(@ModelAttribute("student") Student student) {
-		return "student/signup";
-	}
-
-	@RequestMapping(value="/signup", method = RequestMethod.POST)
-	public String addStudent(@Valid @ModelAttribute("student") Student student, BindingResult result, Model model) {
-		User dbuser =userService.getUserByUsername(student.getUser().getUsername());
-		Student dbStudent = studentService.getStudentByStudentID(student.getStudentId());
-		if(dbuser != null || dbStudent != null){
-			if(dbuser != null){
-				ObjectError objectError = new ObjectError("student",
-						"Username already exits");
-				result.addError(objectError);
-			}
-			if(dbStudent != null){
-				ObjectError objectError = new ObjectError("student",
-						"Student ID already exits");
-				result.addError(objectError);
-			}
-		}
-		if (result.hasErrors()) {
-			return "student/signup";
-		}
-		
-		student.getUser().setStudent(student);
-		userService.saveStudent(student.getUser());
-		return "redirect:/home";
-	}
-
 	@RequestMapping(value = "/changepassword", method = RequestMethod.GET)
 	public String changePassword(Model model) {
 		model.addAttribute("passwordchange", new ChangePasswordDTO());
@@ -81,10 +50,10 @@ public class UserController {
 			result.addError(objectError);
 			return "user/changepassword";
 		}
-		return "user/successfulpage";
+		return "redirect:/home";
 	}
 
-	@RequestMapping(value = "/userProfile", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String getUserProfile(User user, Model model) {
 		// System.out.println("User ID:" + SessionManager.getUserID());
 		user = userService.getUserProfileById(SessionManager.getUserID());
@@ -132,7 +101,7 @@ public class UserController {
 
 		updateUser.setImagePath(fullPath);
 		userService.updateUser(updateUser);
-		return "redirect:/user/userProfile";
+		return "redirect:/user/profile";
 	}
 
 }

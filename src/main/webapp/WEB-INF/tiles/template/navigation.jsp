@@ -31,7 +31,7 @@
 					id="acc-settings">Change Password</a>
 				<div class="clear">&nbsp;</div>
 				<div class="acc-line">&nbsp;</div>
-				<a href="<spring:url value="/user/userProfile" />" id="acc-details">View
+				<a href="<spring:url value="/user/profile" />" id="acc-details">View
 					Profile </a>
 				<div class="clear">&nbsp;</div>
 				<div class="acc-line">&nbsp;</div>
@@ -59,7 +59,7 @@
 				</ul>
 				<div class="nav-divider">&nbsp;</div>
 				<ul class="select">
-					<li><a href="<spring:url value="/user/signup" />"><b>Register
+					<li><a href="<spring:url value="/signup" />"><b>Register
 								as Student</b></a></li>
 				</ul>
 				<div class="nav-divider">&nbsp;</div>
