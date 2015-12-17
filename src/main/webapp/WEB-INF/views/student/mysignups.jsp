@@ -4,49 +4,50 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><spring:message code="application.name" text="TM Check" /></title>
-<style type="text/css">
-@import url(resources/css/style.css);
-</style>
-</head>
-<body>
-	<spring:message code="application.name" text="TM Check" />
-	<h1>Student TM Sign Up Details</h1>
+<h2>Student TM Sign Up Details</h2>
+<hr>
+<h3>
+	<a href="<spring:url value="/admin/student/verify" />"
+		title="Verify Student">Verify Student</a>
+</h3>
+<hr>
+<c:choose>
+	<c:when test="${empty tmHistories}">
+	No record of TM sign ups found.
+ </c:when>
+	<c:otherwise>
 
-	<table>
-		<thead>
+		<table id="product-table">
 			<tr>
-				<th>SN</th>
-				<th>Checking Type</th>
-				<th>Checking Date</th>
-				<th>Building</th>
-				<th>Room</th>
-				<th>Checked By</th>
-				<th>Status</th>
+				<th class="table-header-check"><a id="toggle-all"></a></th>
+				<th class="table-header-repeat line-left"><a href="#">#</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Checking
+						Type</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Checking
+						Date</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Building</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Room</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Checked
+						By</a></th>
+				<th class="table-header-repeat line-left"><a href="#">Status</a></th>
 			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="tmHistory" items="${tmHistories}">
-				<tr>
-					<td>${tmHistory.id}</td>
-					<td>${tmHistory.checkingType}</td>
-					<td><fmt:formatDate type="both"
+			<tbody>
+				<c:forEach items="${tmHistories}" var="tmHistory" varStatus="count">
+					<tr id="row-${student.id}">
+						<td><input type="checkbox" /></td>
+						<td>${count.count}</td>
+						<td>${tmHistory.checkingType}</td>
+						<td><fmt:formatDate type="both"
 								value="${tmHistory.checkingHours.checkingDate}" /></td>
-					<td>${tmHistory.room.building.buildingName}</td>
-					<td>${tmHistory.room.roomNumber}</td>
-					<td><c:if test="${tmHistory.checkedBy != null}">
+						<td>${tmHistory.room.building.buildingName}</td>
+						<td>${tmHistory.room.roomNumber}</td>
+						<td><c:if test="${tmHistory.checkedBy != null}">
 					${tmHistory.checkedBy.user.name}
 					</c:if></td>
-					<td>${tmHistory.status}</td>
-				</tr>
-			</c:forEach>
-
-		</tbody>
-	</table>
-
-</body>
-</html>
+						<td>${tmHistory.status}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</c:otherwise>
+</c:choose>

@@ -50,7 +50,7 @@ public class AdminController {
 	@Autowired
 	IDefaultCheckingSeatsService defaultCheckingSeatsService;
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = {"","/","/home"}, method = RequestMethod.GET)
 	public String loadLandingPage(Model model) {
 		return "admin/home";
 	}

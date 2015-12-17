@@ -52,7 +52,7 @@ public class TMCheckerController {
 //		return CheckingType.values();
 //	}
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = {"","/","/home"}, method = RequestMethod.GET)
 	public String loadLandingPage(Model model) {
 		return "tmchecker/home";
 	}
