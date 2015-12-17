@@ -24,7 +24,6 @@ import edu.mum.tmsystem.domain.Room;
 import edu.mum.tmsystem.domain.Student;
 import edu.mum.tmsystem.domain.TMHistory;
 import edu.mum.tmsystem.enums.CheckingType;
-import edu.mum.tmsystem.enums.StatusType;
 import edu.mum.tmsystem.enums.TMStatusType;
 import edu.mum.tmsystem.exception.BusinessException;
 import edu.mum.tmsystem.service.IAvailableEntryService;

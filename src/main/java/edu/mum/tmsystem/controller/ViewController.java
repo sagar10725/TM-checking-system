@@ -18,12 +18,13 @@ public class ViewController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loadFirstPage() {
-		if (Utility.getLoggedInUserName() != null) {
-			logger.info("User already logged in:" + Utility.getLoggedInUserName());
-			return "redirect:/home";
-		}
-		logger.info("Retriving login page");
-		return "redirect:/login";
+//		if (Utility.getLoggedInUserName() != null) {
+//			logger.info("User already logged in:" + Utility.getLoggedInUserName());
+//			return "redirect:/home";
+//		}
+//		logger.info("Retriving login page");
+//		return "redirect:/login";
+		return "home";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -53,10 +54,13 @@ public class ViewController {
 			} else if (SessionManager.getRole().contains(RoleType.ROLE_TMCHECKER)) {
 				return "redirect:/tmchecker";
 			} else if (SessionManager.getRole().contains(RoleType.ROLE_STUDENT)) {
+				return "redirect:/student";
+			}else{
 				return "home";
 			}
 		}
-		return "redirect:/login";
+		//return "redirect:/login";
+		return "home";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

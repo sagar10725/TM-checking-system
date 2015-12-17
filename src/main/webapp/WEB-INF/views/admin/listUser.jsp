@@ -4,9 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <h2>User List</h2>
 <hr>
-<a href="<spring:url value="/admin/verifyStudents" />"
-	title="Verify Student">Verify Student</a>
+<h3>
+	<a href="<spring:url value="/admin/student/verify" />"
+		title="Verify Student">Verify Student</a>
+</h3>
 <hr>
+
 <c:choose>
 	<c:when test="${empty users}">
 	No record of users found.
@@ -41,11 +44,12 @@
 							</c:choose></td>
 						<td>${user.status}</td>
 						<td><a
-							href="<spring:url value='/admin/user/changestatus/${user.id}?status=INACTIVE' />">InActive</a>
-							<a
-							href="<spring:url value='/admin/user/changestatus/${user.id}?status=ACTIVE' />">Active</a>
-							<a
-							href="<spring:url value='/admin/user/changestatus/${user.id}?status=DISABLED' />">Disabled</a></td>
+							href="<spring:url value='/admin/user/changestatus/${user.id}?status=INACTIVE'/>"
+							title="INACTIVE" class="icon-1 info-tooltip"></a> <a
+							href="<spring:url value='/admin/user/changestatus/${user.id}?status=ACTIVE'/>"
+							title="ACTIVE" class="icon-3 info-tooltip"></a> <a
+							href="<spring:url value='/admin/user/changestatus/${user.id}?status=DISABLED'/>"
+							title="DISABLED" class="icon-2 info-tooltip"></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

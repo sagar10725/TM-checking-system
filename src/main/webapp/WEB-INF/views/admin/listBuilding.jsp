@@ -2,12 +2,14 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<h2>Building List</h2><hr>
-<a href="<spring:url value="/admin/building/add" />"
-	title="Add Buidling">Add Building</a>
-<a href="<spring:url value="/admin/room/add" />" title="Add Room">Add
-	Room</a>
-	<hr>
+<h2>Building List</h2>
+<hr>
+<h3>
+	<a href="<spring:url value="/admin/building/add" />"
+	title="Add Buidling">Add Building</a> - 
+	<a href="<spring:url value="/admin/room/add" />" title="Add Room">Add
+	Room</a></h3>
+<hr>
 <c:choose>
 	<c:when test="${empty buildings}">
 	No recored of buildings found.
@@ -34,7 +36,8 @@
 						<td><a
 							href="<spring:url value="/admin/building/delete/${building.id}" />"
 							title="Delete"
-							onclick="return confirm('Are you sure to delete this building?')">Delete</a></td>
+							onclick="return confirm('Are you sure to delete this building?')"
+							class="icon-2 info-tooltip"></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
