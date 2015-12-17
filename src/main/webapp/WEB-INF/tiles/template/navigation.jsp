@@ -109,7 +109,7 @@
 							</a><div class="select_sub">
 							<ul class="sub">
 								<li><a href="<spring:url value="/student/" />">Home</a></li>
-								<li><a href="<spring:url value="/student/available_dates" />">Add Checking</a></li>
+								<li><a href="<spring:url value="/student/available_dates" />">Sign Up for TM Checking</a></li>
 								<li><a href="<spring:url value="/student/mysignups" />">View Signups</a></li>								
 							</ul>
 						</div></li>
