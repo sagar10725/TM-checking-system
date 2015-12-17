@@ -5,8 +5,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<style type="text/css">
+	.block{
+		width: 512px;
+	    background-color: grey;
+	    height: 130px;
+	    margin: auto;
+	    font-size: 50px;
+	    padding: 250px;
+	}
+</style>
 </head>
 <body>
-	Access Denied
+	<div class="block">Access Denied!!!</div>
 </body>
 </html>

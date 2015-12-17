@@ -6,9 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>404 Not Found</title>
 </head>
+<style type="text/css">
+	.block{
+		width: 512px;
+	    background-color: grey;
+	    height: 130px;
+	    margin: auto;
+	    font-size: 50px;
+	    padding: 250px;
+	}
+</style>
+</head>
 <body>
-
-	<h2>Page Not Found</h2>
-
+	<div class="block">Oops! Page Not Found</div>
 </body>
 </html>
