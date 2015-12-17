@@ -11,7 +11,7 @@
 	<form:form method="post" modelAttribute="tmhistory">
 		<table>
 			<tr>
-				<td colspan="2"><form:errors path="*" class="error" /></td>
+				<td colspan="2"><form:errors path="*" cssStyle="color: red;" /></td>
 			</tr>
 			<tr>
 				<td>Student ID :</td>

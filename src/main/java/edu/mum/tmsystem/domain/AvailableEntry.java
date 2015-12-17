@@ -62,7 +62,7 @@ public class AvailableEntry {
 	private Date checkingDate;
 	
 	@Transient
-	@Size(min = 1, message = "{Size.checkingTime.validation}")
+	@Size(min = 1, max = 10, message = "{Size.checkingTime.validation}")
 	private String[] checkingTimes;
 
 	public Long getId() {
