@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +13,8 @@ import edu.mum.tmsystem.domain.AvailableEntry;
 import edu.mum.tmsystem.domain.CheckingHours;
 import edu.mum.tmsystem.domain.DefaultCheckingSeats;
 import edu.mum.tmsystem.domain.TMChecker;
-import edu.mum.tmsystem.domain.User;
 import edu.mum.tmsystem.enums.CheckingType;
 import edu.mum.tmsystem.repository.IAvailableEntryRepository;
-import edu.mum.tmsystem.repository.IUserRepository;
 import edu.mum.tmsystem.service.IAvailableEntryService;
 import edu.mum.tmsystem.service.IDefaultCheckingSeatsService;
 import edu.mum.tmsystem.service.ITMCheckerService;
