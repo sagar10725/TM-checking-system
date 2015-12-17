@@ -68,10 +68,10 @@
 			<security:authorize access="hasAnyRole('ROLE_ADMIN')">
 				<ul class="select">
 					<li><a href="<spring:url value="/admin/home" />"><b>Admin</b>
-							<!--[if IE 7]><!--></a>
+					</a>
 						<div class="select_sub">
 							<ul class="sub">
-								<li><a href="<spring:url value="/admin/" />">Home</a></li>
+								<li><a href="<spring:url value="/admin/" />">Admin Home</a></li>
 								<li><a href="<spring:url value="/admin/building" />">Building</a></li>
 								<li><a href="<spring:url value="/admin/user" />">User</a></li>
 								<li><a href="<spring:url value="/admin/student" />">Student</a></li>
@@ -86,11 +86,20 @@
 				<div class="nav-divider">&nbsp;</div>
 			</security:authorize>
 
-			<security:authorize
-				access="hasAnyRole('ROLE_ADMIN','ROLE_TMCHECKER')">
+			<security:authorize access="hasAnyRole('ROLE_TMCHECKER')">
 				<ul class="select">
 					<li><a href="<spring:url value="/tmchecker/home" />"><b>TM
-								Checker</b></a></li>
+								Checker</b></a>
+					<div class="select_sub">
+							<ul class="sub">
+								<li><a href="<spring:url value="/tmchecker/" />">TMChecker Home</a></li>
+								<li><a href="<spring:url value="/tmchecker/available_dates/add" />">Add Checking</a></li>
+								<li><a href="<spring:url value="/tmchecker/viewsignups" />">View Signups</a></li>
+								<li><a href="<spring:url value="/tmchecker/changetmstatus" />">Change TM Status</a></li>
+								<li><a href="<spring:url value="/tmchecker/addnewcheckingentry" />">Add Checking Entry</a></li>
+								
+							</ul>
+						</div></li>
 				</ul>
 				<div class="nav-divider">&nbsp;</div>
 			</security:authorize>

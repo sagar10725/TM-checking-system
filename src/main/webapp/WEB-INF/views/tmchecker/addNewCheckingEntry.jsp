@@ -51,7 +51,8 @@
 					</form:select></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Save Entry" /></td>
+				<td colspan="2"><input type="submit" value="Save Entry" />
+				<input type="reset" value="Reset" /></td>
 			</tr>
 		</table>
 	</form:form>
